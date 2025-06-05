@@ -11,6 +11,7 @@
 
 ### Step2: Clone 這個 repo 到你的電腦：
 ```
+cd ~
 git clone https://github.com/xiaotin22/oop-2025-proj-group10.git
 cd oop-2025-proj-group10
 ```
