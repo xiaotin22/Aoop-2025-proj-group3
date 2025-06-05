@@ -18,7 +18,7 @@ cd oop-2025-proj-group10
 
 ### Step3: 🏗️ 第一次建置環境（只需一次）
 ```
-docker pull xiaotin22/group10_project:latest
+docker build -t xiaotin22/group10_project:latest ./Docker
 ```
 
 ### Step4: 進入Docker
