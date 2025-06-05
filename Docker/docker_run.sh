@@ -18,6 +18,6 @@ else
         --env DISPLAY=$DISPLAY \
         --network=host \
         -v /tmp/.X11-unix:/tmp/.X11-unix \
-        xiaotin22/group10_project:latest \ 
+        xiaotin22/group10_project:latest \
         bash
 fi
