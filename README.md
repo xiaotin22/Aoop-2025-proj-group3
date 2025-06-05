@@ -1,7 +1,10 @@
 # OOP 2025 Group 10 Project
 
 This is the final project from 2025 oop-python-nycu
-Our member is [tpvupu:陳欣怡](https://github.com/tpvupu)， [xiaotin22:楊庭瑞](https://github.com/xiaotin22) ， [calistayang:楊馨惠](https://github.com/calistayang)
+Our member is 
+[tpvupu](https://github.com/tpvupu):陳欣怡
+[xiaotin22](https://github.com/xiaotin22)：楊庭瑞
+[calistayang](https://github.com/calistayang)：楊馨惠
 
 # About Our Docker 🚀
 
