@@ -3,7 +3,7 @@
 # 設定參數
 CONTAINER_NAME=oop-2025-proj-group10-dev
 IMG_NAME=oop-2025-proj-group10-image:latest
-DOCKERFILE_DIR=.
+DOCKERFILE_DIR=./Docker
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 XAUTH=/tmp/.docker.xauth
 
