@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.13
 
 # 安裝常用工具 & GUI 套件（依課程需求加）
 RUN apt update && apt install -y \
