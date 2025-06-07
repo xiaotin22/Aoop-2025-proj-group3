@@ -11,11 +11,11 @@ RUN apt update && apt install -y \
 RUN useradd -ms /bin/bash arg
 
 # 設定工作目錄
-WORKDIR /home/arg
+WORKDIR /home/nycu
 
 # 複製 requirements 並安裝
 COPY requirements.txt /tmp/
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# 預設使用 arg 使用者
-USER arg
+# 預設使用 nycu 使用者
+USER nycu

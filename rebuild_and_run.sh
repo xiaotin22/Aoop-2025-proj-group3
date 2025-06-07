@@ -41,9 +41,9 @@ docker run -it \
     -e DISPLAY=$DISPLAY \
     -e XAUTHORITY=$XAUTH \
     -v "$XAUTH:$XAUTH" \
-    -v "$PROJECT_DIR:/home/arg/oop" \
+    -v "$PROJECT_DIR:/home/nycu/oop" \
     -v "/tmp/.X11-unix:/tmp/.X11-unix" \
-    -w "/home/arg/oop" \
+    -w "/home/nycu/oop" \
     --user root:root \
     --network host \
     --privileged \
