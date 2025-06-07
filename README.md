@@ -19,13 +19,7 @@ cd ~
 git clone https://github.com/xiaotin22/oop-2025-proj-group10.git
 cd oop-2025-proj-group10
 ```
-
-### Step3: 🏗️ 第一次建置環境（只需一次，可能會等比較久呦~）
-```
-docker build -t xiaotin22/group10_project:latest ./Docker
-```
-
-## 進入Docker（以後每次進只要跑這個就夠了）
+### Step3: 進入Docker
 ```
 source docker_run.sh
 ```
