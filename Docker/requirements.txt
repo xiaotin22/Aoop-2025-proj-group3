@@ -2,3 +2,5 @@ pygame
 numpy
 pandas
 matplotlib
+pytest
+#加完東西要跑一次 ./rebuild_and_run.sh
