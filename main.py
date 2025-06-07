@@ -1,5 +1,6 @@
 import pygame
 
+
 #define param 
 SCREEN_HEIGHT = 500
 SCREEN_WIDTH = 800
