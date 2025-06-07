@@ -1,20 +1,21 @@
-# 使用 Python 3.11 的精簡版本
-FROM python:3.11-slim
+FROM python:3.11
 
-# 安裝一些常用工具與 pygame 依賴
-RUN apt-get update && apt-get install -y \
-    git \
-    ffmpeg \
-    libsdl2-dev \
-    libsdl2-image-dev \
-    libsdl2-mixer-dev \
-    libsdl2-ttf-dev \
+# 安裝常用工具 & GUI 套件（依課程需求加）
+RUN apt update && apt install -y \
+    x11-apps \
+    python3-tk \
+    libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
-    
-# 設定容器內的預設工作目錄
-WORKDIR /app
+# 建立使用者（與 run.sh 中一致）
+RUN useradd -ms /bin/bash arg
 
-# 複製 Python 套件清單並安裝
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# 設定工作目錄
+WORKDIR /home/arg
+
+# 複製 requirements 並安裝
+COPY requirements.txt /tmp/
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# 預設使用 arg 使用者
+USER arg
