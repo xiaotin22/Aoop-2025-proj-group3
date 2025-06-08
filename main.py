@@ -9,6 +9,11 @@ pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('00_EmptyWindow')
 
+#add music
+pygame.mixer.music.load('resource/music/Mitao_Huihui.mp3')
+pygame.mixer.music.play(-1)  # -1 means loop indefinitely
+
+
 #game loop
 is_runnung = True
 while is_runnung:
