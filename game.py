@@ -1,25 +1,26 @@
+import resource.gif.gif_to_img as gif_to_img # Ensure the GIF frames are extracted before running this script
 import pygame
 import os
 
-# === 初始化 Pygame ===
+#define param 
+SCREEN_HEIGHT = 500
+SCREEN_WIDTH = 800
+
 pygame.init()
-screen = pygame.display.set_mode((400, 400))  # 調整視窗大小
-pygame.display.set_caption("播放 bubu_lying 動畫")
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Bubu Lying Animation Test')  
+
 clock = pygame.time.Clock()
 
 # === 載入所有 frames ===
-frames = []
-frames_dir = os.path.join("resource", "gif", "bubu_lying_frames")
-for filename in sorted(os.listdir(frames_dir)):
-    if filename.endswith(".png"):
-        frame_path = os.path.join(frames_dir, filename)
-        image = pygame.image.load(frame_path).convert_alpha()
-        frames.append(image)
+bubu_frames = gif_to_img.load_frames("resource/gif/bubu_lying_frames")
 
-# === 動畫參數 ===
-frame_index = 0
-frame_delay = 100  # 每張圖持續時間（毫秒）
-last_update = pygame.time.get_ticks()
+# === 初始化參數 ===
+bubu_index = 0
+yier_index = 0
+frame_delay = 100  # 每幀間隔時間（毫秒）
+last_update_bubu = pygame.time.get_ticks()
+last_update_yier = pygame.time.get_ticks()
 
 # === 主迴圈 ===
 running = True
@@ -29,14 +30,14 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # 更新 frame（動畫換圖）
-    if now - last_update > frame_delay:
-        frame_index = (frame_index + 1) % len(frames) # 循環播放 frames
-        last_update = now  
+    # 更新 bubu 動畫
+    if now - last_update_bubu > frame_delay:
+        bubu_index = (bubu_index + 1) % len(bubu_frames)
+        last_update_bubu = now
 
     # 畫面更新
-    screen.fill((255, 255, 255))  # 清空背景
-    screen.blit(frames[frame_index], (100, 100))  # 畫在座標 (100, 100)
+    screen.fill((255, 255, 255))
+    screen.blit(bubu_frames[bubu_index], (100, 150))  # 左邊
     pygame.display.flip()
     clock.tick(60)
 
