@@ -40,12 +40,12 @@ docker run -it \
     --name $CONTAINER_NAME \
     -e DISPLAY=$DISPLAY \
     -e XAUTHORITY=$XAUTH \
+    -e SDL_AUDIODRIVER=pulse \
     -v "$XAUTH:$XAUTH" \
     -v "$PROJECT_DIR:/home/nycu/oop" \
     -v "/tmp/.X11-unix:/tmp/.X11-unix" \
     -w "/home/nycu/oop" \
     -v ~/.pulse_socket/pulse_native:/tmp/pulse/native \
-    --user root:root \
     --network host \
     --privileged \
     --security-opt seccomp=unconfined \

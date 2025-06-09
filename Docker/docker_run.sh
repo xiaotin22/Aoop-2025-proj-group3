@@ -43,6 +43,7 @@ else
     docker run -it \
         --name $CONTAINER_NAME \
         -e DISPLAY=$DISPLAY \
+        -e SDL_AUDIODRIVER=pulse \
         -e XAUTHORITY=$XAUTH \
         -v "$XAUTH:$XAUTH" \
         -v "$PROJECT_DIR:/home/nycu/oop" \
@@ -50,7 +51,6 @@ else
         -v ~/.pulse_socket/pulse_native:/tmp/pulse/native \
         -e PULSE_SERVER=unix:/tmp/pulse/native \
         -w "/home/nycu/oop" \
-        --user root:root \
         --device /dev/snd \
         --network host \
         --privileged \
