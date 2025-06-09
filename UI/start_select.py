@@ -13,9 +13,9 @@ class CharacterSelectScene:
         self.char_size = (140, 140)
         self.box_width, self.box_height = 500, 300
         self.margin = 30
-        self.font = pygame.font.SysFont("Arial", 36)
+        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Light.ttf", 36)
         self.hover_sound = pygame.mixer.Sound("resource/music/sound_effect/menu_hover.mp3")
-
+        self.selected_character = None
         # 播放背景音樂
         pygame.mixer.music.load('resource/music/bgm/Mitao_Huihui.mp3')
         pygame.mixer.music.play(-1)
@@ -23,28 +23,28 @@ class CharacterSelectScene:
         # 載入角色圖片
         self.characters = [
             {
-                "name": "Bubu",
+                "name": "布布 Bubu",
                 "frames": self.load_frames("resource/gif/bubu_intro_frames"),
                 "box": pygame.Rect(self.margin, self.margin, self.box_width, self.box_height),
                 "color": (255, 200, 200),         # 常態紅棕色
                 "hover_color": (200, 100, 100)    # Hover 粉紅紅
             },
             {
-                "name": "Yier",
+                "name": "一二 Yier",
                 "frames": self.load_frames("resource/gif/yier_intro_frames"),
                 "box": pygame.Rect(1200 - self.margin - self.box_width, self.margin, self.box_width, self.box_height),
                 "color": (150, 200, 255),         # 常態藍色
                 "hover_color": (100, 150, 200)    # Hover 淺藍
             },
             {
-                "name": "Mitao",
+                "name": "蜜桃 Mitao",
                 "frames": self.load_frames("resource/gif/mitao_intro_frames"),
                 "box": pygame.Rect(self.margin, 800 - self.margin - self.box_height, self.box_width, self.box_height),
                 "color": (255, 200, 200),         # 桃色
                 "hover_color": (255, 120, 180)    # 淺桃
             },
             {
-                "name": "Huihui",
+                "name": "灰灰 Huihui",
                 "frames": self.load_frames("resource/gif/huihui_intro_frames"),
                 "box": pygame.Rect(1200 - self.margin - self.box_width, 800 - self.margin - self.box_height, self.box_width, self.box_height),
                 "color": (200, 200, 200),            # 常態黑灰
@@ -70,6 +70,11 @@ class CharacterSelectScene:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    for char in self.characters:
+                        if char["box"].collidepoint(mouse_pos):
+                            self.selected_character = char["name"]
+                            self.running = False  # 跳出選角場景
 
             self.screen.fill((255, 255, 255))
 
@@ -103,3 +108,5 @@ class CharacterSelectScene:
                 self.screen.blit(name_surface, (rect.left + 20, rect.bottom - 50))
 
             pygame.display.flip()
+        return self.selected_character
+    

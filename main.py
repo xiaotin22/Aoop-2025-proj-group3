@@ -11,5 +11,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Game Start')
 
 scene = CharacterSelectScene(screen)
-scene.run()
+selected_character = scene.run()
+
+print("玩家選擇角色為：", selected_character)
 pygame.quit()
