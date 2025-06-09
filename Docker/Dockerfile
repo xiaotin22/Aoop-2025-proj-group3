@@ -8,7 +8,7 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 建立使用者（與 run.sh 中一致）
-RUN useradd -ms /bin/bash arg
+RUN useradd -ms /bin/bash nycu
 
 # 設定工作目錄
 WORKDIR /home/nycu
