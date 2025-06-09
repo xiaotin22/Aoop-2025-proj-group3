@@ -20,6 +20,11 @@ class CharacterSelectScene:
         pygame.mixer.music.load('resource/music/bgm/Mitao_Huihui.mp3')
         pygame.mixer.music.play(-1)
 
+        # 載入背景圖片
+        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.background = pygame.transform.scale(self.background, self.screen.get_size())
+        self.background.set_alpha(100)
+
         # 載入角色圖片
         self.characters = [
             {
@@ -75,8 +80,11 @@ class CharacterSelectScene:
                         if char["box"].collidepoint(mouse_pos):
                             self.selected_character = char["name"]
                             self.running = False  # 跳出選角場景
-
+            
             self.screen.fill((255, 255, 255))
+            self.screen.blit(self.background, (0, 0))
+            
+
 
             if pygame.time.get_ticks() % (1000 // self.FPS * 5) < (1000 // self.FPS):
                 self.frame_index = (self.frame_index + 1) % len(self.characters[0]["frames"])
@@ -84,6 +92,11 @@ class CharacterSelectScene:
             for char in self.characters:
                 rect = char["box"]
                 is_hovered = rect.collidepoint(mouse_pos)
+
+                # 畫角色框
+                overlay = pygame.Surface((rect.width, rect.height), pygame.SRCALPHA)
+                overlay.fill((255, 255, 255, 220))  # 白色 + 透明度
+                self.screen.blit(overlay, (rect.left, rect.top))
 
                 # 邊框
                 border_color = char["hover_color"] if is_hovered else char["color"]
