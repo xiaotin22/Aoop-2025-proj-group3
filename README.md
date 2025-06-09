@@ -10,7 +10,7 @@ Our member is \
 
 1.  **Clone 專案庫**
     ```bash
-    git clone [https://github.com/xiaotin22/oop-2025-proj-group10.git](https://github.com/xiaotin22/oop-2025-proj-group10.git)
+    git clone https://github.com/xiaotin22/oop-2025-proj-group10.git
     cd oop-2025-proj-group10
     ```
 
