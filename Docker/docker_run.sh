@@ -19,9 +19,9 @@ if [ ! -f $XAUTH ]; then
     chmod a+r $XAUTH
 fi
 
-# PulseAudio socket 準備（音效支援）
-mkdir -p ~/.pulse_socket
-ln -sf /run/user/$(id -u)/pulse/native ~/.pulse_socket/pulse_native
+# 自動取得目前使用者的 PulseAudio socket 真實路徑
+USER_ID=$(id -u)
+PULSE_SOCKET="/run/user/$USER_ID/pulse/native"
 
 # 開啟 X11 存取
 xhost +
@@ -44,13 +44,14 @@ else
         --name $CONTAINER_NAME \
         -e DISPLAY=$DISPLAY \
         -e SDL_AUDIODRIVER=pulse \
+        -e PULSE_SERVER=unix:/tmp/pulse/native \
         -e XAUTHORITY=$XAUTH \
         -v "$XAUTH:$XAUTH" \
-        -v "$PROJECT_DIR:/home/nycu/oop" \
+        -v "$PROJECT_DIR:/root/oop" \
         -v "/tmp/.X11-unix:/tmp/.X11-unix" \
-        -v ~/.pulse_socket/pulse_native:/tmp/pulse/native \
-        -e PULSE_SERVER=unix:/tmp/pulse/native \
-        -w "/home/nycu/oop" \
+        -v "$PULSE_SOCKET:/tmp/pulse/native" \
+        -w "/root/oop" \
+        --user root:root \
         --device /dev/snd \
         --network host \
         --privileged \

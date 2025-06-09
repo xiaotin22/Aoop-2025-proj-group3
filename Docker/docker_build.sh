@@ -6,6 +6,8 @@ IMG_NAME=oop-2025-proj-group10-image:latest
 DOCKERFILE_DIR=./Docker
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 XAUTH=/tmp/.docker.xauth
+USER_ID=$(id -u)
+PULSE_SOCKET="/run/user/$USER_ID/pulse/native"
 
 echo "🔧 [1/3] Building Docker image: $IMG_NAME ..."
 docker build -t $IMG_NAME $DOCKERFILE_DIR
@@ -41,11 +43,13 @@ docker run -it \
     -e DISPLAY=$DISPLAY \
     -e XAUTHORITY=$XAUTH \
     -e SDL_AUDIODRIVER=pulse \
+    -e PULSE_SERVER=unix:/tmp/pulse/native \
     -v "$XAUTH:$XAUTH" \
-    -v "$PROJECT_DIR:/home/nycu/oop" \
+    -v "$PROJECT_DIR:/root/oop" \
     -v "/tmp/.X11-unix:/tmp/.X11-unix" \
-    -w "/home/nycu/oop" \
-    -v ~/.pulse_socket/pulse_native:/tmp/pulse/native \
+    -v "$PULSE_SOCKET:/tmp/pulse/native" \
+    -w "/root/oop" \
+    --user root:root \
     --network host \
     --privileged \
     --security-opt seccomp=unconfined \

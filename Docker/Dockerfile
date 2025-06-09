@@ -7,11 +7,8 @@ RUN apt update && apt install -y \
     libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
-# 建立使用者（與 run.sh 中一致）
-RUN useradd -ms /bin/bash nycu
-
 # 設定工作目錄
-WORKDIR /home/nycu
+WORKDIR /root/oop
 
 # 複製 requirements 並安裝
 COPY requirements.txt /tmp/
@@ -19,8 +16,6 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 RUN apt-get update && apt-get install -y libpulse0
 
-# 預設使用 nycu 使用者
-USER nycu
 
 ENV SDL_AUDIODRIVER=pulse
 ENV PULSE_SERVER=unix:/tmp/pulse/native
