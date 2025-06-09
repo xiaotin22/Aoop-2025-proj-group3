@@ -40,5 +40,7 @@ def load_frames(folder_path):
             frames.append(img)
     return frames
 
-
-gif_to_img("bubu_lying.gif")
+if __name__ == "__main__":
+    # 測試 gif_to_img 函式
+    # 這裡可以修改為你自己的 GIF 檔案名稱
+    gif_to_img("bubu_lying.gif")
