@@ -1,22 +1,29 @@
 FROM python:3.13
 
-# 安裝常用工具 & GUI 套件（依課程需求加）
+# 取得 Host 傳進來的 UID / GID
+ARG HOST_UID
+ARG HOST_GID
+
+# 安裝必要套件
 RUN apt update && apt install -y \
     x11-apps \
     python3-tk \
     libgl1 \
+    libpulse0 \
     && rm -rf /var/lib/apt/lists/*
 
-# 設定工作目錄
-WORKDIR /root/oop
+# 建立對應使用者
+RUN groupadd -g $HOST_GID nycugroup && \
+    useradd -m -u $HOST_UID -g nycugroup nycu
 
-# 複製 requirements 並安裝
+# 設定工作目錄 & 安裝 Python 套件
+WORKDIR /home/nycu/oop
 COPY requirements.txt /tmp/
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-RUN apt-get update && apt-get install -y libpulse0
-
-
+# 設定環境變數（音效）
 ENV SDL_AUDIODRIVER=pulse
 ENV PULSE_SERVER=unix:/tmp/pulse/native
 
+# 預設切換到使用者（可選）
+USER nycu
