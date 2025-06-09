@@ -3,8 +3,8 @@ import pygame
 import os
 
 #define param 
-SCREEN_HEIGHT = 500
-SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 900
+SCREEN_WIDTH = 1600
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
