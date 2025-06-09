@@ -17,5 +17,11 @@ WORKDIR /home/nycu
 COPY requirements.txt /tmp/
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
+RUN apt-get update && apt-get install -y libpulse0
+
 # 預設使用 nycu 使用者
 USER nycu
+
+ENV SDL_AUDIODRIVER=pulse
+ENV PULSE_SERVER=unix:/tmp/pulse/native
+

@@ -18,6 +18,11 @@ if [ ! -f $XAUTH ]; then
     fi
     chmod a+r $XAUTH
 fi
+
+# PulseAudio socket 準備（音效支援）
+mkdir -p ~/.pulse_socket
+ln -sf /run/user/$(id -u)/pulse/native ~/.pulse_socket/pulse_native
+
 # 開啟 X11 存取
 xhost +
 
@@ -34,7 +39,7 @@ if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
     echo "Container exists, starting..."
     docker start -ai $CONTAINER_NAME
 else
-    echo "Creating and starting container..."
+    echo "Creating and starting container with audio support..."
     docker run -it \
         --name $CONTAINER_NAME \
         -e DISPLAY=$DISPLAY \
@@ -42,8 +47,11 @@ else
         -v "$XAUTH:$XAUTH" \
         -v "$PROJECT_DIR:/home/nycu/oop" \
         -v "/tmp/.X11-unix:/tmp/.X11-unix" \
+        -v ~/.pulse_socket/pulse_native:/tmp/pulse/native \
+        -e PULSE_SERVER=unix:/tmp/pulse/native \
         -w "/home/nycu/oop" \
         --user root:root \
+        --device /dev/snd \
         --network host \
         --privileged \
         --security-opt seccomp=unconfined \
