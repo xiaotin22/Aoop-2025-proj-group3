@@ -47,8 +47,37 @@ class Scene:
 
 
     
-class StartMenuScene(Scene):
-    pass
+class StartScene(Scene):
+    def __init__(self, screen):
+        super().__init__(screen)
+        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.background = pygame.transform.scale(self.background, self.screen.get_size())
+        self.background.set_alpha(100)
+        self.title_font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 72)
+        self.subtitle_font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
+
+    def run(self):
+        while self.running:
+            self.clock.tick(self.FPS)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    return "Start Game"
+
+            self.screen.fill((255, 255, 255))
+            self.screen.blit(self.background, (0, 0))
+
+            title_surface = self.title_font.render("Welcome to the Game!", True, (50, 50, 50))
+            subtitle_surface = self.subtitle_font.render("Click to Start", True, (100, 100, 100))
+
+            title_rect = title_surface.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2 - 50))
+            subtitle_rect = subtitle_surface.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2 + 50))
+
+            self.screen.blit(title_surface, title_rect)
+            self.screen.blit(subtitle_surface, subtitle_rect)
+
+            pygame.display.flip()
 
 
 class CharacterSelectScene(Scene):

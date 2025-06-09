@@ -1,6 +1,6 @@
 import pygame
 import os
-from UI.start_select import CharacterSelectScene
+from UI.start_select import StartScene ,CharacterSelectScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 
 def start_game(screen):
