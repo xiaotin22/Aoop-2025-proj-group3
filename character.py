@@ -9,6 +9,7 @@ class Character:
         self.health = health
         self.social = social
         self.knowledge = 0
+        self.week_number = 1
 
     def study(self):
         if self.knowledge >= 100:
@@ -66,10 +67,10 @@ class Character:
             print(f"{self.name} 已經休息夠啦 😴✨")
             return
 
-        # 休息成長規則：主要由健康決定，心情與智力提供加成，交際會略減分心影響
+        # 休息成長規則：主要由體力決定，心情與智力提供加成，交際會略減分心影響
         growth = (
-            (100 - self.health) * 0.05 +
-            (self.mood - 50) * 0.02 +
+            (100 - self.mood) * 0.05 +
+            (self.health - 50) * 0.02 +
             (self.intelligence - 50) * 0.01 -
             (self.social - 30) * 0.01
         )
@@ -81,7 +82,9 @@ class Character:
         pass
 
     def show_status(self):
-       pass
+        print(f"{self.name} 在第{self.week_number}週的狀態：")
+        print(f"智力：{self.intelligence} | 心情：{self.mood} | 體力：{self.health} | 社交：{self.social} | 知識：{self.knowledge}/100")
+        print("=======================================================")
         
 
 
