@@ -44,6 +44,7 @@ docker run -it \
     -v "$PROJECT_DIR:/home/nycu/oop" \
     -v "/tmp/.X11-unix:/tmp/.X11-unix" \
     -w "/home/nycu/oop" \
+    -v ~/.pulse_socket/pulse_native:/tmp/pulse/native
     --user root:root \
     --network host \
     --privileged \
