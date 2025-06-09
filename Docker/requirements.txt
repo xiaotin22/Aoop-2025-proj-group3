@@ -3,4 +3,7 @@ numpy
 pandas
 matplotlib
 pytest
-#加完東西要跑一次 ./rebuild_and_run.sh
+pygame_gui
+Pillow
+
+#加完東西要跑一次 source docker_build.sh

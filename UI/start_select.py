@@ -32,14 +32,14 @@ class CharacterSelectScene:
             {
                 "name": "布布 Bubu",
                 "frames": self.load_frames("resource/gif/bubu_intro_frames"),
-                "description": "大家好～我是布布！ 我喜歡在網路上和朋友們打遊戲！ \n 希望這學期所有的課都可以過 \n 教授...菜菜...撈撈...",
+                "description": "大家好～我是布布！ 我喜歡在網路上盡情地打遊戲！ \n 希望這學期所有的課都可以過 \n 教授...菜菜...撈撈...",
                 "box": pygame.Rect(self.margin, self.margin, self.box_width, self.box_height),
                 "color": (255, 200, 200),         # 常態紅棕色
                 "hover_color": (200, 100, 100)    # Hover 粉紅紅
             },
             {
                 "name": "一二 Yier",
-                "description": "大家好～我是一二！ 我熱衷於系上活動以及社團～ \n 認識好多學長姐嘿嘿～ 我可是考古題殺手！",
+                "description": "大家好～我是一二！ 我熱衷於系上活動以及社團～ \n 認識好多學長姐嘿嘿～ 到處吃瓜聽八卦真爽！",
                 "frames": self.load_frames("resource/gif/yier_intro_frames"),
                 "box": pygame.Rect(1200 - self.margin - self.box_width, self.margin, self.box_width, self.box_height),
                 "color": (150, 200, 255),         # 常態藍色
@@ -55,7 +55,7 @@ class CharacterSelectScene:
             },
             {
                 "name": "灰灰 Huihui",
-                "description": "大家好～我是灰灰！\n 我正在追求自己真正想做的事！\n 讀書不是重點 ! \n 重要的是追尋我的快樂貓生！",
+                "description": "大家好～我是灰灰！\n 我正在追求自己真正想做的事! \n 讀書不是重點 ! \n 重要的是追尋我的快樂貓生！",
                 "frames": self.load_frames("resource/gif/huihui_intro_frames"),
                 "box": pygame.Rect(1200 - self.margin - self.box_width, 800 - self.margin - self.box_height, self.box_width, self.box_height),
                 "color": (200, 200, 200),            # 常態黑灰
@@ -105,7 +105,6 @@ class CharacterSelectScene:
             self.screen.fill((255, 255, 255))
             self.screen.blit(self.background, (0, 0))
             
-
 
             if pygame.time.get_ticks() % (1000 // self.FPS * 5) < (1000 // self.FPS):
                 self.frame_index = (self.frame_index + 1) % len(self.characters[0]["frames"])
