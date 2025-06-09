@@ -11,7 +11,7 @@ def gif_to_img(source_gif=None):
     # 自動取得 gif 的完整路徑
     current_dir = os.path.dirname(os.path.abspath(__file__))
     # Target GIF 
-    TARGET_GIF = os.path.join(current_dir, source_gif or "resource/gif/your_gif_file.gif")
+    TARGET_GIF = os.path.join(current_dir, source_gif)
     # 取得 base 名稱與目標資料夾
     base_name = os.path.splitext(os.path.basename(TARGET_GIF))[0]
     frames_dir = os.path.join(current_dir, f"{base_name}_frames")
