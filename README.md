@@ -3,9 +3,9 @@
 **本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果，主要在練習使用 Python, Pygame的一些函式庫** 
 
 我們的組員如下 Group10： 
-* NYCU_EE: [113511116 tpvupu](https://github.com/tpvupu) : 陳欣怡
-* NYCU_EE: [113511203 calistayang](https://github.com/calistayang)：楊馨惠
-* NYCU_EE: [113511266 xiaotin22](https://github.com/xiaotin22)：楊庭瑞
+* NYCU_EE [113511116 tpvupu](https://github.com/tpvupu) : 陳欣怡
+* NYCU_EE [113511203 calistayang](https://github.com/calistayang)：楊馨惠
+* NYCU_EE [113511266 xiaotin22](https://github.com/xiaotin22)：楊庭瑞
 
 ## 📂 專案架構 (Project Structure)
 ---
