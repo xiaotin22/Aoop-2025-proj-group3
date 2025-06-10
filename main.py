@@ -4,6 +4,7 @@ from UI.character_select import CharacterSelectScene
 from UI.start_scene import StartScene
 from UI.intro_scene import IntroScene
 from character import Character, Bubu, Yier, Mitao, Huihui
+from UI.main_scene import MainScene
 
 def start_game(screen):
     scene = StartScene(screen)
@@ -37,7 +38,11 @@ def select_character(screen):
     print("玩家選擇角色為：", selected)
 
     if selected == "布布 Bubu":
-        return Bubu()
+        player = Bubu()
+        print("test")
+        scene = MainScene(screen, player, "resource/gif/bubu_intro_frames")
+        scene.run()
+        return player
     elif selected == "一二 Yier":
         return Yier()
     elif selected == "蜜桃 Mitao":
@@ -48,7 +53,7 @@ def select_character(screen):
         print("未選擇角色，回到主畫面")
         return start_game(screen)
 
-
+'''
 def game_loop(screen, player):
     pygame.display.set_caption(f"第 {player.week_number} 週｜角色：{player.name}")
     while player.week_number <= 16:
@@ -96,8 +101,15 @@ def main():
         game_loop(screen, player)
         end_game(screen, player)
         # 遊戲結束後自動回到主選單
-
     pygame.quit()
-
+'''
 if __name__ == "__main__":
-    main()
+    pygame.init()
+    pygame.mixer.init()
+
+    SCREEN_HEIGHT = 800
+    SCREEN_WIDTH = 1200
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption('Game_Start')
+    player = select_character(screen)
+    pygame.quit()

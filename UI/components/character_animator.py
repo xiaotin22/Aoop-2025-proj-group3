@@ -1,0 +1,33 @@
+import pygame
+import os
+
+class CharacterAnimator:
+    
+    def __init__(self, folder_path, position, size):
+        self.position = position  # (x, y)
+        self.size = size          # (width, height)
+        self.frames = []
+
+        for filename in sorted(os.listdir(folder_path)):
+            if filename.endswith(".png"):
+                img = pygame.image.load(os.path.join(folder_path, filename)).convert_alpha()
+                img = pygame.transform.scale(img, self.size)
+                self.frames.append(img)
+
+        self.current_frame = 0
+        self.frame_count = len(self.frames)
+        self.frame_delay = 15  # 每幾幀換一張圖
+        self.frame_timer = 0
+
+    def update(self):
+        mouse_pos = pygame.mouse.get_pos()
+        print("滑鼠位置：", mouse_pos)
+
+        self.frame_timer += 1
+        if self.frame_timer >= self.frame_delay:
+            self.frame_timer = 0
+            self.current_frame = (self.current_frame + 1) % self.frame_count
+
+    def draw(self, screen):
+        if self.frames:
+            screen.blit(self.frames[self.current_frame], self.position)

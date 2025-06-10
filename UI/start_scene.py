@@ -2,7 +2,7 @@ import pygame
 import os
 from UI.scene_manager import Scene
 
-    
+        
 class StartScene(Scene):
     def __init__(self, screen):
         super().__init__(screen)
