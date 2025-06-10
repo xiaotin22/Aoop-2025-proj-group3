@@ -9,13 +9,20 @@ def start_game(screen):
 
     if result == "START":
         print("遊戲開始！")
-    elif result == "show intro":
+        return True
+    elif result == "SHOW_INTRO":
         print("顯示遊戲介紹")
         intro_scene = IntroScene(screen)
         intro_scene.run()
-        return start_game(screen)  # 重新跑開始畫面
-
-    return True
+        return start_game(screen)
+    elif result == "RANK":
+        print("顯示排行榜")
+        rank_scene = RankScene(screen)
+        rank_scene.run()
+        return start_game(screen)
+    elif result == "QUIT":
+        print("遊戲結束")
+        return False
 
 
 def select_character(screen):
@@ -35,7 +42,7 @@ def select_character(screen):
         return Huihui()
     else:
         print("未選擇角色，回到主畫面")
-        return select_character(screen)
+        return start_game(screen)
 
 
 def game_loop(screen, player):
@@ -65,26 +72,28 @@ def end_game(screen, player):
 
 # 🕹️ 主程序入口點
 def main():
-    
-
     pygame.init()
     pygame.mixer.init()
 
-    # Define screen dimensions
     SCREEN_HEIGHT = 800
     SCREEN_WIDTH = 1200
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
     pygame.display.set_caption('Game_Start')
 
-    if start_game(screen):
+    while True:
+        if not start_game(screen):
+            break  # 玩家選擇結束遊戲
+
         player = select_character(screen)
+        if not isinstance(player, Character):
+            continue  # 沒有選擇角色，回到主選單
+
         player.show_status()
         game_loop(screen, player)
         end_game(screen, player)
+        # 遊戲結束後自動回到主選單
 
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()
