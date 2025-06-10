@@ -1,4 +1,5 @@
 # event/event_handler.py
+import pygame
 class EventManager:
     def __init__(self, json_path):
         # 載入事件資料
@@ -7,3 +8,6 @@ class EventManager:
     def get_weekly_event(self, week):
         # 根據週數回傳一個事件
         pass
+
+     
+    
