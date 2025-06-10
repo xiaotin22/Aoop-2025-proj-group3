@@ -13,12 +13,11 @@ class StartScene(Scene):
         self.title_font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 72)
         self.subtitle_font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
         self.selected_result = None
-
         # 背景音樂
         pygame.mixer.music.load('resource/music/bgm/yier_bubu.mp3')
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
-
+        
         # 建立按鈕
         self.buttons = []
         button_texts = [("開始遊戲", "START"), ("顯示介紹", "SHOW_INTRO"), ("排行榜", "RANK"), ("退出遊戲", "QUIT")]

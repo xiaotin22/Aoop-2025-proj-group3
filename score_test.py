@@ -6,6 +6,7 @@ from collections import Counter
 
 midterm_results = []
 final_results = []
+knowledge_results = []
 actions = ["study", "rest", "play_game", "socialize"]
 characters = [Bubu, Yier, Mitao, Huihui]
 
@@ -18,6 +19,7 @@ for _ in range(300):
     player.get_final()
     midterm_results.append(player.midterm)
     final_results.append(player.final)
+    knowledge_results.append(player.knowledge)
 
 # 數據
 midterm_counts = Counter(midterm_results)
@@ -57,6 +59,17 @@ plt.ylabel("People")
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
+#plt.show()
+
+import math
+total_scores = [m*0.35+f*0.35+k*0.3 for m, f, k in zip(midterm_results, final_results, knowledge_results)]
+total_scores = [math.sqrt(score)*10 for score in total_scores]  # 將總分轉換為0-100的範圍
+average_total_score = round(statistics.mean(total_scores), 2)
+# 繪製總分分佈
+plt.figure(figsize=(12, 6))
+plt.hist(total_scores, bins=10, color='purple', alpha=0.7, edgecolor='black',label=f"Total Avg: {average_total_score:.2f}")
+plt.title("Total Score Distribution")
+plt.xlabel("Total Score")
+plt.ylabel("People")  
+plt.legend()   
 plt.show()
-
-

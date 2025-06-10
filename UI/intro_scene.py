@@ -8,13 +8,13 @@ class IntroScene(Scene):
         self.overlay_alpha = 0
 
         self.full_text = (
-            "歡迎來到模擬人生大學版。\n"
-            "在這裡，你的每一週都充滿未知挑戰與選擇。\n"
+            "歡迎來到模擬人生大學版\n"
+            "在這裡，你的每一週都充滿未知挑戰與選擇\n"
             "你會選擇耍廢？還是成為人生勝利組？\n"
-            "遊戲中的每一步選擇都將影響你的角色發展。\n"
-            "在這個遊戲中，你將有四個角色可以選。\n"
-            "從課業到社交，從挑戰到成就，每一週都是新的冒險。\n"
-            "按下Enter並點選開始遊戲選擇跟你最像的角色吧！ \n"
+            "遊戲中的每一步選擇都將影響你的角色發展\n"
+            "在這個遊戲中，你將有四個角色可以選!\n"
+            "從課業到社交，從挑戰到成就，每一週都是新的冒險\n"
+            "按下Enter並點選開始遊戲選擇跟你最像的角色吧!\n"
         )
         self.display_text = ""
         self.char_index = 0
@@ -85,7 +85,7 @@ class IntroScene(Scene):
         screen.blit(self.overlay_surface, (0, 0))
 
         # 顯示分行文字
-        y = 200
+        y = 150
         for line in self.text_lines:
             rendered = self.font.render(line, True, (255, 255, 255))
             screen.blit(rendered, (100, y))
