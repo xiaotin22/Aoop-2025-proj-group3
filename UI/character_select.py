@@ -2,115 +2,180 @@ import pygame
 import os
 from UI.scene_manager import Scene
 
+
 class CharacterSelectScene(Scene):
     def __init__(self, screen):
         super().__init__(screen)
 
+        # ---------------- 基本參數 ----------------
         self.frame_index = 0
         self.hovered_character = None
         self.char_size = (140, 140)
         self.box_width, self.box_height = 500, 300
         self.margin = 30
         self.selected_character = None
-        # 播放背景音樂
-        pygame.mixer.music.load('resource/music/bgm/Mitao_Huihui.mp3')
-        pygame.mixer.music.set_volume(0.5)  # 設定音量
+
+        # ---------------- 音樂 ----------------
+        pygame.mixer.music.load("resource/music/bgm/Mitao_Huihui.mp3")
+        pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
 
-        # 載入角色圖片
+        # ---------------- 背景 ----------------
+        self.background = pygame.image.load(
+            "resource/image/background_intro.png"
+        ).convert_alpha()
+        self.background = pygame.transform.scale(
+            self.background, self.screen.get_size()
+        )
+        self.background.set_alpha(100)
+
+         
+
+        # ---------------- 角色資料 ----------------
         self.characters = [
             {
                 "name": "布布 Bubu",
                 "frames": self.load_frames("resource/gif/bubu_intro_frames"),
-                "description": "大家好～我是布布！ 我喜歡在網路上盡情地打遊戲！ \n 希望這學期所有的課都可以過 \n 教授...菜菜...撈撈...",
-                "box": pygame.Rect(self.margin, self.margin, self.box_width, self.box_height),
-                "color": (255, 200, 200),         # 常態紅棕色
-                "hover_color": (200, 100, 100)    # Hover 粉紅紅
+                "description": (
+                    "大家好～我是布布！ 我喜歡在網路上盡情地打遊戲！ \n"
+                    "希望這學期所有的課都可以過 \n 教授...菜菜...撈撈..."
+                ),
+                "box": pygame.Rect(
+                    self.margin, self.margin, self.box_width, self.box_height
+                ),
+                "color": (255, 200, 200),
+                "hover_color": (200, 100, 100),
             },
             {
                 "name": "一二 Yier",
-                "description": "大家好～我是一二！ 我熱衷於系上活動以及社團～ \n 認識好多學長姐嘿嘿～ 到處吃瓜聽八卦真爽！",
                 "frames": self.load_frames("resource/gif/yier_intro_frames"),
-                "box": pygame.Rect(self.SCREEN_WIDTH - self.margin - self.box_width, self.margin, self.box_width, self.box_height),
-                "color": (150, 200, 255),         # 常態藍色
-                "hover_color": (100, 150, 200)    # Hover 淺藍
+                "description": (
+                    "大家好～我是一二！ 我熱衷於系上活動以及社團～ \n"
+                    "認識好多學長姐嘿嘿～ 到處吃瓜聽八卦真爽！"
+                ),
+                "box": pygame.Rect(
+                    self.SCREEN_WIDTH - self.margin - self.box_width,
+                    self.margin,
+                    self.box_width,
+                    self.box_height,
+                ),
+                "color": (150, 200, 255),
+                "hover_color": (100, 150, 200),
             },
             {
                 "name": "蜜桃 Mitao",
-                "description": "大家好～我是蜜桃！ 嗚嗚嗚這學期不小心選太多課... \n 現在實在是捲不動了～ \n 但我還是會努力拿卷的！",
                 "frames": self.load_frames("resource/gif/mitao_intro_frames"),
-                "box": pygame.Rect(self.margin, self.SCREEN_HEIGHT - self.margin - self.box_height, self.box_width, self.box_height),
-                "color": (255, 200, 200),         # 桃色
-                "hover_color": (255, 120, 180)    # 淺桃
+                "description": (
+                    "大家好～我是蜜桃！ 嗚嗚嗚這學期不小心選太多課... \n"
+                    "現在實在是捲不動了～ \n 但我還是會努力拿卷的！"
+                ),
+                "box": pygame.Rect(
+                    self.margin,
+                    self.SCREEN_HEIGHT - self.margin - self.box_height,
+                    self.box_width,
+                    self.box_height,
+                ),
+                "color": (255, 200, 200),
+                "hover_color": (255, 120, 180),
             },
             {
                 "name": "灰灰 Huihui",
-                "description": "大家好～我是灰灰！\n 我正在追求自己真正想做的事! \n 讀書不是重點 ! \n 重要的是追尋我的快樂貓生！",
                 "frames": self.load_frames("resource/gif/huihui_intro_frames"),
-                "box": pygame.Rect(self.SCREEN_WIDTH - self.margin - self.box_width, self.SCREEN_HEIGHT - self.margin - self.box_height, self.box_width, self.box_height),
-                "color": (200, 200, 200),            # 常態黑灰
-                "hover_color": (80, 80, 80)    # Hover 灰白
+                "description": (
+                    "大家好～我是灰灰！\n 我正在追求自己真正想做的事! \n"
+                    "讀書不是重點 ! \n 重要的是追尋我的快樂貓生！"
+                ),
+                "box": pygame.Rect(
+                    self.SCREEN_WIDTH - self.margin - self.box_width,
+                    self.SCREEN_HEIGHT - self.margin - self.box_height,
+                    self.box_width,
+                    self.box_height,
+                ),
+                "color": (200, 200, 200),
+                "hover_color": (80, 80, 80),
             },
         ]
 
+    # ------------------------------------------------------------------
+    # 更新：事件處理、動畫計時、hover 狀態與音效
+    # ------------------------------------------------------------------
+    def update(self):
+        self.clock.tick(self.FPS)
+        mouse_pos = pygame.mouse.get_pos()
+        self.screen.fill((255, 255, 255))
+        self.screen.blit(self.background, (0, 0))
+
+        # ------- 事件 -------
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return "QUIT"
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                for char in self.characters:
+                    if char["box"].collidepoint(mouse_pos):
+                        self.selected_character = char["name"]
+                        return self.selected_character  # 回傳後 SceneManager 可切換場景
+
+        # ------- 動畫更新 -------
+        if pygame.time.get_ticks() % (1000 // self.FPS * 5) < (1000 // self.FPS):
+            self.frame_index = (self.frame_index + 1) % len(self.characters[0]["frames"])
+
+        # ------- hover 更新與音效 -------
+        new_hover = None
+        for char in self.characters:
+            is_hovered = char["box"].collidepoint(mouse_pos)
+            if is_hovered:
+                new_hover = char["name"]
+                if self.hovered_character != new_hover:
+                    self.hover_sound.play()
+            # 可在此記錄 hover 旗標給 draw 使用（若需要動畫縮放等效果）
+            char["is_hovered"] = is_hovered
+        self.hovered_character = new_hover
+
+        return None  # 無場景切換時回傳 None
+
+    # ------------------------------------------------------------------
+    # 繪製所有內容
+    # ------------------------------------------------------------------
+    def draw(self):
+        self.screen.blit(self.background, (0, 0))
+
+        for char in self.characters:
+            rect = char["box"]
+            is_hovered = char.get("is_hovered", False)
+
+            # 角色框背景（帶透明度）
+            overlay = pygame.Surface((rect.width, rect.height), pygame.SRCALPHA)
+            overlay.fill((255, 255, 255, 220))
+            self.screen.blit(overlay, rect.topleft)
+
+            # 邊框
+            border_color = char["hover_color"] if is_hovered else char["color"]
+            pygame.draw.rect(self.screen, border_color, rect, 5)
+
+            # 角色圖片（右下角對齊）
+            frame = char["frames"][self.frame_index]
+            img_x = rect.right - frame.get_width() - 20
+            img_y = rect.bottom - frame.get_height() - 20
+            self.screen.blit(frame, (img_x, img_y))
+
+            # 名字（左下角）
+            name_surface = self.font.render(char["name"], True, (50, 50, 50))
+            self.screen.blit(name_surface, (rect.left + 20, rect.bottom - 50))
+
+            # 描述（左上角，自動換行）
+            desc_lines = self.wrap_text(char["description"], self.font_desc, rect.width - 100)
+            for i, line in enumerate(desc_lines):
+                line_surface = self.font_desc.render(line, True, (100, 100, 100))
+                self.screen.blit(line_surface, (rect.left + 20, rect.top + 20 + i * 40))
+
+        pygame.display.flip()
+
+    # ------------------------------------------------------------------
+    # 主循環：update → draw
+    # ------------------------------------------------------------------
     def run(self):
         while self.running:
-            self.clock.tick(self.FPS)
-            mouse_pos = pygame.mouse.get_pos()
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    for char in self.characters:
-                        if char["box"].collidepoint(mouse_pos):
-                            self.selected_character = char["name"]
-                            self.running = False  # 跳出選角場景
-            
-            self.screen.fill((255, 255, 255))
-            self.screen.blit(self.background, (0, 0))
-            
-
-            if pygame.time.get_ticks() % (1000 // self.FPS * 5) < (1000 // self.FPS):
-                self.frame_index = (self.frame_index + 1) % len(self.characters[0]["frames"])
-
-            for char in self.characters:
-                rect = char["box"]
-                is_hovered = rect.collidepoint(mouse_pos)
-
-                # 畫角色框
-                overlay = pygame.Surface((rect.width, rect.height), pygame.SRCALPHA)
-                overlay.fill((255, 255, 255, 220))  # 白色 + 透明度
-                self.screen.blit(overlay, (rect.left, rect.top))
-
-                # 邊框
-                border_color = char["hover_color"] if is_hovered else char["color"]
-                pygame.draw.rect(self.screen, border_color, rect, 5)
-
-
-                # 音效
-                if is_hovered and self.hovered_character != char["name"]:
-                    self.hover_sound.play()
-                    self.hovered_character = char["name"]
-                elif not is_hovered and self.hovered_character == char["name"]:
-                    self.hovered_character = None
-
-                # 圖片（右下對齊）
-                frame = char["frames"][self.frame_index]
-                img_x = rect.right - frame.get_width() - 20
-                img_y = rect.bottom - frame.get_height() - 20
-                self.screen.blit(frame, (img_x, img_y))
-
-                # 名字（左下角）
-                name_surface = self.font.render(char["name"], True, (50, 50, 50))
-                self.screen.blit(name_surface, (rect.left + 20, rect.bottom - 50))
-
-                # 描述（左上角）
-                desc_lines = self.wrap_text(char["description"], self.font_desc, rect.width - 100)
-                for i, line in enumerate(desc_lines):
-                    line_surface = self.font_desc.render(line, True, (100, 100, 100))
-                    self.screen.blit(line_surface, (rect.left + 20, rect.top + 20 + i * 40))
-
-            pygame.display.flip()
-        return self.selected_character
-    
+            result = self.update()
+            if result is not None:   # 取得角色名稱或 "QUIT"
+                return result
+            self.draw()

@@ -21,7 +21,7 @@ class CharacterAnimator:
 
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
-        print("滑鼠位置：", mouse_pos)
+        #print("滑鼠位置：", mouse_pos)
 
         self.frame_timer += 1
         if self.frame_timer >= self.frame_delay:

@@ -40,18 +40,24 @@ def select_character(screen):
     if selected == "布布 Bubu":
         player = Bubu()
         print("test")
-        scene = MainScene(screen, player, "resource/gif/four_char2_frames")
+        scene = MainScene(screen, player, "resource/gif/bubu_playgame_frames")
         scene.run()
         return player
     elif selected == "一二 Yier":
         player = Yier()
-        scene = MainScene(screen, player, "resource/gif/yier_exciting_frames")
+        scene = MainScene(screen, player, "resource/gif/yier_happyrest_frames")
         scene.run()
         return player
     elif selected == "蜜桃 Mitao":
-        return Mitao()
+        player = Mitao()
+        scene = MainScene(screen, player, "resource/gif/mitao_rest_frames")
+        scene.run()
+        return player
     elif selected == "灰灰 Huihui":
-        return Huihui()
+        player = Huihui()
+        scene = MainScene(screen, player, "resource/gif/huihui_intro_frames")
+        scene.run()
+        return player
     else:
         print("未選擇角色，回到主畫面")
         return start_game(screen)
@@ -60,7 +66,7 @@ def select_character(screen):
 def game_loop(screen, player):
     pygame.display.set_caption(f"第 {player.week_number} 週｜角色：{player.name}")
     while player.week_number <= 16:
-        scene = MainMenuScene(screen, player)
+        scene = MainScene(screen, player)
         player_option = scene.run()
 
         if player_option == "Open Character Info":

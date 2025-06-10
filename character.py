@@ -88,13 +88,18 @@ class Character:
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + self.knowledge * 0.3
         total_score = int(math.sqrt(total_score) * 10) 
-        total_score += 5
         self.lucky_prof = random.randint(30, 100)
-        gpa = []
-        for _ in range(25):
+        gpa = [4.3]
+        for _ in range(24):
             # 機率
-            if random.random() < self.lucky_prof*0.01:  
+            if random.random() < self.lucky_prof*0.01 and total_score < 85:   # 30%~100%機率被調高
                 gpa.append(score_to_gpa(total_score + 5))
+            elif random.random() < self.lucky_prof*0.01 and total_score >= 85:  # 30%~100%機率被調低
+                gpa.append(score_to_gpa(total_score - 5))
+            elif 90 <= total_score <= 95 and min(gpa) == 4.3:  # 90~95分且GPA為4.3，該掉分囉！
+                gpa.append(4.0)
+            elif total_score < 70 and random.random() < 0.4:  # 40%機率被選到大甜課
+                gpa.append(4.3)
             else:
                 gpa.append(score_to_gpa(total_score))
         self.GPA = round(sum(gpa) / len(gpa), 2)
