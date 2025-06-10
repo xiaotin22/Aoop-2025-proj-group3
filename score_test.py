@@ -2,9 +2,7 @@ from character import Bubu, Yier, Mitao, Huihui
 import random
 import statistics
 import matplotlib.pyplot as plt
-import numpy as np
 from collections import Counter
-
 
 midterm_results = []
 final_results = []
@@ -21,10 +19,6 @@ for _ in range(300):
     midterm_results.append(player.midterm)
     final_results.append(player.final)
 
-import matplotlib.pyplot as plt
-from collections import Counter
-import statistics
-
 # 數據
 midterm_counts = Counter(midterm_results)
 final_counts = Counter(final_results)
@@ -36,7 +30,7 @@ final_scores_sorted = sorted(final_counts.keys())
 final_freqs = [final_counts[score] for score in final_scores_sorted]
 
 # 平滑函數
-def smooth_curve(y, window_size=2):
+def smooth_curve(y, window_size=3):
     smoothed = []
     for i in range(len(y)):
         start = max(0, i - window_size)
@@ -56,7 +50,6 @@ mean_final = round(statistics.mean(final_results), 2)
 plt.figure(figsize=(12, 6))
 plt.plot(midterm_scores_sorted, smoothed_midterm, label=f"Midterm (Avg: {mean_midterm})", color="blue", linewidth=2)
 plt.plot(final_scores_sorted, smoothed_final, label=f"Final (Avg: {mean_final})", color="red", linewidth=2)
-
 
 plt.title("Score Distribution of Midterm and Final Exams")
 plt.xlabel("Score")
