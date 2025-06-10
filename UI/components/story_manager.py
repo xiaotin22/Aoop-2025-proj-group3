@@ -1,6 +1,6 @@
 import pygame
 
-def play_week_story(screen, button, story_dict, current_week):
+def play_week_story(screen, story_dict, current_week):
     show_story = False
     story_index = 0
     clock = pygame.time.Clock()
@@ -25,7 +25,6 @@ def play_week_story(screen, button, story_dict, current_week):
 
         screen.fill((255, 255, 255))
         if not show_story:
-            button.draw(screen)
             week_text = font.render(f"第 {current_week} 週", True, (90, 90, 150))
             screen.blit(week_text, (320, 200))
         else:
@@ -38,3 +37,6 @@ def play_week_story(screen, button, story_dict, current_week):
             screen.blit(tip, (400 - tip.get_width() // 2, 350))
         pygame.display.flip()
         clock.tick(30)
+    
+    return current_week + 1
+

@@ -1,7 +1,9 @@
 import pygame
 import os
+import json
 from UI.components.character_animator import CharacterAnimator
 from UI.components.button import Button
+from UI.components.story_manager import play_week_story
 
 
 class MainScene():
@@ -30,16 +32,20 @@ class MainScene():
     def draw(self):
         self.screen.blit(self.background, (0, 0))
         self.next_week_button.draw(self.screen)
-        #self.info_button.draw(self.screen)
         self.animator.draw(self.screen)
 
     def run(self):
+        with open('event/event.json', 'r', encoding='utf-8') as f:
+            story_dict = json.load(f)
+        current_week = 1
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                 elif self.next_week_button.handle_event(event):
                     print("Button clicked!")
+                    if current_week <= 16:
+                        current_week = play_week_story(self.screen, story_dict, current_week)
 
             self.update()
             self.draw()
