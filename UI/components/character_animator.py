@@ -16,7 +16,7 @@ class CharacterAnimator:
 
         self.current_frame = 0
         self.frame_count = len(self.frames)
-        self.frame_delay = 15  # 每幾幀換一張圖
+        self.frame_delay = 10  # 每幾幀換一張圖
         self.frame_timer = 0
 
     def update(self):

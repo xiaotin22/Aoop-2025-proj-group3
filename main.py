@@ -40,11 +40,14 @@ def select_character(screen):
     if selected == "布布 Bubu":
         player = Bubu()
         print("test")
-        scene = MainScene(screen, player, "resource/gif/bubu_intro_frames")
+        scene = MainScene(screen, player, "resource/gif/four_char2_frames")
         scene.run()
         return player
     elif selected == "一二 Yier":
-        return Yier()
+        player = Yier()
+        scene = MainScene(screen, player, "resource/gif/yier_exciting_frames")
+        scene.run()
+        return player
     elif selected == "蜜桃 Mitao":
         return Mitao()
     elif selected == "灰灰 Huihui":
