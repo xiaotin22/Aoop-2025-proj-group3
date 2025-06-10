@@ -1,22 +1,17 @@
 # gif_to_img.py
-# 這個程式會將 GIF 檔案分解成多張圖片，並建立一個同檔名的資料夾來存放這些圖片。
-# 你可以修改 TARGET_GIF 變數來指定你自己的 GIF 檔案
+# 這個程式會將目錄下的所有 GIF 檔案分解成多張圖片，並各自存到對應的資料夾中。
 
 from PIL import Image
 import os
-import pygame
 
-def gif_to_img(source_gif=None):
-    # 自動取得 gif 的完整路徑
+def gif_to_img(source_gif):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    # Target GIF 
     TARGET_GIF = os.path.join(current_dir, source_gif)
-    # 取得 base 名稱與目標資料夾
+
     base_name = os.path.splitext(os.path.basename(TARGET_GIF))[0]
     frames_dir = os.path.join(current_dir, f"{base_name}_frames")
     os.makedirs(frames_dir, exist_ok=True)
 
-    # 開始分解 GIF
     gif = Image.open(TARGET_GIF)
     frame_count = 0
 
@@ -26,10 +21,16 @@ def gif_to_img(source_gif=None):
             gif.save(os.path.join(frames_dir, f"frame_{frame_count}.png"))
             frame_count += 1
     except EOFError:
-        print(f"✅ 共分解 {frame_count} 張 frames 存到資料夾：{frames_dir}")
-
+        print(f"✅ {source_gif} 共分解 {frame_count} 張 frames，已存到資料夾：{frames_dir}")
 
 if __name__ == "__main__":
-    # 測試 gif_to_img 函式
-    # 這裡可以修改為你自己的 GIF 檔案名稱
-    gif_to_img("mitao_intro.gif")
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    gif_files = [f for f in os.listdir(current_dir) if f.lower().endswith(".gif")]
+
+    if not gif_files:
+        print("😥 找不到任何 .gif 檔案喔！")
+    else:
+        print(f"🔍 發現 {len(gif_files)} 個 GIF 檔案，開始處理...")
+        for gif_file in gif_files:
+            gif_to_img(gif_file)
+        print("🎉 所有 GIF 都處理完成啦！")
