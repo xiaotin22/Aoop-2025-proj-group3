@@ -7,6 +7,7 @@ from collections import Counter
 midterm_results = []
 final_results = []
 knowledge_results = []
+gpa_results = []
 actions = ["study", "rest", "play_game", "socialize"]
 characters = [Bubu, Yier, Mitao, Huihui]
 
@@ -17,9 +18,11 @@ for _ in range(300):
         getattr(player, action)()
     player.get_midterm()
     player.get_final()
+    player.calculate_GPA()
     midterm_results.append(player.midterm)
     final_results.append(player.final)
     knowledge_results.append(player.knowledge)
+    gpa_results.append(player.GPA)
 
 # 數據
 midterm_counts = Counter(midterm_results)
@@ -72,4 +75,14 @@ plt.title("Total Score Distribution")
 plt.xlabel("Total Score")
 plt.ylabel("People")  
 plt.legend()   
+plt.show()
+
+print(statistics.mean(gpa_results))
+plt.figure(figsize=(12, 6))
+gpa_results = [i*10 for i in gpa_results]
+plt.hist(gpa_results, bins=10, color='green', alpha=0.7, edgecolor='black', label=f"GPA Distribution Avg: {round(statistics.mean(gpa_results), 2)}")
+plt.title("GPA Distribution")
+plt.xlabel("GPA")
+plt.ylabel("People")
+plt.legend()
 plt.show()

@@ -17,8 +17,8 @@ class Character:
 
     def study(self):
         growth = round(
-            self.intelligence * 0.1 +
-            self.mood * 0.07 +
+            self.intelligence * 0.11 +
+            self.mood * 0.08 +
             self.energy * 0.05 +
             self.social * 0.03, 2
         )
@@ -71,12 +71,8 @@ class Character:
 
     def calculate_grade(self):
         score = round(self.knowledge * 0.45 + self.mood * 0.3 + self.energy * 0.2 + self.intelligence * 0.1 , 2)
-        if score >= 85:
-            grade = random.randint(85, 100)
-        elif score >= 75:
-            grade = random.randint(70 , 95)
-        elif score >= 60:
-            return random.randint(int(score - 5), int(score + 5))
+        if score >= 60:
+            return random.randint(int(score - 1), int(score + 15))
         else:
             luck = random.random()
             base = round(score * 0.85, 2)
@@ -88,10 +84,22 @@ class Character:
     def get_final(self):
         self.final = round(self.calculate_grade())
 
+
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + self.knowledge * 0.3
-        total_score = round(math.sqrt(total_score) * 10, 2)  # 將總分轉換為0-100的範圍
-        pass
+        total_score = int(math.sqrt(total_score) * 10) 
+        total_score += 5
+        self.lucky_prof = random.randint(30, 100)
+        gpa = []
+        for _ in range(25):
+            # 機率
+            if random.random() < self.lucky_prof*0.01:  
+                gpa.append(score_to_gpa(total_score + 5))
+            else:
+                gpa.append(score_to_gpa(total_score))
+        self.GPA = round(sum(gpa) / len(gpa), 2)
+            
+            
 
 
     def show_status(self):
@@ -109,7 +117,7 @@ class Bubu(Character):
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4
         if self.mood > 65:
-            self.midterm += 5
+            self.midterm += 10
         if self.energy < 70:
             self.midterm -= 3
         if self.knowledge > 35:
@@ -124,11 +132,11 @@ class Yier(Character):
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
         if self.social > 80:
-            self.midterm += 6
+            self.midterm += 2
         if self.energy < 50:
             self.midterm -= 3
         if self.knowledge > 40:
-            self.midterm += 5
+            self.midterm += 4
         self.midterm = int(round(self.midterm))
 
 
@@ -161,3 +169,55 @@ class Huihui(Character):
         self.midterm = int(round(self.midterm))
 
 
+
+def score_to_gpa(score):
+    if score >= 90:
+        return 4.3
+    elif score >= 85:
+        return 4.0
+    elif score >=80:
+        return 3.7
+    elif score >= 77:
+        return 3.3
+    elif score >= 73:
+        return 3.0
+    elif score >= 70:   
+        return 2.7
+    elif score >= 67:
+        return 2.3
+    elif score >= 63:
+        return 2.0
+    elif score >= 60:
+        return 1.7
+    else:
+        return 1.0
+    
+if __name__ == "__main__":
+    player = Mitao()
+    player.socialize()
+    player.play_game()
+    player.rest()
+    player.play_game()
+    player.study()
+    player.socialize()
+    player.rest()
+    player.study()
+    player.get_midterm()
+
+    player.study()
+    player.study()
+    player.study()
+    player.study()
+    player.study()
+    player.study()
+    player.study()
+    player.study()
+
+    player.get_final()
+
+    player.calculate_GPA()
+
+    print(f"{player.name} 的期中考成績：{player.midterm}")
+    print(f"{player.name} 的期末考成績：{player.final}")
+    print(f"{player.name} 的知識：{player.knowledge}")
+    print(f"{player.name} 的 GPA：{player.GPA}")
