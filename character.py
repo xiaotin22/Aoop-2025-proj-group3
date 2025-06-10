@@ -1,4 +1,5 @@
 import random
+import math
 
 class Character:
     def __init__(self, name, intelligence, mood, energy, social):
@@ -11,6 +12,8 @@ class Character:
         self.midterm = 0     # 期中考成績
         self.final = 0       # 期末考成績
         self.week_number = 1
+        self.lucky_prof = 0
+        self.GPA = 0
 
     def study(self):
         growth = round(
@@ -19,6 +22,7 @@ class Character:
             self.energy * 0.05 +
             self.social * 0.03, 2
         )
+        growth = round(growth/(1+((8 - self.week_number) * 0.1)),2) if self.week_number < 8 else round(growth/(1+((16 - self.week_number) * 0.1)),2)
         self.knowledge = round(min(100, self.knowledge + growth), 2)
         self.mood = max(0, self.mood - 10)
         self.energy = max(0, self.energy - 15)
@@ -85,7 +89,10 @@ class Character:
         self.final = round(self.calculate_grade())
 
     def calculate_GPA(self):
+        total_score = self.midterm * 0.35 + self.final * 0.35 + self.knowledge * 0.3
+        total_score = round(math.sqrt(total_score) * 10, 2)  # 將總分轉換為0-100的範圍
         pass
+
 
     def show_status(self):
         pass

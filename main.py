@@ -1,6 +1,5 @@
 import pygame
 import os
-from UI.scene_manager import SceneManager
 from UI.character_select import CharacterSelectScene
 from UI.start_scene import StartScene
 from UI.intro_scene import IntroScene
@@ -10,6 +9,7 @@ def start_game(screen):
     scene = StartScene(screen)
     result = scene.run()
 
+
     if result == "START":
         print("遊戲開始！")
         return True
@@ -18,6 +18,7 @@ def start_game(screen):
         intro_scene = IntroScene(screen)
         intro_scene.run()
         return start_game(screen)
+        
     elif result == "RANK":
         print("顯示排行榜")
         rank_scene = RankScene(screen)
