@@ -162,4 +162,9 @@ docker run -it \
     -e DISPLAY="$DISPLAY" \
     -e SDL_AUDIODRIVER=pulse \
     -e PULSE_SERVER=unix:/tmp/pulse/native \
-
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v "$XAUTH:$XAUTH" \
+    -e XAUTHORITY=$XAUTH \
+    -v "$PULSE_SOCKET:/tmp/pulse/native" \
+    -v "$PROJECT_DIR:/home/dev/project" \
+    "$IMG_NAME"
