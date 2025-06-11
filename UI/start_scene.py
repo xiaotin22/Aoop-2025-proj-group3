@@ -58,7 +58,8 @@ class StartScene(Scene):
         # ---------- 裝飾動畫 ----------
         self.animator1 = CharacterAnimator("resource/gif/four_char2_frames", (850, 400),(300, 300)) 
         self.animator2 = CharacterAnimator("resource/gif/four_char_frames", (50, 400), (300, 300))
-
+        self.animator1.frame_delay = 3
+        self.animator2.frame_delay = 3
         # ---------- 其他 ----------
         self.selected_result = None
 

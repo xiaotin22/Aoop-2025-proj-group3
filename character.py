@@ -88,23 +88,16 @@ class Character:
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + self.knowledge * 0.3
         total_score = int(math.sqrt(total_score) * 10) 
-        self.lucky_prof = random.randint(30, 100)
-        gpa = [4.3]
-        for _ in range(24):
-            # 機率
-            if random.random() < self.lucky_prof*0.01 and total_score < 85:   # 30%~100%機率被調高
-                gpa.append(score_to_gpa(total_score + 5))
-            elif random.random() < self.lucky_prof*0.01 and total_score >= 85:  # 30%~100%機率被調低
-                gpa.append(score_to_gpa(total_score - 5))
-            elif 90 <= total_score <= 95 and min(gpa) == 4.3:  # 90~95分且GPA為4.3，該掉分囉！
-                gpa.append(4.0)
-            elif total_score < 70 and random.random() < 0.4:  # 40%機率被選到大甜課
-                gpa.append(4.3)
+        self.lucky_prof = random.randint(3, 5)
+        gpa = []
+        for _ in range(25):
+            if random.random() < 0.5:
+                gpa.append(min(4.3,score_to_gpa(total_score) + self.lucky_prof * 0.01))
             else:
                 gpa.append(score_to_gpa(total_score))
-        self.GPA = round(sum(gpa) / len(gpa), 2)
-            
-            
+        self.GPA = round(sum(gpa) / len(gpa),2)
+        #print(f"total_score: {total_score}, GPA: {self.GPA:.2f}, lucky_prof: {self.lucky_prof}")
+        #print(gpa)
 
 
     def show_status(self):
@@ -159,6 +152,7 @@ class Mitao(Character):
         self.midterm = int(round(self.midterm))
 
 
+
 class Huihui(Character):
     def __init__(self):
         super().__init__("Huihui", intelligence=80, mood=90, energy=50, social=65)
@@ -176,31 +170,17 @@ class Huihui(Character):
 
 
 def score_to_gpa(score):
-    if score >= 90:
+    if score >= 91:
         return 4.3
-    elif score >= 85:
-        return 4.0
-    elif score >=80:
-        return 3.7
-    elif score >= 77:
-        return 3.3
-    elif score >= 73:
-        return 3.0
-    elif score >= 70:   
-        return 2.7
-    elif score >= 67:
-        return 2.3
-    elif score >= 63:
-        return 2.0
-    elif score >= 60:
-        return 1.7
-    else:
-        return 1.0
+    grading = 91/4.3 # 93分對應4.3
+    return round(score / grading, 2) 
     
+
+
 if __name__ == "__main__":
     player = Mitao()
     player.socialize()
-    player.play_game()
+    player.socialize()
     player.rest()
     player.play_game()
     player.study()
@@ -210,11 +190,11 @@ if __name__ == "__main__":
     player.get_midterm()
 
     player.study()
+    player.socialize()
+    player.rest()
     player.study()
     player.study()
-    player.study()
-    player.study()
-    player.study()
+    player.rest()
     player.study()
     player.study()
 
@@ -224,5 +204,6 @@ if __name__ == "__main__":
 
     print(f"{player.name} 的期中考成績：{player.midterm}")
     print(f"{player.name} 的期末考成績：{player.final}")
+    
     print(f"{player.name} 的知識：{player.knowledge}")
     print(f"{player.name} 的 GPA：{player.GPA}")
