@@ -39,23 +39,23 @@ def select_character(screen):
 
     if selected == "布布 Bubu":
         player = Bubu()
-        print("test")
-        scene = MainScene(screen, player, "resource/gif/bubu_playgame_frames")
-        scene.run()
+        for week in range(1,16):
+            scene = MainScene(screen, "resource/gif/bubu_playgame_frames", week)
+            scene.run()
         return player
     elif selected == "一二 Yier":
         player = Yier()
-        scene = MainScene(screen, player, "resource/gif/yier_happyrest_frames")
+        scene = MainScene(screen, "resource/gif/yier_happyrest_frames")
         scene.run()
         return player
     elif selected == "蜜桃 Mitao":
         player = Mitao()
-        scene = MainScene(screen, player, "resource/gif/mitao_rest_frames")
+        scene = MainScene(screen, "resource/gif/mitao_rest_frames")
         scene.run()
         return player
     elif selected == "灰灰 Huihui":
         player = Huihui()
-        scene = MainScene(screen, player, "resource/gif/huihui_intro_frames")
+        scene = MainScene(screen, "resource/gif/huihui_intro_frames")
         scene.run()
         return player
     else:

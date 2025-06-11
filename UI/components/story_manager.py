@@ -1,7 +1,12 @@
 import pygame
 import sys
-
-def play_week_story(screen, story_dict, current_week):
+import json
+            
+def PlayWeekStory(screen, current_week):
+    
+    with open('event/event.json', 'r', encoding='utf-8') as f:
+            story_dict = json.load(f)
+            
     font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
     clock = pygame.time.Clock()
     type_sound = pygame.mixer.Sound("resource/music/sound_effect/typing.mp3")
@@ -24,6 +29,7 @@ def play_week_story(screen, story_dict, current_week):
 
     running = True
     type_sound.play()
+    
     while running:
         now = pygame.time.get_ticks()
         
@@ -73,4 +79,3 @@ def play_week_story(screen, story_dict, current_week):
         pygame.display.flip()
         clock.tick(60)
 
-    return current_week + 1

@@ -4,6 +4,7 @@ from UI.scene_manager import Scene
 class IntroScene(Scene):
     def __init__(self, screen):
         super().__init__(screen)
+        
         self.overlay_surface = pygame.Surface(screen.get_size()).convert_alpha()
         self.overlay_alpha = 0
 
