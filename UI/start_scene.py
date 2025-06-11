@@ -1,8 +1,8 @@
 import pygame
-from UI.scene_manager import Scene
+from UI.components.base_scene import BaseScene
 from UI.components.character_animator import CharacterAnimator
 
-class StartScene(Scene):
+class StartScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
         self.background = pygame.image.load(
@@ -144,3 +144,5 @@ class StartScene(Scene):
             if result is not None:
                 return result
             self.draw()
+
+

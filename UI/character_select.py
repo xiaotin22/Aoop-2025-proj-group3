@@ -1,9 +1,9 @@
 import pygame
 import os
-from UI.scene_manager import Scene
+from UI.components.base_scene import BaseScene
 
 
-class CharacterSelectScene(Scene):
+class CharacterSelectScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
 
@@ -14,6 +14,11 @@ class CharacterSelectScene(Scene):
         self.box_width, self.box_height = 500, 300
         self.margin = 30
         self.selected_character = None
+
+        
+        self.font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
+        self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+
 
         # ---------------- 音樂 ----------------
         pygame.mixer.music.load("resource/music/bgm/Mitao_Huihui.mp3")
