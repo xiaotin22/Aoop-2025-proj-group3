@@ -4,3 +4,5 @@ from UI.components.base_scene import BaseScene
 
 class RankScene(BaseScene):
     
+
+    
