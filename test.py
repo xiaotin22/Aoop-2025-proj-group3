@@ -1,5 +1,6 @@
 import pygame
 import sys
+from UI.components.button import Button
 
 pygame.init()
 
@@ -69,7 +70,7 @@ def draw():
         text_surf = font_small.render(text, True, BUTTON_TEXT_COLOR)
         text_rect = text_surf.get_rect(center=rect.center)
         screen.blit(text_surf, text_rect)
-
+        print(pygame.mouse.get_pos())
 def main():
     clock = pygame.time.Clock()
 
