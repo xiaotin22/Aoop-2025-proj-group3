@@ -170,15 +170,16 @@ class Huihui(Character):
 
 
 def score_to_gpa(score):
-    if score >= 91:
+    if score >= 95:
         return 4.3
-    grading = 91/4.3 # 93分對應4.3
+    grading = 95/4.3 # 95分對應4.3
     return round(score / grading, 2) 
     
 
 
 if __name__ == "__main__":
-    player = Mitao()
+    player = Huihui()
+
     player.socialize()
     player.socialize()
     player.rest()
@@ -187,6 +188,7 @@ if __name__ == "__main__":
     player.socialize()
     player.rest()
     player.study()
+
     player.get_midterm()
 
     player.study()
@@ -206,4 +208,9 @@ if __name__ == "__main__":
     print(f"{player.name} 的期末考成績：{player.final}")
     
     print(f"{player.name} 的知識：{player.knowledge}")
-    print(f"{player.name} 的 GPA：{player.GPA}")
+    print(f"{player.name} 的 GPA: {player.GPA}")
+    print(f"{player.name} 的社交能力：{player.social}")
+    print(f"{player.name} 的幸運教授：{player.lucky_prof}")
+    print(f"{player.name} 的心情：{player.mood}")
+    print(f"{player.name} 的體力：{player.energy}")
+    # player.show_status()

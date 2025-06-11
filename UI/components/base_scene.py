@@ -1,4 +1,5 @@
 import pygame
+import os
 
 class BaseScene:
     def __init__(self, screen):
@@ -26,3 +27,32 @@ class BaseScene:
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS) 
+
+    def load_frames(self, folder_path):
+        frames = []
+        for filename in sorted(os.listdir(folder_path)):
+            if filename.endswith(".png"):
+                img = pygame.image.load(os.path.join(folder_path, filename)).convert_alpha()
+                img = pygame.transform.scale(img, self.char_size)
+                frames.append(img)
+        return frames
+    
+    def wrap_text(self, text, font, max_width):
+        lines = []
+        paragraphs = text.split('\n')  # 先根據 \n 分段
+
+        for para in paragraphs:
+            words = para.split(' ')
+            current_line = ""
+            for word in words:
+                test_line = f"{current_line} {word}".strip()
+                if font.size(test_line)[0] <= max_width:
+                    current_line = test_line
+                else:
+                    if current_line:
+                        lines.append(current_line)
+                    current_line = word
+            if current_line:
+                lines.append(current_line)
+        
+        return lines

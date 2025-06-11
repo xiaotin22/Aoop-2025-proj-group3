@@ -1,5 +1,8 @@
 import pygame
 from UI.components.character_animator import CharacterAnimator
-from UI.scene_manager import Scene
+from UI.components.base_scene import BaseScene
 
-class RankScene(Scene):
+class RankScene(BaseScene):
+    
+
+    
