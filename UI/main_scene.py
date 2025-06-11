@@ -8,7 +8,7 @@ from UI.components.base_scene import BaseScene
 
 
 class MainScene(BaseScene):
-    def __init__(self, screen, anim_folder,current_week):
+    def __init__(self, screen, anim_folder):
         super().__init__(screen)
         # 背景圖片
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
@@ -18,7 +18,7 @@ class MainScene(BaseScene):
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
             180, 60,"下一週"
         )
-        self.current_week = current_week
+        self.current_week = 1
        
         
     def update(self):
@@ -27,9 +27,10 @@ class MainScene(BaseScene):
                 if event.type == pygame.QUIT:
                     self.running = False
                     
-                if self.next_week_button.handle_event(event) :
+                if self.next_week_button.handle_event(event) and self.current_week < 17:
                     print("Next week button clicked!")
                     PlayWeekStory(self.screen,  self.current_week)
+                    self.current_week+=1
                
 
     def draw(self):

@@ -39,9 +39,8 @@ def select_character(screen):
 
     if selected == "布布 Bubu":
         player = Bubu()
-        for week in range(1,16):
-            scene = MainScene(screen, "resource/gif/bubu_playgame_frames", week)
-            scene.run()
+        scene = MainScene(screen, "resource/gif/bubu_playgame_frames")
+        scene.run()
         return player
     elif selected == "一二 Yier":
         player = Yier()
