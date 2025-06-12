@@ -13,6 +13,7 @@ class Character:
         self.final = 0       # 期末考成績
         self.week_number = 1
         self.lucky_prof = 0
+        self.total_score = 0
         self.GPA = 0
 
     def study(self):
@@ -88,6 +89,7 @@ class Character:
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + self.knowledge * 0.3
         total_score = int(math.sqrt(total_score) * 10) 
+        self.total_score = total_score
         self.lucky_prof = random.randint(3, 5)
         gpa = []
         for _ in range(25):

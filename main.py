@@ -5,15 +5,16 @@ from UI.start_scene import StartScene
 from UI.intro_scene import IntroScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 from UI.main_scene import MainScene
+from UI.rank_scene import RankScene
 
 def start_game(screen):
     scene = StartScene(screen)
     result = scene.run()
 
-
     if result == "START":
         print("遊戲開始！")
         return True
+
     elif result == "SHOW_INTRO":
         print("顯示遊戲介紹")
         intro_scene = IntroScene(screen)
@@ -25,6 +26,7 @@ def start_game(screen):
         rank_scene = RankScene(screen)
         rank_scene.run()
         return start_game(screen)
+
     elif result == "QUIT":
         print("遊戲結束")
         return False

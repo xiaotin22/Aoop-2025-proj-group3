@@ -73,34 +73,87 @@ class Simulation:
     # --------------------------------------------------
     # 圖表繪製
     # --------------------------------------------------
-    def plot_midterm_final(self) -> Path:
-        """折線圖：期中 & 期末分佈（平滑）。"""
+    def plot_midterm_final(self, highlight_mid: float | None = None, highlight_final: float | None = None) -> Path:
         mid_cnt = Counter(self.midterm)
-        fin_cnt  = Counter(self.final)
+        fin_cnt = Counter(self.final)
 
         mid_x = sorted(mid_cnt); mid_y = [mid_cnt[s] for s in mid_x]
         fin_x = sorted(fin_cnt); fin_y = [fin_cnt[s] for s in fin_x]
 
-        plt.figure(figsize=(12, 6))
-        plt.plot(mid_x, self._smooth_curve(mid_y), label=f"Midterm (Avg {statistics.mean(self.midterm):.2f})", linewidth=2)
-        plt.plot(fin_x, self._smooth_curve(fin_y), label=f"Final (Avg {statistics.mean(self.final):.2f})", linewidth=2)
-        plt.title("Score Distribution of Midterm and Final Exams")
-        plt.xlabel("Score"); plt.ylabel("People"); plt.legend(); plt.grid(True); plt.tight_layout()
+        smooth_mid_y = self._smooth_curve(mid_y)
+        smooth_fin_y = self._smooth_curve(fin_y)
 
-        out_file = self.out_dir / "midterm_final.png"
-        plt.savefig(out_file); plt.close()
+        fig, ax = plt.subplots(figsize=(12, 6))
+        ax.plot(mid_x, smooth_mid_y, label=f"Midterm (Avg {statistics.mean(self.midterm):.2f})", linewidth=2)
+        ax.plot(fin_x, smooth_fin_y, label=f"Final (Avg {statistics.mean(self.final):.2f})", linewidth=2)
+
+        def plot_highlight(score, x_vals, y_vals, color, label, data):
+            if score < x_vals[0] or score > x_vals[-1]:
+                return  # 分數超出範圍時不畫
+
+            # 用線性內插找到該分數在平滑曲線上的 y 值
+            idx = bisect_left(x_vals, score)
+            if idx == 0:
+                y_interp = y_vals[0]
+            elif idx >= len(x_vals):
+                y_interp = y_vals[-1]
+            else:
+                x0, x1 = x_vals[idx - 1], x_vals[idx]
+                y0, y1 = y_vals[idx - 1], y_vals[idx]
+                ratio = (score - x0) / (x1 - x0)
+                y_interp = y0 + ratio * (y1 - y0)
+
+            # 算出排名百分比
+            higher = sum(1 for x in data if x > score)
+            pct = higher / len(data) * 100
+
+            ax.plot(score, y_interp, marker='o', color=color, markersize=8)
+            ax.text(score, y_interp + max(y_vals) * 0.05,
+                    f"{label} {score:.1f}\nTop {pct:.1f}%",
+                    ha="center", va="bottom", fontsize=12, color=color)
+
+        if highlight_mid is not None:
+            plot_highlight(highlight_mid, mid_x, smooth_mid_y, "blue", "Your Midterm", self.midterm)
+
+        if highlight_final is not None:
+            plot_highlight(highlight_final, fin_x, smooth_fin_y, "red", "Your Final", self.final)
+
+        ax.set_title("Score Distribution of Midterm and Final Exams")
+        ax.set_xlabel("Score")
+        ax.set_ylabel("People")
+        ax.legend()
+        ax.grid(True)
+        fig.tight_layout()
+
+        out_file = self.out_dir / "midterm_final_highlight.png"
+        fig.savefig(out_file)
+        plt.close(fig)
         return out_file
 
-    def plot_total(self) -> Path:
-        """長條圖：總分分佈。"""
-        plt.figure(figsize=(12, 6))
-        plt.hist(self.total_scores, bins=10, alpha=0.7, edgecolor='black',
-                 label=f"Total Avg {statistics.mean(self.total_scores):.2f}")
-        plt.title("Total Score Distribution")
-        plt.xlabel("Total Score"); plt.ylabel("People"); plt.legend(); plt.grid(True)
+    def plot_total(self, highlight: float | None = None) -> Path:
+        fig, ax = plt.subplots(figsize=(12, 6))
+        counts, edges, _ = ax.hist(
+            self.total_scores, bins=10, alpha=0.7, edgecolor='black',
+            label=f"Total Avg {statistics.mean(self.total_scores):.2f}"
+        )
 
-        out_file = self.out_dir / "total_score.png"
-        plt.savefig(out_file); plt.close()
+        if highlight is not None:
+            pct = sum(1 for x in self.total_scores if x > highlight) / len(self.total_scores) * 100
+            bin_idx = np.searchsorted(edges, highlight, side="right") - 1
+            bin_idx = np.clip(bin_idx, 0, len(counts) - 1)
+            y_point = counts[bin_idx]
+
+            ax.plot(highlight, y_point, marker="o", markersize=8)
+            ax.text(highlight, y_point + counts.max() * 0.02,
+                    f"Your Total {highlight:.1f}\nTop {pct:.1f}%", 
+                    ha="center", va="bottom", fontsize=12)
+
+        ax.set_title("Total Score Distribution")
+        ax.set_xlabel("Total Score"); ax.set_ylabel("People")
+        ax.legend(); ax.grid(True); fig.tight_layout()
+
+        out_file = self.out_dir / ("total_score_highlight.png" if highlight else "total_score.png")
+        fig.savefig(out_file); plt.close(fig)
         return out_file
 
      # --------------------------------------------------
@@ -245,3 +298,10 @@ if __name__ == "__main__":
     # 3️⃣ 畫圖並標註
     outfile = sim.plot_gpa(highlight=my_gpa)
     #print(f"圖檔路徑：{outfile}")
+
+    my_mid = 92
+    my_final = 88
+    my_total = 91.2
+
+    sim.plot_midterm_final(highlight_mid=my_mid, highlight_final=my_final)
+    sim.plot_total(highlight=my_total)
