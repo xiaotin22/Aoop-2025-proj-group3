@@ -1,6 +1,8 @@
 import pygame
 from UI.components.base_scene import BaseScene
 from UI.components.character_animator import CharacterAnimator
+from UI.components.audio_manager import AudioManager
+
 
 class StartScene(BaseScene):
     def __init__(self, screen):
@@ -20,10 +22,11 @@ class StartScene(BaseScene):
             "resource/font/JasonHandwriting3-Regular.ttf", 48
         )
 
-        # ---------- 音樂 ----------
-        pygame.mixer.music.load("resource/music/bgm/yier_bubu.mp3")
-        pygame.mixer.music.set_volume(0.5)
-        pygame.mixer.music.play(-1)
+        # ---------- 音樂 ----------    
+        self.audio = AudioManager.get_instance()
+        self.audio.play_bgm("resource/music/bgm/yier_bubu.mp3")
+        self.hover_sound = pygame.mixer.Sound("resource/music/sound_effect/menu_hover.mp3")
+        self.hover_sound.set_volume(0.5)
 
         # ---------- 按鈕 ----------
         self.buttons = []

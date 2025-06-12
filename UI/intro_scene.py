@@ -1,6 +1,7 @@
 import pygame
 from UI.components.character_animator import CharacterAnimator
 from UI.components.base_scene import BaseScene
+from UI.components.audio_manager import AudioManager
 
 class IntroScene(BaseScene):
     def __init__(self, screen):
@@ -35,6 +36,7 @@ class IntroScene(BaseScene):
             self.reveal_lines.append("")
 
         # 打字音效
+        self.audio = AudioManager.get_instance()
         self.type_sound = pygame.mixer.Sound("resource/music/sound_effect/typing.mp3")
         self.type_sound.set_volume(0.5)  # 設定音量
 
@@ -85,11 +87,14 @@ class IntroScene(BaseScene):
             else:
                 self.line_index += 1
                 self.char_index = 0
+        
+        self.animator.update()
 
         if self.line_index >= len(self.text_lines):
+            self.animator.reset()
             self.type_sound.stop()
 
-        self.animator.update()
+        
 
     def draw(self, screen):
         screen.blit(self.background, (0, 0))

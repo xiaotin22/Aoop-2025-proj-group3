@@ -31,3 +31,7 @@ class CharacterAnimator:
     def draw(self, screen):
         if self.frames:
             screen.blit(self.frames[self.current_frame], self.position)
+
+    def reset(self):
+        self.current_frame = 0
+        self.frame_timer = 0
