@@ -26,6 +26,7 @@ class BaseScene:
 
     def run(self):
         while self.running:
+            result = None
             result = self.update()
             if result is not None:
                 print(f"Scene result: {result}")

@@ -68,10 +68,10 @@ def select_character(screen):
 
 def game_loop(screen, player):
     pygame.display.set_caption(f"第 {player.week_number} 週｜角色：{player.name}")
-    if player.week_number <= 16:
+    while player.week_number <= 16:
         scene = MainScene(screen, player)
         player_option = scene.run()
-        print("玩家選擇的操作為：", player_option)
+        print(f"玩家選擇的操作為：{player_option!r}")
 
         if player_option == "Open Character Info":
             attr_scene = AttributeScene(screen, player)
@@ -81,7 +81,6 @@ def game_loop(screen, player):
             player.week_number += 1
             story_scene = StoryScene(screen, player.week_number)
             story_scene.run()
-            return game_loop(screen, player)
         
         elif player_option == "Open Event":
             event_scene = EventScene(screen, player)

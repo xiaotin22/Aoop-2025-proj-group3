@@ -36,18 +36,7 @@ class MainScene(BaseScene):
         self.next_week_button.draw(self.screen)
         self.animator.draw(self.screen)
         
-    def run(self):
-        while self.running:
-            result = self.update()
-            if result is not None:
-                print(f"Scene result: {result}")
-                return result
-                
-                
-            self.draw()
-            pygame.display.flip()
-            self.clock.tick(self.FPS)
-        return None 
+  
 
 
  
