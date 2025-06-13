@@ -1,4 +1,6 @@
 import pygame
+from UI.components.character_animator import CharacterAnimator
+
 
 class AudioManager:
     _instance = None  # 單例
@@ -12,6 +14,8 @@ class AudioManager:
         pygame.mixer.init()
         self.current_bgm = None
         self.volume = 0.5
+        self.sounds = {}
+        self.sound_volume = 0.5
         AudioManager._instance = self
 
     @staticmethod
@@ -48,6 +52,21 @@ class AudioManager:
 
     # 播放音效
     def play_sound(self, filepath):
-        sound = pygame.mixer.Sound(filepath)
-        sound.set_volume(self.volume)
+        if filepath not in self.sounds:
+            sound = pygame.mixer.Sound(filepath)
+            sound.set_volume(self.sound_volume)
+            self.sounds[filepath] = sound
+        else:
+            sound = self.sounds[filepath]
         sound.play()
+        return sound
+
+    def stop_sound(self, filepath):
+        sound = self.sounds.get(filepath)
+        if sound:
+            sound.stop()
+
+    def set_sound_volume(self, volume):
+        self.sound_volume = volume
+        for sound in self.sounds.values():
+            sound.set_volume(volume)

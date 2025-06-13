@@ -14,7 +14,7 @@ class RankScene(BaseScene):
         self.background.set_alpha(100)
 
         self.overlay_surface = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
-        self.overlay_alpha = 0
+        self.overlay_alpha = 0 
 
         # 字型
         self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
@@ -50,12 +50,8 @@ class RankScene(BaseScene):
         self.page_timer = 0
         self.auto_page_delay = 5000  # 毫秒
 
-        # 音效
-        self.page_switch_sound = pygame.mixer.Sound("resource/music/sound_effect/next_page.mp3")
-        self.page_switch_sound.set_volume(0.5)
-
     def update(self):
-        if self.overlay_alpha < 180:
+        if self.overlay_alpha < 140:
             self.overlay_alpha += 5
         self.overlay_surface.fill((0, 0, 0, self.overlay_alpha))
 
@@ -78,7 +74,7 @@ class RankScene(BaseScene):
         self.transitioning = True
         self.slide_offset = 0
         self.page_timer = 0
-        self.page_switch_sound.play()
+        self.audio.play_sound("resource/music/sound_effect/next_page.mp3")
 
     def draw(self, screen):
         screen.blit(self.background, (0, 0))
