@@ -1,10 +1,11 @@
 import pygame
 import sys
 import json
+from UI.components.base_scene import wrap_text
             
 def PlayWeekStory(screen, current_week):
     
-    with open('event/event.json', 'r', encoding='utf-8') as f:
+    with open('event/events.json', 'r', encoding='utf-8') as f:
             story_dict = json.load(f)
             
     font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
@@ -19,7 +20,10 @@ def PlayWeekStory(screen, current_week):
     line_spacing = 10
     line_height = font.get_linesize()
 
-    lines = story_dict.get(str(current_week), [])
+     # 取得intro字串，若找不到則空字串
+    intro_text = story_dict.get(f"week_{current_week}", {}).get("intro", "")
+    # 斷行（若intro本身就是多行文字），否則就放一行
+    lines, font = wrap_text(intro_text, "resource/font/JasonHandwriting3-Regular.ttf", dialog_rect.width, font_size=48)
 
     current_line = 0
     current_char = 0

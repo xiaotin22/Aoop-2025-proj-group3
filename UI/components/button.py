@@ -1,5 +1,5 @@
 import pygame
-from UI.components.base_scene import  wrap_text
+from UI.components.base_scene import  wrap_text, draw_wrapped_text
 
 class Button:
     def __init__(self, x, y, width, height, text, font_path,
@@ -16,6 +16,8 @@ class Button:
         self.border_radius = border_radius
         self.is_hovered = False
         self.font_size = font_size
+        self.width = width
+        self.height = height
         
         try:
             self.hover_sound = pygame.mixer.Sound("resource/music/sound_effect/menu_hover.mp3")
@@ -27,18 +29,8 @@ class Button:
         
         pygame.draw.rect(surface, color, self.rect, border_radius=self.border_radius)
         
-        lines = wrap_text( self.text, self.font, self.width - 20 )
-        line_height = self.font_size + 5  # font size for small font
-        total_height = line_height * len(lines)
-        start_y = self.rect.top + (self.rect.height - total_height) // 2
-
-    
-        for i, line in enumerate(lines):
-            txt_surf = self.font_path.render(line, True, self.text_color)
-            txt_rect = txt_surf.get_rect()
-            txt_rect.left = self.rect.left + 10
-            txt_rect.top = start_y + i * line_height
-            surface.blit(txt_surf, txt_rect)
+        draw_wrapped_text(surface, self.text, self.font_path, self.rect)
+        
 
     def handle_event(self, event):
         mouse_pos = pygame.mouse.get_pos()
