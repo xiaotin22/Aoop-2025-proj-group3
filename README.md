@@ -16,7 +16,7 @@
 
 ### 必要條件
 
-* Python 3.13 (為確保與部署環境一致，建議使用此版本)
+* Python 3.13 (建議）
 * Git
   
 ### 安裝步驟
@@ -69,3 +69,5 @@ cd oop-2025-proj-group10
 ```
 source docker_run.sh
 ```
+
+

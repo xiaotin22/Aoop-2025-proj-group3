@@ -90,8 +90,8 @@ class Character:
         self.lucky_prof = random.randint(3, 5)
         gpa = []
         for _ in range(25):
-            if random.random() < 0.5:
-                gpa.append(min(4.3,score_to_gpa(total_score) + self.lucky_prof * 0.01))
+            if random.random() < 0.8:
+                gpa.append(min(4.3,score_to_gpa(total_score) + self.lucky_prof * 0.03))
             else:
                 gpa.append(score_to_gpa(total_score))
         self.GPA = round(sum(gpa) / len(gpa),2)
@@ -120,7 +120,7 @@ class Bubu(Character):
             self.midterm -= 3
         if self.knowledge > 35:
             self.midterm += 8
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 class Yier(Character):
@@ -136,7 +136,7 @@ class Yier(Character):
             self.midterm -= 3
         if self.knowledge > 40:
             self.midterm += 4
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 class Mitao(Character):
@@ -151,7 +151,7 @@ class Mitao(Character):
             self.midterm -= 4
         if self.knowledge > 45:
             self.midterm += 5
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 
@@ -168,7 +168,7 @@ class Huihui(Character):
             self.midterm -= 3
         if self.knowledge > 30:
             self.midterm += 2
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 
