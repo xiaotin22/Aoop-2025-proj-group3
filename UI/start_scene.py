@@ -31,7 +31,7 @@ class StartScene(BaseScene):
         button_texts = [
             ("開始遊戲", "START"),
             ("遊戲介紹", "SHOW_INTRO"),
-            ("成績分佈", "RANK"),
+            ("調整音量", "SOUND_CONTROL"),
             ("退出遊戲", "QUIT"),
         ]
         button_w, button_h, spacing = 300, 70, 30
