@@ -39,13 +39,10 @@ class StoryScene(BaseScene):
         # 開始打字音效
         self.audio.play_sound("resource/music/sound_effect/typing.mp3")  # 迴圈播放
 
-    def run(self):
-        while self.running:
-            self.handle_events()
-            
-        self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
+  
 
-    def handle_events(self):
+    def update(self):
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -53,8 +50,7 @@ class StoryScene(BaseScene):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.all_finished:
                     self.running = False  # 點擊結束故事
-
-    def update(self):
+                    
         now = pygame.time.get_ticks()
 
         if not self.all_finished and now - self.last_char_time > self.char_interval:
@@ -72,7 +68,7 @@ class StoryScene(BaseScene):
         self.screen.blit(self.background, (0, 0))
 
        # 假設左右邊距 40，上方起始高度 160
-        left_margin = 40
+        left_margin = 80
         top_start = 160
 
         # 已顯示的完整行

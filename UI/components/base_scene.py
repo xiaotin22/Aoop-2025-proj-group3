@@ -26,10 +26,17 @@ class BaseScene:
 
     def run(self):
         while self.running:
-            self.update()
+            result = self.update()
+            if result is not None:
+                print(f"Scene result: {result}")
+                return result
+                
+                
             self.draw()
             pygame.display.flip()
-            self.clock.tick(self.FPS) 
+            self.clock.tick(self.FPS)
+        return None 
+
 
     def load_frames(self, folder_path):
         frames = []
