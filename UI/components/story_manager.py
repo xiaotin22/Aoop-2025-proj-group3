@@ -1,8 +1,7 @@
 import pygame
 import sys
 import json
-from UI.components.base_scene import wrap_text
-            
+
 def PlayWeekStory(screen, current_week):
     
     with open('event/events.json', 'r', encoding='utf-8') as f:
@@ -13,7 +12,7 @@ def PlayWeekStory(screen, current_week):
     type_sound = pygame.mixer.Sound("resource/music/sound_effect/typing.mp3")
     background = pygame.image.load(f"resource/image/backgrounds/week_{current_week}.png")
     background = pygame.transform.scale(background, screen.get_size())
-    dialog_rect = pygame.Rect(100, 180, 1000, 400)
+    dialog_rect = pygame.Rect(80, 160, 1000, 400)
     background.set_alpha(65)
 
     char_interval = 100  # 字母出現間隔（毫秒）
@@ -23,7 +22,7 @@ def PlayWeekStory(screen, current_week):
      # 取得intro字串，若找不到則空字串
     intro_text = story_dict.get(f"week_{current_week}", {}).get("intro", "")
     # 斷行（若intro本身就是多行文字），否則就放一行
-    lines, font = wrap_text(intro_text, "resource/font/JasonHandwriting3-Regular.ttf", dialog_rect.width, font_size=48)
+    lines = intro_text.splitlines() if intro_text else []
 
     current_line = 0
     current_char = 0
@@ -48,9 +47,9 @@ def PlayWeekStory(screen, current_week):
         if background :
             screen.fill((255, 255, 255))
             screen.blit(background,(0, 0))
-        else:
-            screen.fill((0, 0, 0))  # 沒背景時用黑色
-
+            overlay = pygame.Surface((dialog_rect.width, dialog_rect.height), pygame.SRCALPHA)
+            overlay.fill((255, 255, 255, 220))  # 半透明白色
+            screen.blit(overlay, dialog_rect.topleft)
 
 
         if not all_finished:
@@ -77,7 +76,7 @@ def PlayWeekStory(screen, current_week):
 
         if all_finished:
             tip = font.render("（點擊以結束）", True, (150, 150, 150))
-            screen.blit(tip, (screen.get_width() // 2 - tip.get_width() // 2, dialog_rect.bottom + 20))
+            screen.blit(tip, (screen.get_width() // 2 - tip.get_width() // 2, dialog_rect.bottom + 50))
             type_sound.stop()
 
         pygame.display.flip()
