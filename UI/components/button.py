@@ -1,5 +1,5 @@
 import pygame
-from components.base_scene import  wrap_text
+from UI.components.base_scene import  wrap_text
 
 class Button:
     def __init__(self, x, y, width, height, text, font_path,

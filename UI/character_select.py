@@ -44,8 +44,8 @@ class CharacterSelectScene(BaseScene):
                 "name": "布布 Bubu",
                 "frames": self.load_frames("resource/gif/bubu_intro_frames"),
                 "description": (
-                    "大家好～我是布布！ 我喜歡在網路上盡情地打遊戲！ \n"
-                    "希望這學期所有的課都可以過 \n 教授...菜菜...撈撈..."
+                    "大家好～我是布布！\n我喜歡在網路上盡情地打遊戲！ \n"
+                    "希望這學期所有的課都可以過 \n教授...菜菜...撈撈..."
                 ),
                 "box": pygame.Rect(
                     self.margin, self.margin, self.box_width, self.box_height
@@ -57,8 +57,8 @@ class CharacterSelectScene(BaseScene):
                 "name": "一二 Yier",
                 "frames": self.load_frames("resource/gif/yier_intro_frames"),
                 "description": (
-                    "大家好～我是一二！ 我熱衷於系上活動以及社團～ \n"
-                    "認識好多學長姐嘿嘿～ 到處吃瓜聽八卦真爽！"
+                    "大家好～我是一二！\n我熱衷於系上活動以及社團～ \n"
+                    "認識好多學長姐嘿嘿～ \n到處吃瓜聽八卦真爽！"
                 ),
                 "box": pygame.Rect(
                     self.SCREEN_WIDTH - self.margin - self.box_width,
@@ -73,8 +73,8 @@ class CharacterSelectScene(BaseScene):
                 "name": "蜜桃 Mitao",
                 "frames": self.load_frames("resource/gif/mitao_intro_frames"),
                 "description": (
-                    "大家好～我是蜜桃！ 嗚嗚嗚這學期不小心選太多課... \n"
-                    "現在實在是捲不動了～ \n 但我還是會努力拿卷的！"
+                    "大家好～我是蜜桃！\n嗚嗚嗚這學期不小心選太多課... \n"
+                    "現在實在是捲不動了～ \n但我還是會努力拿卷的！"
                 ),
                 "box": pygame.Rect(
                     self.margin,
@@ -89,8 +89,8 @@ class CharacterSelectScene(BaseScene):
                 "name": "灰灰 Huihui",
                 "frames": self.load_frames("resource/gif/huihui_intro_frames"),
                 "description": (
-                    "大家好～我是灰灰！\n 我正在追求自己真正想做的事! \n"
-                    "讀書不是重點 ! \n 重要的是追尋我的快樂貓生！"
+                    "大家好～我是灰灰！\n我正在追求自己真正想做的事!\n"
+                    "讀書不是重點 ! \n重要的是追尋我的快樂貓生！"
                 ),
                 "box": pygame.Rect(
                     self.SCREEN_WIDTH - self.margin - self.box_width,
@@ -170,7 +170,7 @@ class CharacterSelectScene(BaseScene):
             self.screen.blit(name_surface, (rect.left + 20, rect.bottom - 50))
 
             # 描述（左上角，自動換行）
-            desc_lines = self.wrap_text(char["description"], self.font_desc, rect.width - 100)
+            desc_lines = [line for line in char["description"].split('\n') if line]
             for i, line in enumerate(desc_lines):
                 line_surface = self.font_desc.render(line, True, (100, 100, 100))
                 self.screen.blit(line_surface, (rect.left + 20, rect.top + 20 + i * 40))
