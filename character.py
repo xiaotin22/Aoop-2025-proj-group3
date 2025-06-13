@@ -1,5 +1,6 @@
 import random
 import math
+import json
 
 class Character:
     def __init__(self, name, intelligence, mood, energy, social):
@@ -15,6 +16,19 @@ class Character:
         self.lucky_prof = 0
         self.total_score = 0
         self.GPA = 0
+        with open('event/events.json', 'r', encoding='utf-8') as f:
+            self.story_dict = json.load(f)
+        self.event_finished = {f"week_{i}": False for i in range(1, 17)}
+        
+    def has_event_this_week(self):
+        week_key = f"week_{self.current_week}"
+        events = self.story_dict.get(week_key, {}).get("events", [])
+        descriptions = []
+        for event in events:
+            description = event.get("description", " ")
+            descriptions.append(description)
+
+        return len(events) > 0 and not self.event_finished[week_key]
 
     def study(self):
         growth = round(

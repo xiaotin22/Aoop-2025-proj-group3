@@ -90,5 +90,14 @@ class StoryScene(BaseScene):
             # 水平置中，垂直位置在文字區底部+50
             self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, y + 50))
             
+    def run(self):
+        
+        while self.running:
+            self.update()
+            self.draw()
+            pygame.display.flip()
+            self.clock.tick(self.FPS)
+        
+            
         
         
