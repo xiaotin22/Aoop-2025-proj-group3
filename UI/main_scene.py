@@ -16,7 +16,7 @@ class MainScene(BaseScene):
         self.animator = CharacterAnimator(anim_folder, (400, 400),(300, 300))  # 角色動畫在右側
         self.next_week_button = Button( 
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
-            180, 60,"下一週"
+            180, 60,"下一週", "resource/font/JasonHandwriting3-SemiBold.ttf",
         )
         self.current_week = 1
        
