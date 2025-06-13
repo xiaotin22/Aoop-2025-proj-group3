@@ -24,8 +24,8 @@ def start_game(screen):
         
     elif result == "SOUND_CONTROL":
         print("調整音效")
-        rank_scene = SoundControlScene(screen)
-        rank_scene.run()
+        sound_control_scene = SoundControlScene(screen)
+        sound_control_scene.run()
         return start_game(screen)
 
     elif result == "QUIT":
@@ -42,34 +42,36 @@ def select_character(screen):
 
     if selected == "布布 Bubu":
         player = Bubu()
-        scene = MainScene(screen, "resource/gif/bubu_playgame_frames")
+        scene = MainScene(screen, player)
         scene.run()
         return player
     elif selected == "一二 Yier":
         player = Yier()
-        scene = MainScene(screen, "resource/gif/yier_happyrest_frames")
+        scene = MainScene(screen, player)
         scene.run()
         return player
     elif selected == "蜜桃 Mitao":
         player = Mitao()
-        scene = MainScene(screen, "resource/gif/mitao_rest_frames")
+        scene = MainScene(screen, player)
         scene.run()
         return player
     elif selected == "灰灰 Huihui":
         player = Huihui()
-        scene = MainScene(screen, "resource/gif/huihui_intro_frames")
+        scene = MainScene(screen, player)
         scene.run()
         return player
     else:
         print("未選擇角色，回到主畫面")
         return start_game(screen)
+    
 
 
 def game_loop(screen, player):
     pygame.display.set_caption(f"第 {player.week_number} 週｜角色：{player.name}")
-    while player.week_number <= 16:
+    if player.week_number <= 16:
         scene = MainScene(screen, player)
         player_option = scene.run()
+        print("玩家選擇的操作為：", player_option)
 
         if player_option == "Open Character Info":
             attr_scene = AttributeScene(screen, player)
@@ -77,7 +79,7 @@ def game_loop(screen, player):
 
         elif player_option == "Next Story":
             player.week_number += 1
-            story_scene = StoryScene(screen, player)
+            story_scene = StoryScene(screen, player.week_number)
             story_scene.run()
             return game_loop(screen, player)
         
@@ -85,6 +87,10 @@ def game_loop(screen, player):
             event_scene = EventScene(screen, player)
             event_scene.run()
             return game_loop(screen, player)
+        
+        elif player_option == "Quit":
+            print("遊戲結束")
+            return False
         
         
 
@@ -127,7 +133,8 @@ def main():
             continue  # 沒有選擇角色，回到主選單
 
         player.show_status()
-        game_loop(screen, player)
+        if not game_loop(screen, player):
+            break
         end_game(screen, player)
         # 遊戲結束後自動回到主選單
     pygame.quit()

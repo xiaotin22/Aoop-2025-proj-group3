@@ -11,7 +11,7 @@ class Character:
         self.knowledge = 0.00
         self.midterm = 0     # 期中考成績
         self.final = 0       # 期末考成績
-        self.week_number = 1
+        self.week_number = 0
         self.lucky_prof = 0
         self.total_score = 0
         self.GPA = 0
@@ -110,6 +110,9 @@ class Character:
 class Bubu(Character):
     def __init__(self):
         super().__init__("Bubu", intelligence=70, mood=65, energy=80, social=30)
+        self.intro = "resource/gif/bubu_intro_frames"
+        self.lying = "resource/gif/bubu_lying_frames"
+        
 
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4
