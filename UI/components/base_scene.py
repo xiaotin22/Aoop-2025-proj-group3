@@ -1,5 +1,6 @@
 import pygame
 import os
+from UI.components.audio_manager import AudioManager
 
 class BaseScene:
     def __init__(self, screen):
@@ -9,7 +10,9 @@ class BaseScene:
         self.SCREEN_WIDTH = 1200
         self.clock = pygame.time.Clock()
         self.FPS = 30
+        self.audio = AudioManager.get_instance()
         self.hover_sound = pygame.mixer.Sound("resource/music/sound_effect/menu_hover.mp3")
+        
 
     def handle_event(self, event):
         if event.type == pygame.QUIT:

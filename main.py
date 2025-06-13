@@ -6,6 +6,7 @@ from UI.intro_scene import IntroScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
+from UI.sound_control_scene import SoundControlScene
 
 def start_game(screen):
     scene = StartScene(screen)
@@ -21,9 +22,9 @@ def start_game(screen):
         intro_scene.run()
         return start_game(screen)
         
-    elif result == "RANK":
-        print("顯示排行榜")
-        rank_scene = RankScene(screen)
+    elif result == "SOUND_CONTROL":
+        print("調整音效")
+        rank_scene = SoundControlScene(screen)
         rank_scene.run()
         return start_game(screen)
 

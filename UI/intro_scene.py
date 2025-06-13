@@ -35,15 +35,13 @@ class IntroScene(BaseScene):
         for _ in self.text_lines:
             self.reveal_lines.append("")
 
-        # 打字音效
         self.audio = AudioManager.get_instance()
-        self.type_sound = pygame.mixer.Sound("resource/music/sound_effect/typing.mp3")
-        self.type_sound.set_volume(0.5)  # 設定音量
 
         # 動畫角色
         self.animator = CharacterAnimator("resource/gif/yier_play_game_frames", (900, 50), (240, 220))
         self.animator.frame_delay = 3  # 控制動畫速度
 
+        
     def run(self):
         self.running = True
         while self.running:
@@ -55,7 +53,7 @@ class IntroScene(BaseScene):
             self.draw(self.screen)
             pygame.display.update()
 
-        self.type_sound.stop()  # 保險：離開場景時也停止打字音效
+        self.audio.stop_sound("resource/music/sound_effect/typing.mp3")  # 保險：離開場景時也停止打字音效
 
 
     def handle_event(self, event):
@@ -63,22 +61,28 @@ class IntroScene(BaseScene):
             self.running = False
 
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN and self.line_index >= len(self.text_lines):
-                # 如果已經顯示完所有文字，按下 Enter 返回主選單
-                self.type_sound.stop()
-                self.running = False
-
+            if event.key == pygame.K_RETURN:
+                if self.line_index >= len(self.text_lines):
+                    self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
+                    self.running = False
+                else:
+                    # 還沒打完就強制顯示完畢
+                    self.reveal_lines = self.text_lines.copy()
+                    self.line_index = len(self.text_lines)
+                    self.char_index = 0
+                    self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
+                    self.animator.reset()
 
     def update(self):
         self.frame_count += 1
 
         if self.overlay_alpha < 200:
             self.overlay_alpha += 4
-
+            
         if self.line_index < len(self.text_lines) and self.frame_count % self.type_speed == 0:
             # 播放一次音效
             if self.line_index == 0 and self.char_index == 0:
-                self.type_sound.play(-1)
+                self.audio.play_sound("resource/music/sound_effect/typing.mp3")
 
             current_line = self.text_lines[self.line_index]
             if self.char_index < len(current_line):
@@ -92,7 +96,7 @@ class IntroScene(BaseScene):
 
         if self.line_index >= len(self.text_lines):
             self.animator.reset()
-            self.type_sound.stop()
+            self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
 
         
 

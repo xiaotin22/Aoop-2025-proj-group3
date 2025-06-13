@@ -1,6 +1,7 @@
 import pygame
 import os
 from UI.components.base_scene import BaseScene
+from UI.components.audio_manager import AudioManager
 
 
 class CharacterSelectScene(BaseScene):
@@ -21,9 +22,10 @@ class CharacterSelectScene(BaseScene):
 
 
         # ---------------- 音樂 ----------------
-        pygame.mixer.music.load("resource/music/bgm/Mitao_Huihui.mp3")
-        pygame.mixer.music.set_volume(0.5)
-        pygame.mixer.music.play(-1)
+        self.audio = AudioManager.get_instance()
+        self.audio.play_bgm("resource/music/bgm/mitao_huihui.mp3")
+        
+
 
         # ---------------- 背景 ----------------
         self.background = pygame.image.load(
@@ -131,7 +133,7 @@ class CharacterSelectScene(BaseScene):
             if is_hovered:
                 new_hover = char["name"]
                 if self.hovered_character != new_hover:
-                    self.hover_sound.play()
+                    self.audio.play_sound("resource/music/sound_effect/menu_hover.mp3")
             # 可在此記錄 hover 旗標給 draw 使用（若需要動畫縮放等效果）
             char["is_hovered"] = is_hovered
         self.hovered_character = new_hover

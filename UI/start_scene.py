@@ -3,7 +3,6 @@ from UI.components.base_scene import BaseScene
 from UI.components.character_animator import CharacterAnimator
 from UI.components.audio_manager import AudioManager
 
-
 class StartScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
@@ -25,15 +24,14 @@ class StartScene(BaseScene):
         # ---------- 音樂 ----------    
         self.audio = AudioManager.get_instance()
         self.audio.play_bgm("resource/music/bgm/yier_bubu.mp3")
-        self.hover_sound = pygame.mixer.Sound("resource/music/sound_effect/menu_hover.mp3")
-        self.hover_sound.set_volume(0.5)
+
 
         # ---------- 按鈕 ----------
         self.buttons = []
         button_texts = [
             ("開始遊戲", "START"),
             ("遊戲介紹", "SHOW_INTRO"),
-            ("成績分佈", "RANK"),
+            ("調整音量", "SOUND_CONTROL"),
             ("退出遊戲", "QUIT"),
         ]
         button_w, button_h, spacing = 300, 70, 30
@@ -88,7 +86,7 @@ class StartScene(BaseScene):
         for btn in self.buttons:
             is_hovered = btn["rect"].collidepoint(mouse_pos)
             if is_hovered and not btn["hovered_last"]:
-                self.hover_sound.play()
+                self.audio.play_sound("resource/music/sound_effect/menu_hover.mp3")
             btn["hovered_last"] = is_hovered
             btn["hover"] = is_hovered
 
