@@ -16,7 +16,6 @@ oop-2025-proj-group10/
 ├── simulation.py                # 用以模擬隨機選擇結果
 │
 ├── UI/
-│   ├── __init__.py
 │   ├── intro_scene.py           # 遊戲開場動畫/說明場景
 │   ├── main_scene.py            # 遊戲主畫面場景
 │   ├── story_scene.py           # 劇情推進場景
@@ -25,13 +24,14 @@ oop-2025-proj-group10/
 │   ├── character_select.py      # 角色選擇場景
 │   ├── end_scene.py             # 遊戲結束/結局場景
 │   ├── sound_control_scene.py   # 音效/音樂控制場景
-│   ├── lucky_wheel.py           # 幸運轉盤小遊戲
+│   ├── lucky_wheel_scene.py     # 幸運轉盤小遊戲
 │   └── components/
-│       ├── __init__.py
 │       ├── audio_manager.py      # 音效/音樂管理單例
 │       ├── base_scene.py         # 場景基底類別
 │       ├── character_animator.py # 角色動畫管理
 │       └── ...                   # 其他 UI 元件
+│
+├── simulation_plots/            # 模擬成績繪製圖形存放
 │
 ├── resource/
 │   ├── font/                    # 字型檔案
@@ -44,8 +44,9 @@ oop-2025-proj-group10/
 │   └── event.json               # 各週事件資料
 │
 ├── README.md                    # 專案說明文件
-├── simulation_plots/            # 模擬成績繪製系統
+├── game_setting/                # 遊戲劇情總述
 │      └── ...
+├── Docker/
 ```
 ---
 
