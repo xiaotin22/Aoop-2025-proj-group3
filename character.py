@@ -90,8 +90,8 @@ class Character:
         self.lucky_prof = random.randint(3, 5)
         gpa = []
         for _ in range(25):
-            if random.random() < 0.5:
-                gpa.append(min(4.3,score_to_gpa(total_score) + self.lucky_prof * 0.01))
+            if random.random() < 0.8:
+                gpa.append(min(4.3,score_to_gpa(total_score) + self.lucky_prof * 0.03))
             else:
                 gpa.append(score_to_gpa(total_score))
         self.GPA = round(sum(gpa) / len(gpa),2)
@@ -110,9 +110,12 @@ class Character:
 class Bubu(Character):
     def __init__(self):
         super().__init__("Bubu", intelligence=70, mood=65, energy=80, social=30)
+
+        self.animal = "熊熊"
         self.intro = "resource/gif/bubu_intro_frames"
         self.lying = "resource/gif/bubu_lying_frames"
         
+
 
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4
@@ -122,12 +125,13 @@ class Bubu(Character):
             self.midterm -= 3
         if self.knowledge > 35:
             self.midterm += 8
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 class Yier(Character):
     def __init__(self):
         super().__init__("Yier", intelligence=75, mood=85, energy=60, social=90)
+        self.animal = "熊熊"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -137,12 +141,13 @@ class Yier(Character):
             self.midterm -= 3
         if self.knowledge > 40:
             self.midterm += 4
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 class Mitao(Character):
     def __init__(self):
         super().__init__("Mitao", intelligence=95, mood=50, energy=45, social=60)
+        self.animal = "貓貓"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -151,13 +156,14 @@ class Mitao(Character):
             self.midterm -= 4
         if self.knowledge > 45:
             self.midterm += 5
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 
 class Huihui(Character):
     def __init__(self):
         super().__init__("Huihui", intelligence=80, mood=90, energy=50, social=65)
+        self.animal = "貓貓"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -167,7 +173,7 @@ class Huihui(Character):
             self.midterm -= 3
         if self.knowledge > 30:
             self.midterm += 2
-        self.midterm = int(round(self.midterm))
+        self.midterm = int(round(self.midterm))+20
 
 
 

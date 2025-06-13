@@ -41,10 +41,16 @@ class Simulation:
 
         for _ in range(self.n_players):
             player = random.choice(self.characters)()
-            for _ in range(self.n_actions):
+            for _ in range(8):
                 getattr(player, random.choice(self.actions))()
+                player.week_number += 1
 
             player.get_midterm()
+
+            for _ in range(8):
+                getattr(player, random.choice(self.actions))()
+                player.week_number += 1
+
             player.get_final()
             player.calculate_GPA()
 
@@ -290,7 +296,7 @@ if __name__ == "__main__":
     
 
     # 2️⃣ 看自己的 GPA 在哪裡
-    my_gpa = 4.22
+    my_gpa = 3.65
     pct = sim.percentile_from_top(my_gpa)
     csv_file = sim.export_gpa_csv()    # 預設存成 ./plots/gpa_rank.csv
     #print(f"CSV 已產生：{csv_file.resolve()}")
@@ -299,9 +305,9 @@ if __name__ == "__main__":
     outfile = sim.plot_gpa(highlight=my_gpa)
     #print(f"圖檔路徑：{outfile}")
 
-    my_mid = 92
-    my_final = 88
-    my_total = 91.2
+    my_mid =  70
+    my_final = 54
+    my_total =  75.0
 
     sim.plot_midterm_final(highlight_mid=my_mid, highlight_final=my_final)
     sim.plot_total(highlight=my_total)
