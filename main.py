@@ -1,5 +1,4 @@
 import pygame
-import os
 from UI.character_select import CharacterSelectScene
 from UI.start_scene import StartScene
 from UI.intro_scene import IntroScene
@@ -85,6 +84,15 @@ def end_game(screen, player):
     scene = EndScene(screen, player)
     player.show_status()
     player.calculate_GPA()
+
+    if scene.run() == "SHOW_RANK":
+        rank_scene = RankScene(screen, player)
+        rank_scene.run()
+        return end_game(screen, player)
+    
+    elif scene.run() == "RESTART":
+        print("重新開始遊戲")
+        return start_game(screen)
 
     if scene.run() == "Exit":
         print("遊戲結束，謝謝遊玩！")
