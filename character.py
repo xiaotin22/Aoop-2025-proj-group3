@@ -27,7 +27,7 @@ class Character:
         self.knowledge = round(min(100, self.knowledge + growth), 2)
         self.mood = max(0, self.mood - 10)
         self.energy = max(0, self.energy - 15)
-        self.week_number += 1
+    
         #print(f"{self.name} 認真學習中 📖✨ 知識增加了 {growth:.2f} 點！現在是 {self.knowledge}/100")
 
     def socialize(self):
@@ -41,7 +41,6 @@ class Character:
             self.knowledge = round(min(100, self.knowledge + growth), 2)
         self.mood = min(100, self.mood + 5)
         self.energy = max(0, self.energy - 15)
-        self.week_number += 1
         #print(f"{self.name} 正在社交中 🤝🎉 社交能力提升了 {growth:.2f} 點！現在是 {self.social}/100")
 
     def play_game(self):
@@ -54,7 +53,6 @@ class Character:
         self.mood = min(100, self.mood + int(growth))
         self.energy = max(0, self.energy - 5)
         self.knowledge = round(max(0, self.knowledge - growth * 0.5), 2)
-        self.week_number += 1
         #print(f"{self.name} 正在玩遊戲 🎮😄 心情提升了 {growth:.2f} 點！現在是 {self.mood}/100")
 
     def rest(self):
@@ -67,7 +65,6 @@ class Character:
         self.energy = min(100, self.energy + int(growth))
         self.mood = min(100, self.mood + int(growth * 0.5))
         self.knowledge = round(max(0, self.knowledge - growth * 0.3), 2)
-        self.week_number += 1
         #print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
 
     def calculate_grade(self):

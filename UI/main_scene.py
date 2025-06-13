@@ -27,10 +27,8 @@ class MainScene(BaseScene):
                 if event.type == pygame.QUIT:
                     self.running = False
                     
-                if self.next_week_button.handle_event(event) and self.current_week < 17:
-                    print("Next week button clicked!")
-                    PlayWeekStory(self.screen,  self.current_week)
-                    self.current_week+=1
+                if self.next_week_button.handle_event(event) :
+                    
                
 
     def draw(self):
