@@ -22,7 +22,7 @@ class StoryScene(BaseScene):
         self.background.set_alpha(65)
 
 
-        self.char_interval = 100  # 字母出現間隔（毫秒）
+        self.char_interval = 120  # 字母出現間隔（毫秒）
         self.line_spacing = 10
         self.line_height = self.font.get_linesize()
 
@@ -37,18 +37,13 @@ class StoryScene(BaseScene):
         self.running = True
 
         # 開始打字音效
-        self.type_sound.play(-1)  # 迴圈播放
+        self.audio.play_sound("resource/music/sound_effect/typing.mp3")  # 迴圈播放
 
     def run(self):
         while self.running:
             self.handle_events()
-            self.update()
-            self.draw()
-            pygame.display.flip()
-            self.clock.tick(60)
-
-        # 結束前停止音效
-        self.type_sound.stop()
+            
+        self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -76,25 +71,28 @@ class StoryScene(BaseScene):
         self.screen.fill((255, 255, 255))
         self.screen.blit(self.background, (0, 0))
 
-        # 畫半透明對話框
-        overlay = pygame.Surface((self.dialog_rect.width, self.dialog_rect.height), pygame.SRCALPHA)
-        overlay.fill((255, 255, 255, 220))
-        self.screen.blit(overlay, self.dialog_rect.topleft)
+       # 假設左右邊距 40，上方起始高度 160
+        left_margin = 40
+        top_start = 160
 
         # 已顯示的完整行
-        y = self.dialog_rect.top + 30
+        y = top_start
         for line in self.displayed_lines:
             text_surface = self.font.render(line, True, (50, 50, 50))
-            self.screen.blit(text_surface, (self.dialog_rect.left + 20, y))
+            self.screen.blit(text_surface, (left_margin, y))
             y += self.line_height + self.line_spacing
 
         # 當前行正在打字的部分
         if not self.all_finished and self.current_line < len(self.lines):
             partial_text = self.lines[self.current_line][:self.current_char]
             text_surface = self.font.render(partial_text, True, (50, 50, 50))
-            self.screen.blit(text_surface, (self.dialog_rect.left + 20, y))
+            self.screen.blit(text_surface, (left_margin, y))
 
         # 打完後提示點擊
         if self.all_finished:
             tip = self.font.render("（點擊以結束）", True, (150, 150, 150))
-            self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, self.dialog_rect.bottom + 50))
+            # 水平置中，垂直位置在文字區底部+50
+            self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, y + 50))
+            
+        
+        
