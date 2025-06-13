@@ -10,6 +10,14 @@ class SoundControlScene(BaseScene):
         self.titlefont = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 70)
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
 
+        self.background = pygame.image.load(
+            "resource/image/background_intro.png"
+        ).convert_alpha()
+        self.background = pygame.transform.scale(
+            self.background, self.screen.get_size()
+        )
+        self.background.set_alpha(100)
+
         # 滑桿參數
         self.slider_width = 300
         self.slider_height = 10
@@ -24,8 +32,9 @@ class SoundControlScene(BaseScene):
 
         self.dragging_bgm = False
         self.dragging_sfx = False
-        self.animator = CharacterAnimator("resource/gif/bubu_playgame_frames", (850, 50), (300, 300))
-
+        self.animator = CharacterAnimator("resource/gif/bubu_playgame_frames", (850, 400), (300, 300))
+        self.animator2 = CharacterAnimator("resource/gif/yier_cheer_up_frames", (850, 30), (200, 200))
+        self.animator2.frame_delay = 5
     def handle_event(self, event):
         super().handle_event(event)
 
@@ -62,10 +71,14 @@ class SoundControlScene(BaseScene):
         return pygame.Rect(x - self.knob_radius, y - self.knob_radius, self.knob_radius * 2, self.knob_radius * 2)
 
     def update(self):
+        self.screen.fill((255, 255, 255))
+        self.screen.blit(self.background, (0, 0))
         self.animator.update()
+        self.animator2.update()
 
     def draw(self, screen):
-        screen.fill((40, 40, 60))
+        screen.fill((0, 0, 0))
+        self.screen.blit(self.background, (0, 0))
         
         # 標題
         title = self.titlefont.render("音量設定", True, (255, 255, 255))
@@ -81,6 +94,7 @@ class SoundControlScene(BaseScene):
         hint = self.font.render("按 Esc 返回", True, (200, 200, 200))
         screen.blit(hint, (self.SCREEN_WIDTH - 300, self.SCREEN_HEIGHT - 60))
         self.animator.draw(screen)
+        self.animator2.draw(screen)
 
     def _draw_slider(self, screen, rect, volume, label):
         # 標籤

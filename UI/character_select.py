@@ -1,5 +1,4 @@
 import pygame
-import os
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
 

@@ -8,8 +8,9 @@ class CharacterAnimator:
         self.size = size          # (width, height)
         self.frames = []
 
-        for filename in sorted(os.listdir(folder_path)):
+        for filename in sorted(os.listdir(folder_path), key=lambda x: int(x.split('_')[1].split('.')[0])):
             if filename.endswith(".png"):
+                #print('Loading frame:', filename)  # Debugging line to see which frames are loaded
                 img = pygame.image.load(os.path.join(folder_path, filename)).convert_alpha()
                 img = pygame.transform.scale(img, self.size)
                 self.frames.append(img)
