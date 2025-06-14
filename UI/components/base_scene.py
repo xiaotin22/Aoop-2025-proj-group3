@@ -48,6 +48,8 @@ class BaseScene:
                 frames.append(img)
         return frames
     
+
+    
 def wrap_text(text, font, max_width):
     
     lines = []
