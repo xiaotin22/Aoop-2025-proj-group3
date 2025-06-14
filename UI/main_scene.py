@@ -16,7 +16,7 @@ class MainScene(BaseScene):
         font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
-            180, 60,"下一週", font, (200, 200, 250),(50, 50, 50) ,(180, 180, 180))
+            180, 60," 下一週", font, (200, 200, 250),(50, 50, 50) ,(180, 180, 180))
 
         excl_img = pygame.image.load("resource/image/event_icon.PNG").convert_alpha()
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))

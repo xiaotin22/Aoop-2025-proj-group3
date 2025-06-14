@@ -79,7 +79,7 @@ class EventScene(BaseScene ):
                     if "study" in attribute :
                         self.player.study()
                         
-                    if "socialize" in attribute :
+                    if "social" in attribute :
                         self.player.socialize()
                     
                     if "play_game" in attribute :
