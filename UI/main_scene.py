@@ -113,6 +113,20 @@ class MainScene(BaseScene):
         gap_y = self.bar_gap
         label_offset = -5  # 調整文字與條的對齊
 
+        # 印出玩家的頭像
+        player_imaage = pygame.image.load(self.player.header).convert_alpha()
+        player_image = pygame.transform.smoothscale(player_imaage, (100, 100))
+        player_rect = player_image.get_rect(topleft=(40, 60))
+        self.screen.blit(player_image, player_rect)
+        # 印出玩家的名字
+        name_label = font.render(self.player.chname + " " + self.player.name, True, (0, 0, 0))
+        name_rect = name_label.get_rect(topleft=(160, 80))
+        self.screen.blit(name_label, name_rect)
+        # 印出玩家的週數
+        week_label = font.render(f"第 {self.player.week_number} 週", True, (0, 0, 0))
+        week_rect = week_label.get_rect(topleft=(160, 120))
+        self.screen.blit(week_label, week_rect)
+
         # 第一排：intelligence / mood
         for i, key in enumerate(["intelligence", "mood"]):
             x = x_left if i == 0 else x_right
