@@ -66,6 +66,12 @@ class AudioManager:
         if sound:
             sound.stop()
 
+    def is_sound_playing(self, filepath):
+        sound = self.sounds.get(filepath)
+        if sound:
+            return sound.get_num_channels() > 0
+        return False
+
     def set_sound_volume(self, volume):
         self.sound_volume = volume
         for sound in self.sounds.values():
