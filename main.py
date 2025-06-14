@@ -79,9 +79,11 @@ def game_loop(screen, player):
             from UI.set_scene import SetScene
             set_scene = SetScene(screen)
             setting_result = set_scene.run()
+            print(f"設定場景回傳：{setting_result}")
             if setting_result == "BACK":
-                continue
-
+                continue  # ✅ 回主畫面
+            else:
+                return False  # 如果不小心點 quit，就結束
 
         if player_option == "Open Character Info":
             attr_scene = AttributeScene(screen, player)

@@ -44,7 +44,8 @@ class SetScene(BaseScene):
                 if event.type == pygame.QUIT:
                     return "QUIT"
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    if self.back_rect.collidepoint(mouse_pos):
+                    if self.back_rect.collidepoint(pygame.mouse.get_pos()):
+                        print("🟢 偵測到返回點擊")
                         return "BACK"
                     if self.button1.is_clicked(event):
                         return "OPTION_1"
