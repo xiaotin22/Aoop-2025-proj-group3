@@ -19,12 +19,14 @@ class MainScene(BaseScene):
             180, 60,"下一週", font)
 
         excl_img = pygame.image.load("resource/image/event_icon.PNG").convert_alpha()
-        self.excl_img = pygame.transform.smoothscale(excl_img, (100, 100))
-        self.excl_rect = self.excl_img.get_rect(center=(500, 500))
+        self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
+        self.excl_rect = self.excl_img.get_rect(center=(1100, 580))
         self.excl_mask = pygame.mask.from_surface(self.excl_img)
         self.player = player
         self.is_hover = False      # 是否目前 hover 狀態
         self.hover_scale = 1.1
+        self.event_reminder = pygame.image.load("resource/image/event_reminder.png").convert_alpha()
+        self.event_reminder = pygame.transform.scale(self.event_reminder, (300, 300)) 
 
 
     def update(self):
@@ -56,7 +58,10 @@ class MainScene(BaseScene):
     
 
     def draw(self):
+        print(pygame.mouse.get_pos())
         self.screen.blit(self.background, (0, 0))
+        if self.player.chosen[self.player.week_number] == '0' :
+            self.screen.blit(self.event_reminder, (850,350))
         self.next_week_button.draw(self.screen)
         self.animator.draw(self.screen)
 
