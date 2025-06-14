@@ -15,6 +15,7 @@ class SetScene(BaseScene):
         self.back_icon = pygame.transform.smoothscale(self.back_icon, (80, 80))
         self.back_rect = self.back_icon.get_rect(topleft=(20, 20))
 
+        # 設定按鈕
         self.button1 = ImageButton("resource/image/button.png", (300, 250))
         self.button2 = ImageButton("resource/image/button.png", (300, 360))
 
