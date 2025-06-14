@@ -16,7 +16,7 @@ class SetScene(BaseScene):
         # 返回按鈕圖
         self.back_icon = pygame.image.load("resource/image/back.png").convert_alpha()
         self.back_icon = pygame.transform.smoothscale(self.back_icon, (80, 80))
-        self.back_rect = self.back_icon.get_rect(topleft=(100, 100))
+        self.back_rect = self.back_icon.get_rect(topleft=(130, 130))
         self.back_hover = False
 
         # 設定按鈕（可改位置與大小）
