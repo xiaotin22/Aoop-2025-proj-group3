@@ -20,8 +20,8 @@ class SetScene(BaseScene):
         self.back_hover = False
 
         # 設定按鈕（可改位置與大小）
-        self.button1 = ImageButton("resource/image/button.png", (320, 130), size=(800, 400))
-        self.button2 = ImageButton("resource/image/button.png", (320, 290), size=(800, 400))
+        self.button1 = ImageButton("resource/image/button.png", (230, 130), size=(800, 500))
+        self.button2 = ImageButton("resource/image/button.png", (230, 320), size=(800, 500))
 
     def run(self):
         while self.running:
