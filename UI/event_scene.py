@@ -27,12 +27,10 @@ class EventScene(BaseScene ):
 
         if len(self.week_data["events"]) != 0:
             self.event_text = self.week_data["events"]["description"]
-        else:
-            return "finished"
 
-        self.options = []
-        for key, option in self.week_data["events"]["options"].items():
-            self.options.append((option["text"], key))
+            self.options = []
+            for key, option in self.week_data["events"]["options"].items():
+                self.options.append((option["text"], key))
 
         self.BUTTON_COLOR = (200, 180, 150)
         self.BUTTON_HOVER_COLOR = (255, 220, 180)
@@ -66,7 +64,8 @@ class EventScene(BaseScene ):
                     self.note_anim_x = self.note_target_x
                     self.animating_in = False
             return  # 動畫時不處理事件
-
+        if len(self.week_data["events"]) == 0 :
+            return "finished"
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -108,7 +107,7 @@ class EventScene(BaseScene ):
             # 恢復原本 x，避免 hover 判斷錯誤
             btn.rect.topleft = (btn_x - text_offset_x, btn_y)
 
-    def draw_lines(self, surface, lines, font, start_pos=(388, 200), color=(0, 0, 0)):
+    def draw_lines(self, surface, lines, font, start_pos=(360, 200), color=(0, 0, 0)):
         x, y = start_pos
         line_spacing = 10
         line_height = font.get_linesize()

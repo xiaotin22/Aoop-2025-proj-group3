@@ -118,6 +118,7 @@ class Bubu(Character):
         self.intro = "resource/gif/bubu_intro_frames"
         self.header = "resource/image/Bubu_head.png"
         self.storytyping = "resource/gif/bubu_playcomputer_frames"
+        self.week_number = 2
 
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4

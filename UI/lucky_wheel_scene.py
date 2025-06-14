@@ -44,7 +44,7 @@ class LuckyWheelScene(BaseScene):
             dx = event.pos[0] - self.center[0]
             dy = event.pos[1] - self.center[1]
             if dx * dx + dy * dy <= self.button_radius * self.button_radius and not self.is_spinning:
-                self.audio.play_sound("resource/music/sound_effect/menu_hover.mp3")
+                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
                 self.start_spin()
 
     def start_spin(self):
@@ -68,9 +68,10 @@ class LuckyWheelScene(BaseScene):
     def calculate_result(self):
         n = len(self.options)
         degrees_per_segment = 360 / n
+        # 讓指針正好指向每個扇區的中心
         corrected_angle = (360 - self.angle % 360) % 360
-        index = int(corrected_angle // degrees_per_segment) % n
-        self.result_text = self.options[index-1]  # Adjust for zero-based index
+        index = int((corrected_angle + degrees_per_segment / 2) // degrees_per_segment) % n
+        self.result_text = self.options[index-1]
 
     def draw(self):
         
@@ -106,12 +107,14 @@ class LuckyWheelScene(BaseScene):
 
             pygame.draw.polygon(self.screen, color, points)
 
-            # Draw text
+            # Draw text (support multi-line)
             tx = self.center[0] + (self.wheel_radius * 0.6) * math.cos(mid_angle)
             ty = self.center[1] + (self.wheel_radius * 0.6) * math.sin(mid_angle)
-            text_surface = self.font_desc.render(self.options[i], True, (0, 0, 0))
-            text_rect = text_surface.get_rect(center=(tx, ty))
-            self.screen.blit(text_surface, text_rect)
+            lines = self.options[i].splitlines() if self.options[i] else []
+            for j, line in enumerate(lines):
+                text_surface = self.font_desc.render(line, True, (0, 0, 0))
+                text_rect = text_surface.get_rect(center=(tx, ty + j * 30))
+                self.screen.blit(text_surface, text_rect)
 
         # Draw wheel outline
         pygame.draw.circle(self.screen, (0, 0, 0), self.center, self.wheel_radius, 4)
@@ -135,8 +138,14 @@ class LuckyWheelScene(BaseScene):
 
 
         if self.result_text:
-            result_surface = self.font_desc.render(f"抽中：\n{self.result_text}", True, (0, 0, 0))
-            self.screen.blit(result_surface, (950 , 600))
+            result_lines = ["抽中"] + self.result_text.splitlines()
+            # 顯示在畫面右下方
+            base_x = 950
+            base_y = 600
+            for j, line in enumerate(result_lines):
+                result_surface = self.font_desc.render(line, True, (0, 0, 0))
+                result_rect = result_surface.get_rect(center=(base_x, base_y + j * 32))
+                self.screen.blit(result_surface, result_rect)
     
     def run(self):
         self.running = True
@@ -153,6 +162,6 @@ class LuckyWheelScene(BaseScene):
             clock.tick(self.FPS)
             # 若已經有結果，停留一段時間後自動結束
             if self.result_text:
-                pygame.time.wait(3000)
+                pygame.time.wait(4000)
                 self.running = False
         return self.result_text
