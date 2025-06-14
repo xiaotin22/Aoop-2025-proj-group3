@@ -137,6 +137,14 @@ class StoryScene(BaseScene):
             lucky_scene = LuckyWheelScene(self.screen,options)
             result = lucky_scene.run()
             self.player.home =  result
+
+        # 期中考
+        if self.player.week_number == 8:
+            pass
+
+        # 期末考
+        if self.player.week_number == 16:
+            pass
         
             
         
