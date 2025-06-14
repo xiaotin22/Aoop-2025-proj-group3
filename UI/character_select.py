@@ -132,7 +132,7 @@ class CharacterSelectScene(BaseScene):
             if is_hovered:
                 new_hover = char["name"]
                 if self.hovered_character != new_hover:
-                    self.audio.play_sound("resource/music/sound_effect/menu_hover.mp3")
+                    self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
             # 可在此記錄 hover 旗標給 draw 使用（若需要動畫縮放等效果）
             char["is_hovered"] = is_hovered
         self.hovered_character = new_hover

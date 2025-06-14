@@ -43,7 +43,7 @@ class StoryScene(BaseScene):
         self.running = True
 
         # 開始打字音效
-        self.audio.play_sound("resource/music/sound_effect/typing.mp3")  # 迴圈播放
+        self.audio.play_sound("resource/music/sound_effect/typing.MP3")  # 迴圈播放
 
                 
 
@@ -66,7 +66,7 @@ class StoryScene(BaseScene):
                             self.displayed_lines.append(self.lines[self.current_line])
                             self.current_line += 1
                         self.all_finished = True
-                        self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
+                        self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
 
                     
             
@@ -82,7 +82,7 @@ class StoryScene(BaseScene):
                 self.current_char = 0
                 if self.current_line >= len(self.lines):
                     self.all_finished = True
-                    self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
+                    self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
 
 
     def draw(self):
@@ -115,8 +115,8 @@ class StoryScene(BaseScene):
             partial_text = self.lines[self.current_line][:self.current_char]
             text_surface = self.font.render(partial_text, True, (50, 50, 50))
             self.screen.blit(text_surface, (left_margin, y))
-            if self.audio.is_sound_playing("resource/music/sound_effect/typing.mp3") is False:
-                self.audio.play_sound("resource/music/sound_effect/typing.mp3")
+            if self.audio.is_sound_playing("resource/music/sound_effect/typing.MP3") is False:
+                self.audio.play_sound("resource/music/sound_effect/typing.MP3")
                 
 
         # 打完後提示點擊

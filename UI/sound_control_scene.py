@@ -44,7 +44,7 @@ class SoundControlScene(BaseScene):
             elif self._knob_rect(self.sfx_slider_rect, self.sfx_volume).collidepoint(event.pos):
                 self.dragging_sfx = True
                 # 按下音效滑桿的 knob 時播放一聲音效
-                self.audio.play_sound("resource/music/sound_effect/menu_hover.mp3")
+                self.audio.play_sound("resource/music/sound_effect/bo.MP3")
 
         elif event.type == pygame.MOUSEBUTTONUP:
             self.dragging_bgm = False
