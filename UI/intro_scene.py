@@ -35,7 +35,6 @@ class IntroScene(BaseScene):
         for _ in self.text_lines:
             self.reveal_lines.append("")
 
-        self.audio = AudioManager.get_instance()
 
         # 動畫角色
         self.animator = CharacterAnimator("resource/gif/yier_play_game_frames", (900, 50), (240, 220))
@@ -80,10 +79,13 @@ class IntroScene(BaseScene):
             self.overlay_alpha += 4
             
         if self.line_index < len(self.text_lines) and self.frame_count % self.type_speed == 0:
-            # 播放一次音效
+            # 重複播放音效
             if self.line_index == 0 and self.char_index == 0:
                 self.audio.play_sound("resource/music/sound_effect/typing.mp3")
-
+            
+            if self.audio.is_sound_playing("resource/music/sound_effect/typing.mp3") is False:
+                self.audio.play_sound("resource/music/sound_effect/typing.mp3")
+                
             current_line = self.text_lines[self.line_index]
             if self.char_index < len(current_line):
                 self.reveal_lines[self.line_index] += current_line[self.char_index]

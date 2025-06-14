@@ -20,11 +20,13 @@ class MainScene(BaseScene):
 
         excl_img = pygame.image.load("resource/image/event_icon.PNG").convert_alpha()
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
-        self.excl_rect = self.excl_img.get_rect(center=(1100, 580))
+        self.excl_rect = self.excl_img.get_rect(center=(430, 400))
         self.excl_mask = pygame.mask.from_surface(self.excl_img)
         self.player = player
         self.is_hover = False
         self.hover_scale = 1.1
+        if player.name == "Bubu":
+            self.animator.frame_delay = 10  # 控制動畫速度
 
         self.set_icon = pygame.image.load("resource/image/set.png").convert_alpha()
         self.set_icon = pygame.transform.smoothscale(self.set_icon, (80, 80))
@@ -64,10 +66,10 @@ class MainScene(BaseScene):
             self.is_hover = False
 
     def draw(self):
-        print(pygame.mouse.get_pos())
         self.screen.blit(self.background, (0, 0))
         self.animator.draw(self.screen)
         self.next_week_button.draw(self.screen)
+
 
         if self.set_hover:
             scaled = pygame.transform.scale(self.set_icon, (96, 96))
@@ -85,8 +87,27 @@ class MainScene(BaseScene):
                 )
                 scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
                 self.screen.blit(scaled_img, scaled_rect)
+
+        if self.player.chosen[self.player.week_number] == '0':
+            # ====== 閃爍動畫（基礎 scale）======
+            ticks = pygame.time.get_ticks()
+            import math
+            base_scale = 1 + 0.12 * math.sin(ticks * 0.01)  # 在 0.95 到 1.05 之間震盪
+
+            # ====== hover 放大疊加效果 ======
+            if self.is_hover:
+                scale = base_scale * self.hover_scale
+
             else:
-                self.screen.blit(self.excl_img, self.excl_rect)
+                scale = base_scale
+
+            # ====== 計算縮放後的位置並繪製 ======
+            new_width = int(self.excl_img.get_width() * scale)
+            new_height = int(self.excl_img.get_height() * scale)
+            scaled_img = pygame.transform.smoothscale(self.excl_img, (new_width, new_height))
+            scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
+            
+            self.screen.blit(scaled_img, scaled_rect)
 
     def run(self):
         while self.running:
