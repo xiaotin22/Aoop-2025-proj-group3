@@ -16,12 +16,12 @@ class SetScene(BaseScene):
         # 返回按鈕圖
         self.back_icon = pygame.image.load("resource/image/back.png").convert_alpha()
         self.back_icon = pygame.transform.smoothscale(self.back_icon, (80, 80))
-        self.back_rect = self.back_icon.get_rect(topleft=(20, 20))
+        self.back_rect = self.back_icon.get_rect(topleft=(100, 100))
         self.back_hover = False
 
         # 設定按鈕（可改位置與大小）
-        self.button1 = ImageButton("resource/image/button.png", (230, 130), size=(800, 500))
-        self.button2 = ImageButton("resource/image/button.png", (230, 320), size=(800, 500))
+        self.button1 = ImageButton("resource/image/button.png", (195, 100), size=(800, 500))
+        self.button2 = ImageButton("resource/image/button.png", (195, 300), size=(800, 500))
 
     def run(self):
         while self.running:
