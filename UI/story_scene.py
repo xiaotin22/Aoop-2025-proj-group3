@@ -4,6 +4,7 @@ import json
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
 from UI.lucky_wheel_scene import LuckyWheelScene
+from UI.components.character_animator import CharacterAnimator
 
 class StoryScene(BaseScene):
     def __init__(self, screen, player):
@@ -20,6 +21,10 @@ class StoryScene(BaseScene):
         self.title_font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 48)
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
         
+        self.animator = CharacterAnimator(player.storytyping, (900, 50), (240, 220))
+
+        self.title_alpha = 0  # 標題淡入透明度
+        self.title_alpha_speed = 20  # 每幀增加多少
 
         self.background = pygame.image.load(f"resource/image/backgrounds/week_1.png")
         self.background = pygame.image.load(f"resource/image/backgrounds/week_1.png")
@@ -51,6 +56,8 @@ class StoryScene(BaseScene):
 
     def update(self):
         #print(pygame.mouse.get_pos())
+        if self.title_alpha < 255:
+            self.title_alpha = min(255, self.title_alpha + self.title_alpha_speed)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -70,7 +77,7 @@ class StoryScene(BaseScene):
 
                     
             
-                    
+        self.animator.update()  # 更新動畫
         now = pygame.time.get_ticks()
 
         if not self.all_finished and now - self.last_char_time > self.char_interval:
@@ -88,21 +95,29 @@ class StoryScene(BaseScene):
     def draw(self):
         self.screen.fill((255, 255, 255))
         self.screen.blit(self.background, (0, 0))
-
+        self.animator.draw(self.screen)
 
         # 假設左右邊距 40，上方起始高度 160
         left_margin = 100
         top_start = 230
 
-        # 畫標題
+        # 畫標題（淡入）
         if self.title:
             title_surface = self.title_font.render(self.title, True, (50, 50, 50))
+            # 建立一個有 alpha 的 surface
+            title_alpha_surface = pygame.Surface(title_surface.get_size(), pygame.SRCALPHA)
+            title_alpha_surface.blit(title_surface, (0, 0))
+            title_alpha_surface.set_alpha(self.title_alpha)
             title_rect = title_surface.get_rect()
             title_rect.topleft = (left_margin-30, 120)
-            self.screen.blit(title_surface, title_rect)
-        # 畫標題與內文的分隔線
-        pygame.draw.line(self.screen, (100, 100, 100), (left_margin-50, 180), (self.screen.get_width() - left_margin, 180), 2)
-       
+            self.screen.blit(title_alpha_surface, title_rect)
+
+        # 畫分隔線（淡入）
+        line_width = self.screen.get_width() - left_margin - (left_margin-50)
+        line_surface = pygame.Surface((line_width, 2), pygame.SRCALPHA)
+        pygame.draw.line(line_surface, (100, 100, 100, self.title_alpha), (0, 1), (line_width, 1), 2)
+        self.screen.blit(line_surface, (left_margin-50, 180))
+
         # 已顯示的完整行
         y = top_start
         for line in self.displayed_lines:
