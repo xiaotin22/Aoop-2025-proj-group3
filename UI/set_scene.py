@@ -20,8 +20,49 @@ class SetScene(BaseScene):
         self.back_hover = False
 
         # 設定按鈕（可改位置與大小）
-        self.button1 = ImageButton("resource/image/button.png", (195, 100), size=(800, 500))
-        self.button2 = ImageButton("resource/image/button.png", (195, 300), size=(800, 500))
+        self.button1 = ImageButton("resource/image/button.png", (200, 180), size=(700, 600))
+        self.button2 = ImageButton("resource/image/button.png", (200, 320), size=(760, 600))
+
+class ImageButton:
+    def __init__(self, image_path, pos, scale_hover=1.1, size=None):
+        self.image_original = pygame.image.load(image_path).convert_alpha()
+        if size:
+            self.image_original = pygame.transform.smoothscale(self.image_original, size)
+        self.image = self.image_original
+
+        # ➕ 用來碰撞的 hitbox，固定大小不變
+        self.hitbox = self.image_original.get_rect(topleft=pos)
+        self.rect = self.hitbox.copy()  # 實際繪圖用的 rect
+
+        self.hover_scale = scale_hover
+        self.is_hover = False
+
+    def update(self):
+        mouse_pos = pygame.mouse.get_pos()
+        if self.hitbox.collidepoint(mouse_pos):  # ✅ 偵測用 hitbox
+            if not self.is_hover:
+                self.is_hover = True
+                w, h = self.image_original.get_size()
+                self.image = pygame.transform.smoothscale(
+                    self.image_original,
+                    (int(w * self.hover_scale), int(h * self.hover_scale))
+                )
+                # ➕ 放大後要以「中心」對齊原 hitbox 中心
+                self.rect = self.image.get_rect(center=self.hitbox.center)
+        else:
+            if self.is_hover:
+                self.image = self.image_original
+                self.rect = self.hitbox.copy()
+                self.is_hover = False
+
+    def draw(self, screen):
+        screen.blit(self.image, self.rect.topleft)
+
+    def is_clicked(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if self.hitbox.collidepoint(pygame.mouse.get_pos()):
+                return True
+        return False
 
     def run(self):
         while self.running:
