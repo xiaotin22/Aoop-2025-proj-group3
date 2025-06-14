@@ -6,6 +6,7 @@ class Button:
                  bg_color=(200, 180, 150), 
                  text_color=(50, 30, 10),
                  hover_color=(255, 220, 180),
+                 border_color = (120, 120, 160),
                  border_radius=8, font_size=36 ):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
@@ -13,6 +14,7 @@ class Button:
         self.bg_color = bg_color
         self.text_color = text_color
         self.hover_color = hover_color
+        self.border_color = border_color
         self.border_radius = border_radius
         self.is_hovered = False
         self.font_size = font_size
@@ -25,9 +27,19 @@ class Button:
             self.hover_sound = None
 
     def draw(self, surface):
+         
+        scaled_rect = pygame.Rect(
+            0,
+            0,
+            int(self.rect.width * 1.1),
+            int(self.rect.height * 1.1),
+        )
+        scaled_rect.center = self.rect.center
         color = self.hover_color if self.is_hovered else self.bg_color
         
         pygame.draw.rect(surface, color, self.rect, border_radius=self.border_radius)
+        if self.border_color != None :
+            pygame.draw.rect(surface, self.border_color, self.rect, 3, border_radius=self.border_radius)
         
         draw_wrapped_text(surface, self.text, self.font, self.rect)
         

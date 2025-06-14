@@ -16,7 +16,7 @@ class MainScene(BaseScene):
         font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
-            180, 60,"下一週", font)
+            180, 60,"下一週", font, (200, 200, 250),(50, 50, 50) ,(180, 180, 180))
 
         excl_img = pygame.image.load("resource/image/event_icon.PNG").convert_alpha()
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
@@ -25,8 +25,6 @@ class MainScene(BaseScene):
         self.player = player
         self.is_hover = False      # 是否目前 hover 狀態
         self.hover_scale = 1.1
-        self.event_reminder = pygame.image.load("resource/image/event_reminder.png").convert_alpha()
-        self.event_reminder = pygame.transform.scale(self.event_reminder, (300, 300)) 
 
 
     def update(self):
@@ -60,22 +58,22 @@ class MainScene(BaseScene):
     def draw(self):
         print(pygame.mouse.get_pos())
         self.screen.blit(self.background, (0, 0))
-        if self.player.chosen[self.player.week_number] == '0' :
-            self.screen.blit(self.event_reminder, (850,350))
-        self.next_week_button.draw(self.screen)
         self.animator.draw(self.screen)
+        self.next_week_button.draw(self.screen)
+        
+        if self.player.chosen[self.player.week_number] == '0' :
 
-        # 根據 hover 狀態決定顯示原圖或放大圖
-        if self.is_hover:
-            scaled_img = pygame.transform.smoothscale(
-                self.excl_img,
-                (int(self.excl_img.get_width() * self.hover_scale),
-                 int(self.excl_img.get_height() * self.hover_scale))
-            )
-            scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
-            self.screen.blit(scaled_img, scaled_rect)
-        else:
-            self.screen.blit(self.excl_img, self.excl_rect)
+            # 根據 hover 狀態決定顯示原圖或放大圖
+            if self.is_hover:
+                scaled_img = pygame.transform.smoothscale(
+                    self.excl_img,
+                    (int(self.excl_img.get_width() * self.hover_scale),
+                    int(self.excl_img.get_height() * self.hover_scale))
+                )
+                scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
+                self.screen.blit(scaled_img, scaled_rect)
+            else:
+                self.screen.blit(self.excl_img, self.excl_rect)
 
     def run(self):
         while self.running:
