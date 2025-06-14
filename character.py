@@ -30,7 +30,7 @@ class Character:
         self.mood = max(0, self.mood - 10)
         self.energy = max(0, self.energy - 15)
     
-        #print(f"{self.name} 認真學習中 📖✨ 知識增加了 {growth:.2f} 點！現在是 {self.knowledge}/100")
+        print(f"{self.name} 認真學習中 📖✨ 知識增加了 {growth:.2f} 點！現在是 {self.knowledge}/100")
 
     def socialize(self):
         growth = round(
@@ -43,7 +43,7 @@ class Character:
             self.knowledge = round(min(100, self.knowledge + growth), 2)
         self.mood = min(100, self.mood + 5)
         self.energy = max(0, self.energy - 15)
-        #print(f"{self.name} 正在社交中 🤝🎉 社交能力提升了 {growth:.2f} 點！現在是 {self.social}/100")
+        print(f"{self.name} 正在社交中 🤝🎉 社交能力提升了 {growth:.2f} 點！現在是 {self.social}/100")
 
     def play_game(self):
         growth = round(
@@ -55,7 +55,7 @@ class Character:
         self.mood = min(100, self.mood + int(growth))
         self.energy = max(0, self.energy - 5)
         self.knowledge = round(max(0, self.knowledge - growth * 0.5), 2)
-        #print(f"{self.name} 正在玩遊戲 🎮😄 心情提升了 {growth:.2f} 點！現在是 {self.mood}/100")
+        print(f"{self.name} 正在玩遊戲 🎮😄 心情提升了 {growth:.2f} 點！現在是 {self.mood}/100")
 
     def rest(self):
         growth = round(
@@ -67,7 +67,7 @@ class Character:
         self.energy = min(100, self.energy + int(growth))
         self.mood = min(100, self.mood + int(growth * 0.5))
         self.knowledge = round(max(0, self.knowledge - growth * 0.3), 2)
-        #print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
+        print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
 
     def calculate_grade(self):
         score = round(self.knowledge * 0.45 + self.mood * 0.3 + self.energy * 0.2 + self.intelligence * 0.1 , 2)
@@ -115,7 +115,7 @@ class Bubu(Character):
 
         self.animal = "熊熊"
         self.intro = "resource/gif/bubu_intro_frames"
-        self.lying = "resource/gif/bubu_lying_frames"
+        
         
 
 
@@ -134,6 +134,7 @@ class Yier(Character):
     def __init__(self):
         super().__init__("Yier", intelligence=75, mood=85, energy=60, social=90)
         self.animal = "熊熊"
+        self.intro = "resource/gif/yier_intro_frames"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -150,6 +151,7 @@ class Mitao(Character):
     def __init__(self):
         super().__init__("Mitao", intelligence=95, mood=50, energy=45, social=60)
         self.animal = "貓貓"
+        self.intro = "resource/gif/mitao_intro_frames"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -166,6 +168,7 @@ class Huihui(Character):
     def __init__(self):
         super().__init__("Huihui", intelligence=80, mood=90, energy=50, social=65)
         self.animal = "貓貓"
+        self.intro = "resource/gif/huihui_intro_frames"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)

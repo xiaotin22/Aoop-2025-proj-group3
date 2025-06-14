@@ -35,7 +35,11 @@ class EventScene(BaseScene ):
         self.week_data = self.all_weeks_data[f"week_{self.player.week_number}"]
 
         # 事件文字（取第一個事件的描述）
-        self.event_text = self.week_data["events"]["description"]
+        if len(self.week_data["events"]) != 0:
+            self.event_text = self.week_data["events"]["description"]
+            
+        else :
+            return "finished"
 
         # 選項轉成 [(text, key), ...]
         self.options = []
@@ -75,7 +79,7 @@ class EventScene(BaseScene ):
                     if "study" in attribute :
                         self.player.study()
                         
-                    if "socialize" in attribute :
+                    if "social" in attribute :
                         self.player.socialize()
                     
                     if "play_game" in attribute :
