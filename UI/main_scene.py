@@ -190,28 +190,26 @@ class MainScene(BaseScene):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "Quit"
+
+                # ✅ 偵測是否點到設定按鈕（set.png）
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    if self.set_rect.collidepoint(event.pos):
+                        from UI.set_scene import SetScene
+                        while True:
+                            set_scene = SetScene(self.screen)
+                            setting_result = set_scene.run()
+                            print(f"設定場景回傳：{setting_result}")
+                            if setting_result == "BACK":
+                                break
+                            elif setting_result == "QUIT":
+                                return "Quit"
+                            else:
+                                print("設定中執行其他操作（可擴充）")
+
                 if self.next_week_button.handle_event(event):
                     return "Next Story"
 
-            result = self.update()
-
-            # ✅ 如果進入設定畫面
-            if result == "SETTING":
-                from UI.set_scene import SetScene
-                while True:
-                    set_scene = SetScene(self.screen)
-                    setting_result = set_scene.run()
-                    print(f"設定場景回傳：{setting_result}")
-                    if setting_result == "BACK":
-                        break  # 跳出設定畫面，繼續 MainScene 畫面
-                    elif setting_result == "QUIT":
-                        return "Quit"
-                    else:
-                        print("設定中執行其他操作（可擴充）")
-
-            elif result is not None:
-                return result
-
+            self.update()
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
