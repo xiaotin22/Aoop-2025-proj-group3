@@ -5,6 +5,7 @@ from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
 from UI.lucky_wheel_scene import LuckyWheelScene
 from UI.components.character_animator import CharacterAnimator
+from UI.taketest_scene import TakeTestScene
 
 class StoryScene(BaseScene):
     def __init__(self, screen, player):
@@ -156,11 +157,14 @@ class StoryScene(BaseScene):
 
         # 期中考
         if self.player.week_number == 8:
-            pass
+            taketest_scene = TakeTestScene(self.screen, self.player)
+            self.player.midterm = taketest_scene.run()
+
 
         # 期末考
-        if self.player.week_number == 16:
-            pass
+        if self.player.week_number == 16: 
+            taketest_scene = TakeTestScene(self.screen, self.player)
+            self.player.final = taketest_scene.run()
         
             
         

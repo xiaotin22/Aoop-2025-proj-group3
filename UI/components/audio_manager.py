@@ -50,6 +50,13 @@ class AudioManager:
         self.volume = volume
         pygame.mixer.music.set_volume(volume)
 
+    def fade_out_bgm(self, duration=2000):
+        if self.current_bgm:
+            pygame.mixer.music.fadeout(duration)
+            self.current_bgm = None
+
+
+
     # 播放音效
     def play_sound(self, filepath):
         if filepath not in self.sounds:
@@ -59,6 +66,16 @@ class AudioManager:
         else:
             sound = self.sounds[filepath]
         sound.play()
+        return sound
+    
+    def play_sound_loop(self, filepath):
+        if filepath not in self.sounds:
+            sound = pygame.mixer.Sound(filepath)
+            sound.set_volume(self.sound_volume)
+            self.sounds[filepath] = sound
+        else:
+            sound = self.sounds[filepath]
+        sound.play(loops=-1)
         return sound
 
     def stop_sound(self, filepath):
@@ -76,3 +93,4 @@ class AudioManager:
         self.sound_volume = volume
         for sound in self.sounds.values():
             sound.set_volume(volume)
+
