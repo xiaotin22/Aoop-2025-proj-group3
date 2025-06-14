@@ -21,14 +21,19 @@ class ImageButton:
                 # 滑進來：放大
                 self.is_hover = True
                 w, h = self.image_original.get_size()
-                self.image = pygame.transform.smoothscale(self.image_original, (int(w * self.hover_scale), int(h * self.hover_scale)))
-                self.rect = self.image.get_rect(center=self.rect.center)
+                self.image = pygame.transform.smoothscale(
+                    self.image_original,
+                    (int(w * self.hover_scale), int(h * self.hover_scale))
+                )
+                # ✅ 關鍵：固定左上角
+                self.rect = self.image.get_rect(topleft=self.rect.topleft)
         else:
             if self.is_hover:
                 # 滑走：縮回
                 self.image = self.image_original
-                self.rect = self.image.get_rect(center=self.rect.center)
+                self.rect = self.image.get_rect(topleft=self.rect.topleft)
                 self.is_hover = False
+
 
     def draw(self, screen):
         screen.blit(self.image, self.rect.topleft)
