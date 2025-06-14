@@ -5,10 +5,10 @@ from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
 
 class StoryScene(BaseScene):
-    def __init__(self, screen, current_week):
+    def __init__(self, screen, player):
         super().__init__(screen)
-        
-        self.current_week = current_week
+        self.player = player
+        current_week = player.week_number
 
         # 讀取故事
         with open('event/events.json', 'r', encoding='utf-8') as f:

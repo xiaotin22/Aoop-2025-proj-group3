@@ -4,6 +4,7 @@ from UI.start_scene import StartScene
 from UI.intro_scene import IntroScene
 from UI.story_scene import StoryScene
 from UI.event_scene import EventScene
+from UI.set_scene import SetScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
@@ -76,7 +77,6 @@ def game_loop(screen, player):
         print(f"玩家選擇的操作為：{player_option!r}")
 
         if player_option == "SETTING":
-            from UI.set_scene import SetScene
             set_scene = SetScene(screen)
             setting_result = set_scene.run()
             print(f"設定場景回傳：{setting_result}")
@@ -93,6 +93,8 @@ def game_loop(screen, player):
             player.week_number += 1
             story_scene = StoryScene(screen, player.week_number)
             story_scene.run()
+            event_scene = EventScene(screen, player)
+            event_scene.run()
         
         elif player_option == "Open Event":
             event_scene = EventScene(screen, player)

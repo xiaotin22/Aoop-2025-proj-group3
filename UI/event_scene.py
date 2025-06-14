@@ -94,7 +94,9 @@ class EventScene(BaseScene ):
                         
     def draw(self):
         self.screen.blit(self.background_img, (0, 0))  # 畫背景
-        self.screen.blit(self.note_img, self.note_rect)
+        #slide the note image from the top
+        self.screen.blit(self.note_img, (self.note_rect.x, self.note_rect.y - 50))
+        
         lines = self.event_text.splitlines() if self.event_text else []
         self.draw_lines(self.screen, lines, self.font)
 
