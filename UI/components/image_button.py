@@ -1,33 +1,35 @@
 import pygame
 
 class ImageButton:
-    def __init__(self, image_path, pos, size=None, scale_hover=1.1):
-        original_image = pygame.image.load(image_path).convert_alpha()
-        
-        if size:  # 如果有指定大小，就縮小
-            self.image_original = pygame.transform.smoothscale(original_image, size)
-        else:
-            self.image_original = original_image
-
+    def __init__(self, image_path, pos, scale_hover=1.1, size=None):
+        self.image_original = pygame.image.load(image_path).convert_alpha()
+        if size:
+            self.image_original = pygame.transform.smoothscale(self.image_original, size)
         self.image = self.image_original
-        self.rect = self.image.get_rect(topleft=pos)
+
+        # ➕ 用來碰撞的 hitbox，固定大小不變
+        self.hitbox = self.image_original.get_rect(topleft=pos)
+        self.rect = self.hitbox.copy()  # 實際繪圖用的 rect
+
         self.hover_scale = scale_hover
         self.is_hover = False
 
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
-        if self.rect.collidepoint(mouse_pos):
+        if self.hitbox.collidepoint(mouse_pos):  # ✅ 偵測用 hitbox
             if not self.is_hover:
-                # 滑進來：放大
                 self.is_hover = True
                 w, h = self.image_original.get_size()
-                self.image = pygame.transform.smoothscale(self.image_original, (int(w * self.hover_scale), int(h * self.hover_scale)))
-                self.rect = self.image.get_rect(center=self.rect.center)
+                self.image = pygame.transform.smoothscale(
+                    self.image_original,
+                    (int(w * self.hover_scale), int(h * self.hover_scale))
+                )
+                # ➕ 放大後要以「中心」對齊原 hitbox 中心
+                self.rect = self.image.get_rect(center=self.hitbox.center)
         else:
             if self.is_hover:
-                # 滑走：縮回
                 self.image = self.image_original
-                self.rect = self.image.get_rect(center=self.rect.center)
+                self.rect = self.hitbox.copy()
                 self.is_hover = False
 
     def draw(self, screen):
@@ -35,7 +37,8 @@ class ImageButton:
 
     def is_clicked(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            if self.rect.collidepoint(pygame.mouse.get_pos()):
+            mouse_pos = pygame.mouse.get_pos()
+            if self.rect.collidepoint(mouse_pos):
                 return True
         return False
 
