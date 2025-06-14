@@ -16,8 +16,8 @@ class SetScene(BaseScene):
         self.back_rect = self.back_icon.get_rect(topleft=(20, 20))
 
         # 按鈕（可以加更多）
-        self.button1 = ImageButton("resource/image/button.png", (300, 250), size=(500, 400))
-        self.button2 = ImageButton("resource/image/button.png", (300, 500), size=(500, 400))
+        self.button1 = ImageButton("resource/image/button.png", (300, 250), size=(700, 500))
+        self.button2 = ImageButton("resource/image/button.png", (300, 400), size=(700, 500))
 
 
     def run(self):
