@@ -198,8 +198,8 @@ class MainScene(BaseScene):
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.set_rect.collidepoint(event.pos):
                         from UI.set_scene import SetScene
-                        from UI.components.blur import blur_surface  # 確保你有這個函式
-                        blurred_bg = blur_surface(self.screen.copy())
+                        from UI.components.blur import fast_blur  # ✅ 正確的函數名稱
+                        blurred_bg = fast_blur(self.screen.copy())
                         set_scene = SetScene(self.screen, blurred_bg)
                         setting_result = set_scene.run()
                         print(f"設定場景回傳：{setting_result}")
