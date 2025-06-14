@@ -21,7 +21,7 @@ class StoryScene(BaseScene):
         self.title_font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 48)
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
         
-        self.animator = CharacterAnimator(player.storytyping, (900, 50), (240, 220))
+        self.animator = CharacterAnimator(player.storytyping, (900, 50), (220, 200))
 
         self.title_alpha = 0  # 標題淡入透明度
         self.title_alpha_speed = 20  # 每幀增加多少
@@ -113,7 +113,7 @@ class StoryScene(BaseScene):
             self.screen.blit(title_alpha_surface, title_rect)
 
         # 畫分隔線（淡入）
-        line_width = self.screen.get_width() - left_margin - (left_margin-50)
+        line_width = self.screen.get_width() - left_margin - left_margin - 200
         line_surface = pygame.Surface((line_width, 2), pygame.SRCALPHA)
         pygame.draw.line(line_surface, (100, 100, 100, self.title_alpha), (0, 1), (line_width, 1), 2)
         self.screen.blit(line_surface, (left_margin-50, 180))
