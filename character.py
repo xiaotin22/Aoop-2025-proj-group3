@@ -17,6 +17,7 @@ class Character:
         self.total_score = 0
         self.GPA = 0
         self.chosen = ['0']*17
+        self.home = ""
 
     def study(self):
         growth = round(
@@ -112,12 +113,10 @@ class Character:
 class Bubu(Character):
     def __init__(self):
         super().__init__("Bubu", intelligence=70, mood=65, energy=80, social=30)
-
+        self.chname = "布布"
         self.animal = "熊熊"
         self.intro = "resource/gif/bubu_intro_frames"
-        
-        
-
+        self.header = "resource/image/Bubu_head.png"
 
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4
@@ -134,7 +133,9 @@ class Yier(Character):
     def __init__(self):
         super().__init__("Yier", intelligence=75, mood=85, energy=60, social=90)
         self.animal = "熊熊"
+        self.chname = "一二"
         self.intro = "resource/gif/yier_intro_frames"
+        self.header = "resource/image/Yier_head.png"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -151,7 +152,9 @@ class Mitao(Character):
     def __init__(self):
         super().__init__("Mitao", intelligence=95, mood=50, energy=45, social=60)
         self.animal = "貓貓"
+        self.chname = "蜜桃"
         self.intro = "resource/gif/mitao_intro_frames"
+        self.header = "resource/image/Mitao_head.png"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -168,7 +171,9 @@ class Huihui(Character):
     def __init__(self):
         super().__init__("Huihui", intelligence=80, mood=90, energy=50, social=65)
         self.animal = "貓貓"
+        self.chname = "灰灰"
         self.intro = "resource/gif/huihui_intro_frames"
+        self.header = "resource/image/Huihui_head.png"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)

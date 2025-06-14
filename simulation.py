@@ -40,7 +40,7 @@ class Simulation:
         self.knowledge.clear(); self.gpa.clear()
 
         for _ in range(self.n_players):
-            player = random.choice(self.characters)()
+            player = Huihui()
             for _ in range(8):
                 getattr(player, random.choice(self.actions))()
                 player.week_number += 1
