@@ -72,7 +72,7 @@ class MainScene(BaseScene):
             self.excl_mask.get_at(relative_pos)):
 
             if not self.is_hover:
-                self.audio.play_sound("resource/music/sound_effect/menu_hover.mp3")
+                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
                 self.is_hover = True
 
             if mouse_pressed[0]:
