@@ -15,8 +15,8 @@ class EventScene(BaseScene ):
         target_width = 850
         scale_factor = target_width / orig_width
         target_height = int(orig_height * scale_factor)
-        self.note_img = pygame.transform.smoothscale(note_img, (target_width, target_height))
-        self.note_rect = self.note_img.get_rect(center=(600, 400))
+        self.note_img_orig = pygame.transform.smoothscale(note_img, (target_width, target_height))
+        self.note_rect = self.note_img_orig.get_rect(center=(600, 400))
 
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
         self.font_small = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
@@ -43,9 +43,10 @@ class EventScene(BaseScene ):
         self.max_text_width = self.button_width - 20
 
         # 動畫屬性
-        self.note_anim_x = -1000  # 從螢幕左外側開始
-        self.note_target_x = self.note_rect.x
+        self.note_scale = 0.2  # 從 0.2 倍開始
+        self.note_scale_target = 1.0
         self.animating_in = True
+        self.anim_bounce = True  # 彈跳效果
 
         # 計算按鈕初始位置
         self.buttons = []
@@ -58,12 +59,12 @@ class EventScene(BaseScene ):
 
     def update(self):
         if self.animating_in:
-            # 緩動滑入
-            speed = 40
-            if self.note_anim_x < self.note_target_x:
-                self.note_anim_x += speed
-                if self.note_anim_x >= self.note_target_x:
-                    self.note_anim_x = self.note_target_x
+            # 彈跳縮放動畫
+            speed = 0.035
+            if self.note_scale < self.note_scale_target:
+                self.note_scale += speed
+                if self.note_scale >= self.note_scale_target:
+                    self.note_scale = self.note_scale_target
                     self.animating_in = False
             return  # 動畫時不處理事件
 
@@ -87,26 +88,37 @@ class EventScene(BaseScene ):
 
     def draw(self):
         self.screen.blit(self.background_img, (0, 0))
-        # 便條紙滑入
-        note_rect_anim = self.note_rect.copy()
-        note_rect_anim.x = int(self.note_anim_x)
-        self.screen.blit(self.note_img, note_rect_anim)
-
-        # 文字滑入
-        lines = self.event_text.splitlines() if self.event_text else []
-        # 文字根據 note_rect_anim.x 偏移
-        text_offset_x = note_rect_anim.x - self.note_rect.x
-        self.draw_lines(self.screen, lines, self.font, start_pos=(388 + text_offset_x, 200))
-
-        # 按鈕滑入
-        for i, button in enumerate(self.buttons):
-            btn = button[0]
-            btn_x = btn.rect.x + text_offset_x
-            btn_y = btn.rect.y
-            btn.rect.topleft = (btn_x, btn_y)
-            btn.draw(self.screen)
-            # 恢復原本 x，避免 hover 判斷錯誤
-            btn.rect.topleft = (btn_x - text_offset_x, btn_y)
+        # 彈跳縮放動畫
+        if self.animating_in:
+            scale = self.note_scale
+            # 彈跳效果（超過1再回彈）
+            if self.anim_bounce and scale > 0.95:
+                scale = 1 + (scale - 1) * 0.5  # 讓它超過1再回來
+            note_img = pygame.transform.smoothscale(
+                self.note_img_orig,
+                (int(self.note_rect.width * scale), int(self.note_rect.height * scale))
+            )
+            note_rect_anim = note_img.get_rect(center=self.note_rect.center)
+            self.screen.blit(note_img, note_rect_anim)
+            # 文字和按鈕也跟著縮放
+            text_offset_x = note_rect_anim.x - self.note_rect.x
+            lines = self.event_text.splitlines() if self.event_text else []
+            self.draw_lines(self.screen, lines, self.font, start_pos=(388 + text_offset_x, 200))
+            for i, button in enumerate(self.buttons):
+                btn = button[0]
+                btn_x = btn.rect.x + text_offset_x
+                btn_y = btn.rect.y
+                btn.rect.topleft = (btn_x, btn_y)
+                btn.draw(self.screen)
+                btn.rect.topleft = (btn_x - text_offset_x, btn_y)
+        else:
+            # 正常顯示
+            self.screen.blit(self.note_img_orig, self.note_rect)
+            lines = self.event_text.splitlines() if self.event_text else []
+            self.draw_lines(self.screen, lines, self.font, start_pos=(388, 200))
+            for i, button in enumerate(self.buttons):
+                btn = button[0]
+                btn.draw(self.screen)
 
     def draw_lines(self, surface, lines, font, start_pos=(388, 200), color=(0, 0, 0)):
         x, y = start_pos
