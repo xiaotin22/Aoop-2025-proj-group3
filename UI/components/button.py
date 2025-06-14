@@ -2,14 +2,14 @@ import pygame
 from UI.components.base_scene import  wrap_text, draw_wrapped_text
 
 class Button:
-    def __init__(self, x, y, width, height, text, font_path,
+    def __init__(self, x, y, width, height, text, font,
                  bg_color=(200, 180, 150), 
                  text_color=(50, 30, 10),
                  hover_color=(255, 220, 180),
                  border_radius=8, font_size=36 ):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
-        self.font_path = font_path or pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
+        self.font = font  
         self.bg_color = bg_color
         self.text_color = text_color
         self.hover_color = hover_color
@@ -29,7 +29,7 @@ class Button:
         
         pygame.draw.rect(surface, color, self.rect, border_radius=self.border_radius)
         
-        draw_wrapped_text(surface, self.text, self.font_path, self.rect)
+        draw_wrapped_text(surface, self.text, self.font, self.rect)
         
 
     def handle_event(self, event):
