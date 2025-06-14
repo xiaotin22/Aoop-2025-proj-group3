@@ -3,12 +3,14 @@ import sys
 import json
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
+from UI.lucky_wheel_scene import LuckyWheelScene
 
 class StoryScene(BaseScene):
-    def __init__(self, screen, current_week):
+    def __init__(self, screen, player):
         super().__init__(screen)
         
-        self.current_week = current_week
+        self.player = player
+        current_week = player.week_number
 
         # 讀取故事
         with open('event/events.json', 'r', encoding='utf-8') as f:
@@ -129,6 +131,12 @@ class StoryScene(BaseScene):
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
+        
+        if self.player.week_number == 3:
+            options = ["超可愛學姐\n帥潮學長", "看起來是系邊\n有點宅宅的學長", "超搞笑的系核\n第一次見面\n就表演倒立走路", "卷哥卷姐", "被放生了"]
+            lucky_scene = LuckyWheelScene(self.screen,options)
+            result = lucky_scene.run()
+            self.player.home =  result
         
             
         
