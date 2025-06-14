@@ -10,12 +10,12 @@ class SetScene(BaseScene):
         self.bg = pygame.image.load("resource/image/set_page.png").convert_alpha()
         self.bg = pygame.transform.scale(self.bg, screen.get_size())
 
-        # 返回按鈕圖
+        # 返回圖示
         self.back_icon = pygame.image.load("resource/image/back.png").convert_alpha()
         self.back_icon = pygame.transform.smoothscale(self.back_icon, (80, 80))
         self.back_rect = self.back_icon.get_rect(topleft=(20, 20))
 
-        # 設定按鈕
+        # 按鈕（可以加更多）
         self.button1 = ImageButton("resource/image/button.png", (300, 250))
         self.button2 = ImageButton("resource/image/button.png", (300, 360))
 
@@ -23,7 +23,7 @@ class SetScene(BaseScene):
         while self.running:
             self.screen.blit(self.bg, (0, 0))
 
-            # ✅ hover 放大 back.png
+            # 滑鼠 hover back.png 時放大
             mouse_pos = pygame.mouse.get_pos()
             if self.back_rect.collidepoint(mouse_pos):
                 scaled = pygame.transform.scale(self.back_icon, (96, 96))  # 放大
@@ -32,23 +32,21 @@ class SetScene(BaseScene):
             else:
                 self.screen.blit(self.back_icon, self.back_rect.topleft)
 
-            # 更新＆畫圖片按鈕
+            # 更新 & 畫出按鈕
             self.button1.update()
             self.button2.update()
             self.button1.draw(self.screen)
             self.button2.draw(self.screen)
 
+            # 事件處理
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "QUIT"
-
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.back_rect.collidepoint(mouse_pos):
                         return "BACK"
-
                     if self.button1.is_clicked(event):
                         return "OPTION_1"
-
                     if self.button2.is_clicked(event):
                         return "OPTION_2"
 
