@@ -199,18 +199,18 @@ class MainScene(BaseScene):
                         from UI.set_scene import SetScene
                         from UI.components.blur import fast_blur
                         blurred_bg = fast_blur(self.screen.copy())
-                        set_scene = SetScene(self.screen, blurred_bg)
-                        setting_result = set_scene.run()
-                        print(f"設定場景回傳：{setting_result}")
+                        while True:
+                            set_scene = SetScene(self.screen, blurred_bg)
+                            setting_result = set_scene.run()
+                            print(f"設定場景回傳：{setting_result}")
 
-                        if setting_result == "BACK":
-                            break  # ✅ 回主畫面
-                        elif setting_result == "QUIT":
-                            return "Quit"
-                        elif setting_result in ("OPTION_1", "OPTION_2"):
-                            print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
-                            continue  # ✅ 繼續待在設定頁
-
+                            if setting_result == "BACK":
+                                break  # ✅ 回主畫面
+                            elif setting_result == "QUIT":
+                                return "Quit"
+                            elif setting_result in ("OPTION_1", "OPTION_2"):
+                                print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
+                                
                 if self.next_week_button.handle_event(event):
                     return "Next Story"
 
