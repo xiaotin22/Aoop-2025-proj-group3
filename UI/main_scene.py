@@ -22,9 +22,10 @@ class MainScene(BaseScene):
         self.excl_img = pygame.transform.smoothscale(excl_img, (100, 100))
         self.excl_rect = self.excl_img.get_rect(center=(500, 500))
         self.excl_mask = pygame.mask.from_surface(self.excl_img)
-
+        self.player = player
         self.is_hover = False      # 是否目前 hover 狀態
         self.hover_scale = 1.1
+
 
     def update(self):
         self.animator.update()
@@ -45,8 +46,10 @@ class MainScene(BaseScene):
                 self.is_hover = True
 
             if mouse_pressed[0]:
-                print("驚嘆號形狀按鍵被點擊！")
-                return "Open Event"
+                if self.player.chosen[self.player.week_number] == '0' :
+                    return "Open Event"
+                else :
+                    print("this week's event has been done !")
         else:
             self.is_hover = False
 

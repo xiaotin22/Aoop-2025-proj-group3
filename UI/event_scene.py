@@ -65,13 +65,28 @@ class EventScene(BaseScene ):
             self.buttons.append(button)
 
     def update(self):
-        print(pygame.mouse.get_pos())
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
             for button in self.buttons :
                 if button[0].handle_event(event):
+                    attribute =  self.week_data["events"]["options"][button[1]]["attribute"]
+                    if "study" in attribute :
+                        self.player.study()
+                        
+                    if "socialize" in attribute :
+                        self.player.socialize()
+                    
+                    if "play_game" in attribute :
+                        self.player.play_game()
+                    
+                    if "rest" in attribute :
+                        self.player.rest()
+                        
+                    self.player.chosen[self.player.week_number] = button[1]
                     print(f"你選擇了選項 {button[1]}: {button[0].text}")
+                    return "finished"
                         
     def draw(self):
         self.screen.blit(self.background_img, (0, 0))  # 畫背景

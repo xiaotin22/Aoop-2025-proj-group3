@@ -16,7 +16,7 @@ class Character:
         self.lucky_prof = 0
         self.total_score = 0
         self.GPA = 0
-    
+        self.chosen = ['0']*17
 
     def study(self):
         growth = round(

@@ -86,7 +86,6 @@ def game_loop(screen, player):
         elif player_option == "Open Event":
             event_scene = EventScene(screen, player)
             event_scene.run()
-            return game_loop(screen, player)
         
         
         elif player_option == "Quit":
