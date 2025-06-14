@@ -25,6 +25,9 @@ class LuckyWheelScene(BaseScene):
         self.is_spinning = False
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
         
+        
+
+        
         self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
