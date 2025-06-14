@@ -205,7 +205,7 @@ class MainScene(BaseScene):
                             print(f"設定場景回傳：{setting_result}")
 
                             if setting_result == "BACK":
-                                break  # ✅ 回主畫面
+                                break
                             elif setting_result == "QUIT":
                                 return "Quit"
                             elif setting_result in ("OPTION_1", "OPTION_2"):
