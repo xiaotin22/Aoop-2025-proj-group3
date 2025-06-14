@@ -1,14 +1,10 @@
 import pygame
 import os
+import json
 from UI.components.character_animator import CharacterAnimator
 from UI.components.button import Button
 from UI.components.audio_manager import AudioManager
 from UI.components.base_scene import BaseScene
-
-
-def blur_surface(surface, amount=4):
-    small = pygame.transform.smoothscale(surface, (surface.get_width()//amount, surface.get_height()//amount))
-    return pygame.transform.smoothscale(small, surface.get_size())
 
 
 class MainScene(BaseScene):
@@ -16,35 +12,52 @@ class MainScene(BaseScene):
         super().__init__(screen)
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
-
         self.animator = CharacterAnimator(player.intro, (400, 400), (300, 300))
         font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
-            180, 60, "下一週", font, (200, 200, 250), (50, 50, 50), (180, 180, 180))
 
-        # event_icon
+            180, 60," 下一週", font, (200, 200, 250),(50, 50, 50) ,(180, 180, 180))
+
+        
+
         excl_img = pygame.image.load("resource/image/event_icon.PNG").convert_alpha()
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
-        self.excl_rect = self.excl_img.get_rect(center=(1100, 580))
+        self.excl_rect = self.excl_img.get_rect(center=(430, 400))
         self.excl_mask = pygame.mask.from_surface(self.excl_img)
-
-        # 設定 set.png
-        set_img = pygame.image.load("resource/image/set.png").convert_alpha()
-        self.set_img = pygame.transform.smoothscale(set_img, (70, 70))
-        self.set_rect = self.set_img.get_rect(topleft=(20, 20))
-
         self.player = player
         self.is_hover = False
-        self.set_hover = False
         self.hover_scale = 1.1
+        if player.name == "Bubu":
+            self.animator.frame_delay = 10  # 控制動畫速度
+
+
+        self.stats_font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+        self.bar_width = 150
+        self.bar_height = 20
+        self.bar_gap = 10
+        self.bar_colors = {
+            "intelligence": (135, 206, 250),  # 淺藍
+            "mood":         (255, 182, 193),  # 粉紅
+            "energy":       (144, 238, 144),  # 淺綠
+            "social":       (255, 165, 0),    # 橘色
+            "knowledge":    (160, 32, 240)    # 紫色
+        }
+
+
+        self.set_icon = pygame.image.load("resource/image/set.png").convert_alpha()
+        self.set_icon = pygame.transform.smoothscale(self.set_icon, (80, 80))
+        self.set_rect = self.set_icon.get_rect(topleft=(20, 20))
+        self.set_hover = False
+
 
     def update(self):
         self.animator.update()
+
         mouse_pos = pygame.mouse.get_pos()
         mouse_pressed = pygame.mouse.get_pressed()
 
-        # 🛠️ SET 按鈕偵測
+        # 設定按鈕 hover 與點擊
         if self.set_rect.collidepoint(mouse_pos):
             self.set_hover = True
             if mouse_pressed[0]:
@@ -52,7 +65,7 @@ class MainScene(BaseScene):
         else:
             self.set_hover = False
 
-        # 📌 event_icon 判定
+        # 事件泡泡 hover 與點擊邏輯
         relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
         if (0 <= relative_pos[0] < self.excl_rect.width and
             0 <= relative_pos[1] < self.excl_rect.height and
@@ -70,11 +83,79 @@ class MainScene(BaseScene):
         else:
             self.is_hover = False
 
+
+
+    def draw_player_stats(self):
+
+        stats_bg = pygame.Surface((480, 250), pygame.SRCALPHA)
+        stats_bg.fill((255, 255, 255, 180))  # 180 可調整透明度，0~255
+
+        # 貼到主畫面
+        self.screen.blit(stats_bg, (20, 50))
+
+        # 畫邊框
+        pygame.draw.rect(self.screen, (100, 100, 100), (20, 50, 480, 250), 2)
+
+        stats = {
+            "intelligence": self.player.intelligence,
+            "mood": self.player.mood,
+            "energy": self.player.energy,
+            "social": self.player.social,
+            "knowledge": self.player.knowledge
+        }
+
+        font = self.stats_font
+        x_left = 30
+        x_right = x_left + self.bar_width + 80
+        y_start = 180
+        bar_height = self.bar_height
+        bar_width = self.bar_width
+        gap_y = self.bar_gap
+        label_offset = -5  # 調整文字與條的對齊
+
+        # 第一排：intelligence / mood
+        for i, key in enumerate(["intelligence", "mood"]):
+            x = x_left if i == 0 else x_right
+            y = y_start
+            fill = max(0, min(1, stats[key] / 100))
+            pygame.draw.rect(self.screen, (200, 200, 200), (x + 65, y, bar_width, bar_height), 2)
+            pygame.draw.rect(self.screen, self.bar_colors[key], (x + 65, y, int(bar_width * fill), bar_height))
+            label = font.render(f"智力 {self.player.intelligence}" if key == "intelligence" else f"心情 {self.player.mood}", True, (0, 0, 0))
+            self.screen.blit(label, (x, y + label_offset))
+
+        # 第二排：energy / social
+        for i, key in enumerate(["energy", "social"]):
+            x = x_left if i == 0 else x_right
+            y = y_start + bar_height + gap_y +10
+            fill = max(0, min(1, stats[key] / 100))
+            pygame.draw.rect(self.screen, (200, 200, 200), (x + 65, y, bar_width, bar_height), 2)
+            pygame.draw.rect(self.screen, self.bar_colors[key], (x + 65, y, int(bar_width * fill), bar_height))
+            label = font.render(f"體力 {self.player.energy}" if key == "energy" else f"社交 {self.player.social}", True, (0, 0, 0))
+            self.screen.blit(label, (x, y + label_offset))
+        
+        # 第三排：knowledge（橫跨兩個 bar）
+        y = y_start + 2 * (bar_height + gap_y) + 20
+        x = x_left
+        total_width = (x_right - x_left) + 130 + bar_width  # 橫跨兩欄
+        fill = max(0, min(1, stats["knowledge"] / 100))
+        pygame.draw.rect(self.screen, (200, 200, 200), (x + 65, y, total_width - 130, bar_height), 2)
+        pygame.draw.rect(self.screen, self.bar_colors["knowledge"], (x + 130, y, int((total_width - 130) * fill), bar_height))
+        label = font.render(f"知識 {self.player.knowledge:.0f}/100", True, (0, 0, 0))
+        self.screen.blit(label, (x, y + label_offset))
+        
     def draw(self):
         self.screen.blit(self.background, (0, 0))
         self.animator.draw(self.screen)
         self.next_week_button.draw(self.screen)
-        self.screen.blit(self.set_img, self.set_rect.topleft)
+        self.draw_player_stats()
+
+
+        if self.set_hover:
+            scaled = pygame.transform.scale(self.set_icon, (96, 96))
+            rect = scaled.get_rect(center=self.set_rect.center)
+            self.screen.blit(scaled, rect.topleft)
+        else:
+            self.screen.blit(self.set_icon, self.set_rect.topleft)
 
         if self.player.chosen[self.player.week_number] == '0':
             if self.is_hover:
@@ -85,8 +166,27 @@ class MainScene(BaseScene):
                 )
                 scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
                 self.screen.blit(scaled_img, scaled_rect)
+
+        if self.player.chosen[self.player.week_number] == '0':
+            # ====== 閃爍動畫（基礎 scale）======
+            ticks = pygame.time.get_ticks()
+            import math
+            base_scale = 1 + 0.12 * math.sin(ticks * 0.01)  # 在 0.95 到 1.05 之間震盪
+
+            # ====== hover 放大疊加效果 ======
+            if self.is_hover:
+                scale = base_scale * self.hover_scale
+
             else:
-                self.screen.blit(self.excl_img, self.excl_rect)
+                scale = base_scale
+
+            # ====== 計算縮放後的位置並繪製 ======
+            new_width = int(self.excl_img.get_width() * scale)
+            new_height = int(self.excl_img.get_height() * scale)
+            scaled_img = pygame.transform.smoothscale(self.excl_img, (new_width, new_height))
+            scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
+            
+            self.screen.blit(scaled_img, scaled_rect)
 
     def run(self):
         while self.running:
@@ -98,17 +198,19 @@ class MainScene(BaseScene):
 
             result = self.update()
 
+            # ✅ 如果進入設定畫面
             if result == "SETTING":
                 from UI.set_scene import SetScene
-                screenshot = self.screen.copy()
-                blurred_bg = blur_surface(screenshot)
-                set_scene = SetScene(self.screen, blurred_bg)
-                setting_result = set_scene.run()
-                print(f"設定場景回傳：{setting_result}")
-                if setting_result == "BACK":
-                    continue
-                elif setting_result == "QUIT":
-                    return "Quit"
+                while True:
+                    set_scene = SetScene(self.screen)
+                    setting_result = set_scene.run()
+                    print(f"設定場景回傳：{setting_result}")
+                    if setting_result == "BACK":
+                        break  # 跳出設定畫面，繼續 MainScene 畫面
+                    elif setting_result == "QUIT":
+                        return "Quit"
+                    else:
+                        print("設定中執行其他操作（可擴充）")
 
             elif result is not None:
                 return result
@@ -118,4 +220,3 @@ class MainScene(BaseScene):
             self.clock.tick(self.FPS)
 
         return None
-
