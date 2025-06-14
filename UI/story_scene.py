@@ -59,24 +59,23 @@ class StoryScene(BaseScene):
         #print(pygame.mouse.get_pos())
         if self.title_alpha < 255:
             self.title_alpha = min(255, self.title_alpha + self.title_alpha_speed)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
                 if self.all_finished:
                     self.running = False  # 點擊結束故事
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    if not self.all_finished:
-                        # 把剩下的文字一次顯示出來
-                        while self.current_line < len(self.lines):
-                            self.displayed_lines.append(self.lines[self.current_line])
-                            self.current_line += 1
-                        self.all_finished = True
-                        self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
+                else:
+                    # 把剩下的文字一次顯示出來
+                    while self.current_line < len(self.lines):
+                        self.displayed_lines.append(self.lines[self.current_line])
+                        self.current_line += 1
+                    self.all_finished = True
+                    self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
 
-                    
+                
             
         self.animator.update()  # 更新動畫
         now = pygame.time.get_ticks()
@@ -135,12 +134,11 @@ class StoryScene(BaseScene):
                 self.audio.play_sound("resource/music/sound_effect/typing.MP3")
                 
 
-        # 打完後提示點擊
-        if self.all_finished:
-            tip = self.font.render("（點擊以結束）", True, (150, 150, 150))
-            # 水平置中，垂直位置在文字區底部+50
-            self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, 630))
-            
+    
+        tip = self.font.render("（點擊以結束）", True, (150, 150, 150))
+        # 水平置中，垂直位置在文字區底部+50
+        self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, 630))
+        
     def run(self):
         
         while self.running:
