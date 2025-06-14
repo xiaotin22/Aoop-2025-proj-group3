@@ -19,6 +19,7 @@ class StoryScene(BaseScene):
         
 
         self.background = pygame.image.load(f"resource/image/backgrounds/week_1.png")
+        self.background = pygame.image.load(f"resource/image/backgrounds/week_1.png")
         self.background = pygame.transform.scale(self.background, screen.get_size())
         self.background.set_alpha(65)
 
@@ -54,8 +55,6 @@ class StoryScene(BaseScene):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if self.all_finished:
                     self.running = False  # 點擊結束故事
-
-            
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     if not self.all_finished:
@@ -66,6 +65,8 @@ class StoryScene(BaseScene):
                         self.all_finished = True
                         self.audio.stop_sound("resource/music/sound_effect/typing.mp3")
 
+                    
+            
                     
         now = pygame.time.get_ticks()
 
