@@ -115,7 +115,7 @@ class Bubu(Character):
 
         self.animal = "熊熊"
         self.intro = "resource/gif/bubu_intro_frames"
-        self.lying = "resource/gif/bubu_lying_frames"
+        
         
 
 
