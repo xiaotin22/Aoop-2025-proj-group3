@@ -17,13 +17,24 @@ class EventScene(BaseScene ):
         target_height = int(orig_height * scale_factor)
         self.note_img = pygame.transform.smoothscale(note_img, (target_width, target_height))
         self.note_rect = self.note_img.get_rect(center=(600, 400))
+        self.title_alpha = 0  # 標題淡入透明度
+        self.title_alpha_speed = 20  # 每幀增加多少
 
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
+        self.title_font = pygame.font.Font("resource/font/hanyizhuziguozhiruantang.ttf",36)
         self.font_small = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+        self.BUTTON_COLOR = (200, 180, 150)
+        self.BUTTON_HOVER_COLOR = (255, 220, 180)
+        self.BUTTON_TEXT_COLOR = (50, 30, 10)
+        self.button_width = 545
+        self.button_height = 70
+        self.button_margin = 20
+        self.max_text_width = self.button_width - 20
 
         with open("event/events.json", "r", encoding="utf-8") as f:
             self.all_weeks_data = json.load(f)
         self.week_data = self.all_weeks_data[f"week_{self.player.week_number}"]
+        self.title = self.week_data.get("title", "")
 
         if len(self.week_data["events"]) != 0:
             self.event_text = self.week_data["events"]["description"]
@@ -41,13 +52,7 @@ class EventScene(BaseScene ):
                                 self.BUTTON_COLOR, self.BUTTON_TEXT_COLOR, self.BUTTON_HOVER_COLOR), key)
                 self.buttons.append(button)
 
-        self.BUTTON_COLOR = (200, 180, 150)
-        self.BUTTON_HOVER_COLOR = (255, 220, 180)
-        self.BUTTON_TEXT_COLOR = (50, 30, 10)
-        self.button_width = 545
-        self.button_height = 70
-        self.button_margin = 20
-        self.max_text_width = self.button_width - 20
+       
 
         # 動畫屬性
         self.note_anim_x = -1000  # 從螢幕左外側開始
@@ -95,12 +100,27 @@ class EventScene(BaseScene ):
         note_rect_anim.x = int(self.note_anim_x)
         self.screen.blit(self.note_img, note_rect_anim)
 
+        print(pygame.mouse.get_pos())
+    
+
         # 文字滑入
         lines = self.event_text.splitlines() if self.event_text else []
         # 文字根據 note_rect_anim.x 偏移
         text_offset_x = note_rect_anim.x - self.note_rect.x
-        self.draw_lines(self.screen, lines, self.font, start_pos=(388 + text_offset_x, 200))
-
+        self.draw_lines(self.screen, lines, self.font, start_pos=(350 + text_offset_x, 240))
+        
+        
+        # 畫標題
+        title_surface = self.title_font.render(self.title, True, (60, 179, 133))
+        # 建立一個有 alpha 的 surface
+        title_alpha_surface = pygame.Surface(title_surface.get_size(), pygame.SRCALPHA)
+        title_alpha_surface.blit(title_surface, (0, 0))
+        title_alpha_surface.set_alpha(self.title_alpha)
+        title_rect = title_surface.get_rect()
+        title_rect.topleft = (350 + text_offset_x, 160)
+        self.screen.blit(title_alpha_surface, title_rect)
+        self.screen.blit(self.title_font.render(self.title, True, (60, 179, 133)), (350 + text_offset_x, 140))
+        
         # 按鈕滑入
         for i, button in enumerate(self.buttons):
             btn = button[0]
