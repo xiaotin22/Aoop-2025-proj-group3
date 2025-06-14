@@ -57,11 +57,12 @@ class MainScene(BaseScene):
         mouse_pos = pygame.mouse.get_pos()
         mouse_pressed = pygame.mouse.get_pressed()
 
-        # 設定按鈕 hover 與點擊
+        self.animator.update()
+
+        # hover 動畫處理
+        mouse_pos = pygame.mouse.get_pos()
         if self.set_rect.collidepoint(mouse_pos):
             self.set_hover = True
-            if mouse_pressed[0]:
-                return "SETTING"
         else:
             self.set_hover = False
 
