@@ -31,6 +31,15 @@ class EventScene(BaseScene ):
             self.options = []
             for key, option in self.week_data["events"]["options"].items():
                 self.options.append((option["text"], key))
+                
+            # 計算按鈕初始位置
+            self.buttons = []
+            for i, (text, key) in enumerate(self.options):
+                button_y = self.note_rect.centery - 30 + i * (self.button_height + self.button_margin)
+                button = (Button(self.note_rect.centerx - 260, button_y,
+                                self.button_width, self.button_height, key + "." + text, self.font_small,
+                                self.BUTTON_COLOR, self.BUTTON_TEXT_COLOR, self.BUTTON_HOVER_COLOR), key)
+                self.buttons.append(button)
 
         self.BUTTON_COLOR = (200, 180, 150)
         self.BUTTON_HOVER_COLOR = (255, 220, 180)
@@ -45,14 +54,7 @@ class EventScene(BaseScene ):
         self.note_target_x = self.note_rect.x
         self.animating_in = True
 
-        # 計算按鈕初始位置
-        self.buttons = []
-        for i, (text, key) in enumerate(self.options):
-            button_y = self.note_rect.centery - 30 + i * (self.button_height + self.button_margin)
-            button = (Button(self.note_rect.centerx - 260, button_y,
-                             self.button_width, self.button_height, key + "." + text, self.font_small,
-                             self.BUTTON_COLOR, self.BUTTON_TEXT_COLOR, self.BUTTON_HOVER_COLOR), key)
-            self.buttons.append(button)
+        
 
     def update(self):
         if self.animating_in:
@@ -85,6 +87,8 @@ class EventScene(BaseScene ):
                     return "finished"
 
     def draw(self):
+        if len(self.week_data["events"]) == 0 :
+            return "finished"
         self.screen.blit(self.background_img, (0, 0))
         # 便條紙滑入
         note_rect_anim = self.note_rect.copy()
