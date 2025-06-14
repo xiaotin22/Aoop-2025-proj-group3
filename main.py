@@ -7,6 +7,7 @@ from UI.event_scene import EventScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
+from UI.set_scene import SetScene
 from UI.sound_control_scene import SoundControlScene
 
 def start_game(screen):
@@ -73,6 +74,16 @@ def game_loop(screen, player):
         scene = MainScene(screen, player)
         player_option = scene.run()
         print(f"玩家選擇的操作為：{player_option!r}")
+
+        if player_option == "SETTING":
+            from UI.set_scene import SetScene
+            set_scene = SetScene(screen)
+            setting_result = set_scene.run()
+            print(f"設定場景回傳：{setting_result}")
+            if setting_result == "BACK":
+                continue  # ✅ 回主畫面
+            else:
+                return False  # 如果不小心點 quit，就結束
 
         if player_option == "Open Character Info":
             attr_scene = AttributeScene(screen, player)
