@@ -69,7 +69,7 @@ class EventScene(BaseScene ):
             self.buttons.append(button)
 
     def update(self):
-
+        self.paste_in_note(final_center=self.note_rect.center)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -94,8 +94,7 @@ class EventScene(BaseScene ):
                         
     def draw(self):
         self.screen.blit(self.background_img, (0, 0))  # 畫背景
-        #slide the note image from the top
-        self.screen.blit(self.note_img, (self.note_rect.x, self.note_rect.y - 50))
+     
         
         lines = self.event_text.splitlines() if self.event_text else []
         self.draw_lines(self.screen, lines, self.font)
@@ -112,6 +111,48 @@ class EventScene(BaseScene ):
             txt_surf = font.render(line, True, color)
             surface.blit(txt_surf, (x, y))
             y += line_height + line_spacing
+            
+def _draw_scaled_note(self, scale, center):
+    self.screen.blit(self.background_img, (0, 0))
+    
+    # 縮放 note
+    new_size = (int(self.note_img.get_width() * scale), int(self.note_img.get_height() * scale))
+    scaled_note = pygame.transform.smoothscale(self.note_img, new_size)
+    note_rect = scaled_note.get_rect(center=center)
+
+    # 畫文字在背景上（可以移除）
+    self.draw_lines(self.screen, self.event_text.splitlines(), self.font)
+
+    # 畫 note
+    self.screen.blit(scaled_note, note_rect)
+
+    pygame.display.update()
+
+def paste_in_note(self, final_center=(600, 400), steps=15):
+    """
+    模擬便條紙從小到大貼上螢幕的動畫，附帶彈一下的縮放效果
+    """
+    clock = pygame.time.Clock()
+
+    # 初始縮放比例
+    start_scale = 0.2
+    overshoot_scale = 1.1  # 貼上時稍微放大一點
+    final_scale = 1.0
+
+    for i in range(steps):
+        progress = i / steps
+        scale = start_scale + (overshoot_scale - start_scale) * progress
+        self._draw_scaled_note(scale, final_center)
+        clock.tick(60)
+
+    # 彈回正常大小
+    for i in range(steps // 2):
+        progress = i / (steps // 2)
+        scale = overshoot_scale - (overshoot_scale - final_scale) * progress
+        self._draw_scaled_note(scale, final_center)
+        clock.tick(60)
+
+
 
 
             

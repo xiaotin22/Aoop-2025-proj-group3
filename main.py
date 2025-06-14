@@ -91,7 +91,7 @@ def game_loop(screen, player):
 
         elif player_option == "Next Story":
             player.week_number += 1
-            story_scene = StoryScene(screen, player.week_number)
+            story_scene = StoryScene(screen, player)
             story_scene.run()
             event_scene = EventScene(screen, player)
             event_scene.run()

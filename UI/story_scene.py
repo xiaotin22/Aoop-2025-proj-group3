@@ -8,7 +8,7 @@ class StoryScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
         self.player = player
-        current_week = player.week_number
+        current_week = self.player.week_number
 
         # 讀取故事
         with open('event/events.json', 'r', encoding='utf-8') as f:
