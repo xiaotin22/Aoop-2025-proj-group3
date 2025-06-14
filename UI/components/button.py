@@ -2,17 +2,19 @@ import pygame
 from UI.components.base_scene import  wrap_text, draw_wrapped_text
 
 class Button:
-    def __init__(self, x, y, width, height, text, font_path,
+    def __init__(self, x, y, width, height, text, font,
                  bg_color=(200, 180, 150), 
                  text_color=(50, 30, 10),
                  hover_color=(255, 220, 180),
+                 border_color = (120, 120, 160),
                  border_radius=8, font_size=36 ):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
-        self.font_path = font_path or pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
+        self.font = font  
         self.bg_color = bg_color
         self.text_color = text_color
         self.hover_color = hover_color
+        self.border_color = border_color
         self.border_radius = border_radius
         self.is_hovered = False
         self.font_size = font_size
@@ -25,11 +27,21 @@ class Button:
             self.hover_sound = None
 
     def draw(self, surface):
+         
+        scaled_rect = pygame.Rect(
+            0,
+            0,
+            int(self.rect.width * 1.1),
+            int(self.rect.height * 1.1),
+        )
+        scaled_rect.center = self.rect.center
         color = self.hover_color if self.is_hovered else self.bg_color
         
         pygame.draw.rect(surface, color, self.rect, border_radius=self.border_radius)
+        if self.border_color != None :
+            pygame.draw.rect(surface, self.border_color, self.rect, 3, border_radius=self.border_radius)
         
-        draw_wrapped_text(surface, self.text, self.font_path, self.rect)
+        draw_wrapped_text(surface, self.text, self.font, self.rect)
         
 
     def handle_event(self, event):

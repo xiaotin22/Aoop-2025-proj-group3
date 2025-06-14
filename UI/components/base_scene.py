@@ -48,9 +48,8 @@ class BaseScene:
                 frames.append(img)
         return frames
     
-def wrap_text(text, font_path, max_width, font_size=36):
+def wrap_text(text, font, max_width):
     
-    font = pygame.font.Font(font_path, font_size)  # 假設字體大小為36
     lines = []
     paragraphs = text.split('\n')  # 支援多段落
 
@@ -67,19 +66,20 @@ def wrap_text(text, font_path, max_width, font_size=36):
         if current_line:
             lines.append(current_line)
 
-    return lines, font
+    return lines
 
-def draw_wrapped_text(surface, text, font_path, rect, font_size=36, text_color=(0,0,0)):
+def draw_wrapped_text(surface, text, font, rect , text_color=(0,0,0)):
     
-    lines, font = wrap_text(text, font_path, rect.width, font_size)
+    lines = wrap_text(text, font, rect.width-20)
 
-    line_height = font.get_height() + 5
+    line_height = font.get_height() 
     total_height = line_height * len(lines)
-    start_y = rect.top + (rect.height - total_height) // 2
+    start_y =  rect.top + (rect.height - total_height) // 2
 
     for i, line in enumerate(lines):
         txt_surf = font.render(line, True, text_color)
         txt_rect = txt_surf.get_rect()
-        txt_rect.left = rect.left + 10
+        txt_rect.left = rect.left + 20
         txt_rect.top = start_y + i * line_height
         surface.blit(txt_surf, txt_rect)
+    

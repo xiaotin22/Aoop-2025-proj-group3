@@ -3,6 +3,7 @@ from UI.character_select import CharacterSelectScene
 from UI.start_scene import StartScene
 from UI.intro_scene import IntroScene
 from UI.story_scene import StoryScene
+from UI.event_scene import EventScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
@@ -85,7 +86,7 @@ def game_loop(screen, player):
         elif player_option == "Open Event":
             event_scene = EventScene(screen, player)
             event_scene.run()
-            return game_loop(screen, player)
+        
         
         elif player_option == "Quit":
             print("遊戲結束")
