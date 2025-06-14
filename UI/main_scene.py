@@ -16,7 +16,10 @@ class MainScene(BaseScene):
         font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
-            180, 60, "下一週", font, (200, 200, 250), (50, 50, 50), (180, 180, 180))
+
+            180, 60," 下一週", font, (200, 200, 250),(50, 50, 50) ,(180, 180, 180))
+
+        
 
         excl_img = pygame.image.load("resource/image/event_icon.PNG").convert_alpha()
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
@@ -28,10 +31,25 @@ class MainScene(BaseScene):
         if player.name == "Bubu":
             self.animator.frame_delay = 10  # 控制動畫速度
 
+
+        self.stats_font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+        self.bar_width = 150
+        self.bar_height = 20
+        self.bar_gap = 10
+        self.bar_colors = {
+            "intelligence": (135, 206, 250),  # 淺藍
+            "mood":         (255, 182, 193),  # 粉紅
+            "energy":       (144, 238, 144),  # 淺綠
+            "social":       (255, 165, 0),    # 橘色
+            "knowledge":    (160, 32, 240)    # 紫色
+        }
+
+
         self.set_icon = pygame.image.load("resource/image/set.png").convert_alpha()
         self.set_icon = pygame.transform.smoothscale(self.set_icon, (80, 80))
         self.set_rect = self.set_icon.get_rect(topleft=(20, 20))
         self.set_hover = False
+
 
     def update(self):
         self.animator.update()
@@ -65,10 +83,71 @@ class MainScene(BaseScene):
         else:
             self.is_hover = False
 
+
+
+    def draw_player_stats(self):
+
+        stats_bg = pygame.Surface((480, 250), pygame.SRCALPHA)
+        stats_bg.fill((255, 255, 255, 180))  # 180 可調整透明度，0~255
+
+        # 貼到主畫面
+        self.screen.blit(stats_bg, (20, 50))
+
+        # 畫邊框
+        pygame.draw.rect(self.screen, (100, 100, 100), (20, 50, 480, 250), 2)
+
+        stats = {
+            "intelligence": self.player.intelligence,
+            "mood": self.player.mood,
+            "energy": self.player.energy,
+            "social": self.player.social,
+            "knowledge": self.player.knowledge
+        }
+
+        font = self.stats_font
+        x_left = 30
+        x_right = x_left + self.bar_width + 80
+        y_start = 180
+        bar_height = self.bar_height
+        bar_width = self.bar_width
+        gap_y = self.bar_gap
+        label_offset = -5  # 調整文字與條的對齊
+
+        # 第一排：intelligence / mood
+        for i, key in enumerate(["intelligence", "mood"]):
+            x = x_left if i == 0 else x_right
+            y = y_start
+            fill = max(0, min(1, stats[key] / 100))
+            pygame.draw.rect(self.screen, (200, 200, 200), (x + 65, y, bar_width, bar_height), 2)
+            pygame.draw.rect(self.screen, self.bar_colors[key], (x + 65, y, int(bar_width * fill), bar_height))
+            label = font.render(f"智力 {self.player.intelligence}" if key == "intelligence" else f"心情 {self.player.mood}", True, (0, 0, 0))
+            self.screen.blit(label, (x, y + label_offset))
+
+        # 第二排：energy / social
+        for i, key in enumerate(["energy", "social"]):
+            x = x_left if i == 0 else x_right
+            y = y_start + bar_height + gap_y +10
+            fill = max(0, min(1, stats[key] / 100))
+            pygame.draw.rect(self.screen, (200, 200, 200), (x + 65, y, bar_width, bar_height), 2)
+            pygame.draw.rect(self.screen, self.bar_colors[key], (x + 65, y, int(bar_width * fill), bar_height))
+            label = font.render(f"體力 {self.player.energy}" if key == "energy" else f"社交 {self.player.social}", True, (0, 0, 0))
+            self.screen.blit(label, (x, y + label_offset))
+        
+        # 第三排：knowledge（橫跨兩個 bar）
+        y = y_start + 2 * (bar_height + gap_y) + 20
+        x = x_left
+        total_width = (x_right - x_left) + 130 + bar_width  # 橫跨兩欄
+        fill = max(0, min(1, stats["knowledge"] / 100))
+        pygame.draw.rect(self.screen, (200, 200, 200), (x + 65, y, total_width - 130, bar_height), 2)
+        pygame.draw.rect(self.screen, self.bar_colors["knowledge"], (x + 130, y, int((total_width - 130) * fill), bar_height))
+        label = font.render(f"知識 {self.player.knowledge:.0f}/100", True, (0, 0, 0))
+        self.screen.blit(label, (x, y + label_offset))
+        
     def draw(self):
         self.screen.blit(self.background, (0, 0))
         self.animator.draw(self.screen)
         self.next_week_button.draw(self.screen)
+        self.draw_player_stats()
 
 
         if self.set_hover:

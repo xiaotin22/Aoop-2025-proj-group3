@@ -47,7 +47,7 @@ class StoryScene(BaseScene):
   
 
     def update(self):
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
