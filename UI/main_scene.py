@@ -97,10 +97,24 @@ class MainScene(BaseScene):
                     return "Next Story"
 
             result = self.update()
-            if result is not None:
-                return result
+
+            # ✅ 設定頁跳轉處理
+            if result == "SETTING":
+                from UI.set_scene import SetScene
+                setting_scene = SetScene(self.screen)
+                setting_result = setting_scene.run()
+
+                print(f"設定場景回傳：{setting_result}")
+                if setting_result == "BACK":
+                    continue  # 回到 MainScene 主畫面
+                else:
+                    return setting_result  # 如果是其他設定功能可擴充這邊
+
+            elif result is not None:
+                return result  # 處理其他場景切換
 
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
+
         return None
