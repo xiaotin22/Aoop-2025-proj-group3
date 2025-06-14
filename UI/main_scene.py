@@ -57,6 +57,7 @@ class MainScene(BaseScene):
         mouse_pos = pygame.mouse.get_pos()
         mouse_pressed = pygame.mouse.get_pressed()
 
+        # ✅ 處理 set.png 的 hover 動畫
         if self.set_rect.collidepoint(mouse_pos):
             self.set_hover = True
         else:
