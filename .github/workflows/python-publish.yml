@@ -30,6 +30,8 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages   # ✅ 新增這一段
     steps:
       - name: 📦 Checkout Repository
         uses: actions/checkout@v4
