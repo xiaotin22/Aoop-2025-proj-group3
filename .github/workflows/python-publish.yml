@@ -5,14 +5,17 @@ on:
     branches: [ "main" ]
     paths-ignore:
       - 'README.md'
-      - 'LICENSE'
       - '**/*.md'
-      - 'docs/**'
+      - 'resource/**'
+      - 'simulations_plot/**'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
       - 'README.md'
       - 'game_setting/**'
+      - 'resource/**'
+      - 'simulations_plot/**'
+      
 
 permissions:
   contents: read
