@@ -129,10 +129,10 @@
       {
         "description": "期中考終於結束了\n你打算 . . .",
         "options": {
-          "A": { "text": "我要去大花一筆錢好好犒勞一下自己", "attribute": "rest" },
+          "A": { "text": "我要去大花一筆錢好好犒勞一下自己", "attribute": "play_game" },
           "B": { "text": "嗚嗚嗚有點考的爆，開始準備下一次的考試...", "attribute": "study" },
           "C": { "text": "跟朋友揪出去大玩特玩", "attribute": "social" },
-          "D": { "text": "每天睡到死，不睡到12點對不起自己的努力", "attribute": "play_game" }
+          "D": { "text": "每天睡到死，不睡到12點對不起自己的努力", "attribute": "rest" }
         }
       }
     
@@ -161,8 +161,8 @@
         "options": {
           "A": { "text": "什麼？！我這個萬年哥布林也有機會脫單嗎，當然答應", "attribute": "social" },
           "B": { "text": "我是矜持的貓貓/熊熊，休想把我騙出洞", "attribute": "rest" },
-          "C": { "text": "嗯嗯？他怎麼也上船了，不會是個海王吧", "attribute": "play_game" },
-          "D": { "text": "我就知道他也喜歡我，終於ㄍㄧㄥ不住告白了吧", "attribute": "study" }
+          "C": { "text": "嗯嗯？他怎麼也上船了，不會是個海王吧，再釣一下", "attribute": "play_game" },
+          "D": { "text": "我就知道他也喜歡我，終於ㄍㄧㄥ不住告白了吧", "attribute": "play_game" }
         }
       }
     
@@ -174,7 +174,7 @@
       {
         "description": "運動會你打算參加什麼項目？",
         "options": {
-          "A": { "text": "隨便選個水水的項目，為了體育課加分", "attribute": "study" },
+          "A": { "text": "隨便選個水水的項目，為了體育課加分", "attribute": "play_game" },
           "B": { "text": "外面太陽好大，躲在宿舍吹冷氣不香嗎？", "attribute": "rest" },
           "C": { "text": "難得有機會給我秀一波啦哈哈，我要去炸魚", "attribute": "play_game" },
           "D": { "text": "想報個趣味競賽有點參與感就好，順便去蹭一下點心", "attribute": "social" }
@@ -222,7 +222,7 @@
           "A": { "text": "讀到倦怠了，只想要躺平就好", "attribute": "rest" },
           "B": { "text": "嗚嗚狂讀猛讀，熬大夜只想要考高", "attribute": "study" },
           "C": { "text": "期中考已經破台了，還讀個毛線", "attribute": "play_game" },
-          "D": { "text": "考試不就是用來檢測自己有沒有懂嗎，怎麼可以讀書", "attribute": "social" }
+          "D": { "text": "考試不就是用來檢測自己有沒有懂嗎，怎麼可以讀書", "attribute": "rest" }
         }
       }
     

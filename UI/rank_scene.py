@@ -91,8 +91,19 @@ class RankScene(BaseScene):
 
         if self.transitioning:
             img_next = self.images[self.next_page]
-            rect_next = img_next.get_rect(center=(self.SCREEN_WIDTH // 2 - 150, self.SCREEN_HEIGHT // 2 + img_next.get_height() - self.slide_offset))
+            if self.transition_direction == 1:
+                # 向下滑
+                rect_next = img_next.get_rect(center=(self.SCREEN_WIDTH // 2 - 150, self.SCREEN_HEIGHT // 2 + img_next.get_height() - self.slide_offset))
+                rect_current = img_current.get_rect(center=(self.SCREEN_WIDTH // 2 - 150, self.SCREEN_HEIGHT // 2 - self.slide_offset))
+            else:
+                # 向上滑
+                rect_next = img_next.get_rect(center=(self.SCREEN_WIDTH // 2 - 150, self.SCREEN_HEIGHT // 2 - img_next.get_height() + self.slide_offset))
+                rect_current = img_current.get_rect(center=(self.SCREEN_WIDTH // 2 - 150, self.SCREEN_HEIGHT // 2 + self.slide_offset))
+            screen.blit(img_current, rect_current)
             screen.blit(img_next, rect_next)
+        else:
+            rect_current = img_current.get_rect(center=(self.SCREEN_WIDTH // 2 - 150, self.SCREEN_HEIGHT // 2))
+            screen.blit(img_current, rect_current)
 
         hint = self.font_desc.render("按 ↓ 顯示下一頁, Esc 退出", True, (230, 230, 230))
         screen.blit(hint, (self.SCREEN_WIDTH - 500, self.SCREEN_HEIGHT - 60))
@@ -105,7 +116,9 @@ class RankScene(BaseScene):
             if event.key == pygame.K_ESCAPE:
                 self.running = False
             elif event.key == pygame.K_DOWN and not self.transitioning:
-                self.start_transition()
+                self.start_transition(direction=1)
+            elif event.key == pygame.K_UP and not self.transitioning:
+                self.start_transition(direction=-1)
 
     def run(self):
         while self.running:
