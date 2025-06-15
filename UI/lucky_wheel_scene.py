@@ -28,7 +28,7 @@ class LuckyWheelScene(BaseScene):
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
-
+        self.has_spinned = False
         self.button_radius = 80
         self.result_text = None
         self.glow_phase = 0
@@ -39,9 +39,10 @@ class LuckyWheelScene(BaseScene):
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             dx = event.pos[0] - self.center[0]
             dy = event.pos[1] - self.center[1]
-            if dx * dx + dy * dy <= self.button_radius * self.button_radius and not self.is_spinning:
+            if dx * dx + dy * dy <= self.button_radius * self.button_radius and not self.is_spinning and not self.has_spinned:
                 self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
                 self.start_spin()
+                self.has_spinned = True
                 
         
 
