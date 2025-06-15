@@ -14,27 +14,23 @@ from UI.components.base_scene import BaseScene
 
 '''
 
-
 class LuckyWheelScene(BaseScene):
     def __init__(self, screen, options):
         super().__init__(screen)
-        self.options = options
-        self.wheel_radius = 300
         self.options = options
         self.wheel_radius = 300
         self.center = (self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2)
         self.angle = 0
         self.spin_speed = 0
         self.is_spinning = False
-        self.has_spinned = False
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)        
+        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
         self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
+        self.has_spinned = False
         self.button_radius = 80
         self.result_text = None
-        self.glow_phase = 0
         self.glow_phase = 0
 
     def handle_event(self, event):
@@ -45,7 +41,6 @@ class LuckyWheelScene(BaseScene):
             dy = event.pos[1] - self.center[1]
             if dx * dx + dy * dy <= self.button_radius * self.button_radius and not self.is_spinning and not self.has_spinned:
                 self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
-                self.has_spined = True
                 self.start_spin()
                 self.has_spinned = True
                 
@@ -53,7 +48,7 @@ class LuckyWheelScene(BaseScene):
 
     def start_spin(self):
         self.is_spinning = True
-        self.spin_speed = random.uniform(40, 50)
+        self.spin_speed = random.uniform(25, 30)
         self.target_angle = None
         self.result_text = None
         self.audio.play_sound("resource/music/sound_effect/luckywheel.mp3")
@@ -62,7 +57,7 @@ class LuckyWheelScene(BaseScene):
         if self.is_spinning:
             self.angle += self.spin_speed
             
-            self.spin_speed *= 0.86
+            self.spin_speed *= 0.98
             if self.spin_speed < 0.5:
                 self.spin_speed = 0
                 self.is_spinning = False
@@ -72,7 +67,6 @@ class LuckyWheelScene(BaseScene):
     def calculate_result(self):
         n = len(self.options)
         degrees_per_segment = 360 / n
-        segment_angle = [((i+0.5) * degrees_per_segment+self.angle) for i in range(n)]
         start_angle = [((i+1) * degrees_per_segment+self.angle) for i in range(n)]
         end_angle = [(i * degrees_per_segment+self.angle) for i in range(n)]
         for i in range(n):
@@ -81,33 +75,22 @@ class LuckyWheelScene(BaseScene):
             if end_angle[i] - start_angle[i] > degrees_per_segment+5:
                 index = i
         self.result_text = self.options[index]
-        
+
     def draw(self):
+        
         self.screen.fill((255, 255, 255))
         self.screen.blit(self.background, (0, 0))
+
         n = len(self.options)
         degrees_per_segment = 360 / n
 
-        # Glow effect with feather (羽化) using alpha gradient
-        feather_width = 60  # 羽化寬度
-        glow_radius = self.wheel_radius+  feather_width
-        glow_surface = pygame.Surface((glow_radius * 2, glow_radius * 2), pygame.SRCALPHA)
-        center = glow_radius
+        # Glow effect
+        glow_color = (255, 255, 100, int(128 + 127 * math.sin(self.glow_phase)))
+        glow_surface = pygame.Surface((self.SCREEN_WIDTH, self.SCREEN_HEIGHT), pygame.SRCALPHA)
+        pygame.draw.circle(glow_surface, glow_color, self.center, self.wheel_radius + 10)
+        self.screen.blit(glow_surface, (0, 0))
 
-        for y in range(glow_radius * 2):
-            for x in range(glow_radius * 2):
-                dx = x - center
-                dy = y - center
-                dist = math.hypot(dx, dy)
-                if self.wheel_radius + 10 < dist < glow_radius:
-                    # alpha 隨距離遞減
-                    alpha = int(120 * (1 - (dist - (self.wheel_radius + 10)) / feather_width))
-                    if alpha > 0:
-                        glow_surface.set_at((x, y), (255, 255, 186, alpha))  # 馬卡龍淡米黃
-
-        self.screen.blit(glow_surface, (self.center[0] - glow_radius, self.center[1] - glow_radius))
-
-        # 馬卡龍色系
+         # 馬卡龍色系
         pastel_colors = [
             (255, 179, 186),  # 粉紅
             (255, 223, 186),  # 淡橙
@@ -119,18 +102,6 @@ class LuckyWheelScene(BaseScene):
             (255, 246, 196),  # 淡米
         ]
 
-
-        # 馬卡龍色系
-        pastel_colors = [
-            (255, 179, 186),  # 粉紅
-            (255, 223, 186),  # 淡橙
-            (255, 255, 186),  # 淡黃
-            (186, 255, 201),  # 淡綠
-            (186, 225, 255),  # 淡藍
-            (218, 198, 255),  # 淡紫
-            (255, 198, 255),  # 淡粉紫
-            (255, 246, 196),  # 淡米
-        ]
 
         for i in range(n):
             start_angle_deg = self.angle + i * degrees_per_segment-90
@@ -159,7 +130,6 @@ class LuckyWheelScene(BaseScene):
             for j, line in enumerate(lines):
                 text_surface = self.font_desc.render(line, True, (0, 0, 0))
                 text_rect = text_surface.get_rect(center=(tx, ty + j * 30))
-                text_rect = text_surface.get_rect(center=(tx, ty + j * 30))
                 self.screen.blit(text_surface, text_rect)
 
         # Draw wheel outline
@@ -183,14 +153,11 @@ class LuckyWheelScene(BaseScene):
         self.screen.blit(pointer_surface, (0, 0))
 
 
-
         if self.result_text:
             tip = self.font.render("（點擊以結束）", True, (150, 150, 150))
             self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, 730))
             
-            
             result_lines = ["抽中"] + self.result_text.splitlines()
-            # 顯示在畫面右下方
             # 顯示在畫面右下方
             base_x = 950
             base_y = 600
@@ -198,7 +165,6 @@ class LuckyWheelScene(BaseScene):
                 result_surface = self.font_desc.render(line, True, (0, 0, 0))
                 result_rect = result_surface.get_rect(center=(base_x, base_y + j * 32))
                 self.screen.blit(result_surface, result_rect)
-                
                 
         
        
@@ -209,7 +175,6 @@ class LuckyWheelScene(BaseScene):
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
                     self.running = False
                 else:
                     self.handle_event(event)
