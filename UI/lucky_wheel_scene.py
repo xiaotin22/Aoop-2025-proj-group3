@@ -45,6 +45,7 @@ class LuckyWheelScene(BaseScene):
             dy = event.pos[1] - self.center[1]
             if dx * dx + dy * dy <= self.button_radius * self.button_radius and not self.is_spinning and not self.has_spinned:
                 self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
+                #self.has_spined = True
                 self.start_spin()
                 self.has_spinned = True
                 
@@ -71,15 +72,18 @@ class LuckyWheelScene(BaseScene):
     def calculate_result(self):
         n = len(self.options)
         degrees_per_segment = 360 / n
-        start_angle = [((i+0.5) * degrees_per_segment+self.angle+36) for i in range(n)]
-        end_angle = [((i+0.5) * degrees_per_segment+self.angle-36) for i in range(n)]
+        segment_angle = [((i+0.5) * degrees_per_segment+self.angle) for i in range(n)]
+        start_angle = [((i+1) * degrees_per_segment+self.angle) for i in range(n)]
+        end_angle = [(i * degrees_per_segment+self.angle) for i in range(n)]
         for i in range(n):
-            start_angle[i] = end_angle[i] % 360
-            start_angle[i] = end_angle[i] % 360
+            start_angle[i] = start_angle[i] % 360
+            end_angle[i] = end_angle[i] % 360
             if end_angle[i] - start_angle[i] > degrees_per_segment+5:
                 index = i
         self.result_text = self.options[index]
-   
+        print("angle:", self.angle, "index:", index, "result:", self.result_text)
+        print("segment_angle:", segment_angle[index])
+        print("head_angle:", start_angle[index], "tail_angle:", end_angle[index])
     def draw(self):
         self.screen.fill((255, 255, 255))
         self.screen.blit(self.background, (0, 0))
