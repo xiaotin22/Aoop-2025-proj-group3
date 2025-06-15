@@ -51,7 +51,7 @@ class Character:
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
             max(0, self.energy + self.last_week_change[1]),\
-            max(0, self.social + self.last_week_change[2]),\
+            min(100, self.social + self.last_week_change[2]),\
             min(100, self.knowledge + self.last_week_change[3]) 
 
         #print(f"{self.name} 正在社交中 🤝🎉 社交能力提升了 {growth:.2f} 點！現在是 {self.social}/100")
@@ -68,8 +68,8 @@ class Character:
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
             max(0, self.energy + self.last_week_change[1]),\
-            max(0, self.social + self.last_week_change[2]),\
-            max(0, self.knowledge + self.last_week_change[3])
+            min(100, self.social + self.last_week_change[2]),\
+            min(100, self.knowledge + self.last_week_change[3])
         #print(f"{self.name} 正在玩遊戲 🎮😄 心情提升了 {growth:.2f} 點！現在是 {self.mood}/100")
 
     def rest(self, degree):
@@ -79,13 +79,13 @@ class Character:
             (self.intelligence - 50) * 0.2 -
             (self.social - 30) * 0.01
         )
-        self.last_week_change = [int(growth*0.6), growth, 0, 3+int(round(-growth * 0.1))]
+        self.last_week_change = [int(growth*0.6), growth, 1, 3+int(round(-growth * 0.1))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change]
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
             min(100, self.energy + self.last_week_change[1]),\
             max(0, self.social + self.last_week_change[2]),\
-            max(0, self.knowledge + self.last_week_change[3])
+            min(100, self.knowledge + self.last_week_change[3])
         #print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
 
     def calculate_grade(self):
