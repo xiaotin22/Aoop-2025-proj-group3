@@ -2,17 +2,20 @@ import pygame
 from UI.components.character_animator import CharacterAnimator
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
+from simulation import Simulation
 
 class RankScene(BaseScene):
-    def __init__(self, screen):
+    def __init__(self, screen, player):
         super().__init__(screen)
         self.audio = AudioManager.get_instance()
-
+        self.player = player
         # 背景
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
 
+        self.simulation = Simulation()
+        self.simulation.run_and_plot_all_with_player(player)
         self.overlay_surface = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
         self.overlay_alpha = 0 
 
@@ -20,8 +23,10 @@ class RankScene(BaseScene):
         self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
 
         # 動畫角色
-        self.animator = CharacterAnimator("resource/gif/mitao_rest_frames", (900, 30), (240, 220))
+        self.animator = CharacterAnimator(self.player.ending, (900, 30), (240, 220))
         self.animator.frame_delay = 5
+
+
 
         # 圖片載入與縮放
         self.image_paths = [

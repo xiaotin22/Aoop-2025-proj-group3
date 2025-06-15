@@ -167,6 +167,7 @@ class StoryScene(BaseScene):
             lucky_scene = LuckyWheelScene(self.screen, options)
             result = lucky_scene.run()
             self.player.lucky_prof = result
+            
                     
             
         

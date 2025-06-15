@@ -1,5 +1,5 @@
 # simulation.py
-from character import Bubu, Yier, Mitao, Huihui
+from character import Bubu, Yier, Mitao, Huihui,Character
 import random, statistics, math
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -243,6 +243,13 @@ class Simulation:
         self.plot_total()
         self.plot_gpa(highlight=personal_gpa)
         #print(f"完成！所有圖檔位於 {self.out_dir.resolve()}")
+
+    def run_and_plot_all_with_player(self, player) -> None:
+        self.run()
+        self.plot_midterm_final(highlight_mid=player.midterm, highlight_final=player.final)
+        self.plot_total(highlight=player.total_score)
+        self.plot_gpa(highlight=player.GPA)
+        
 
     def export_gpa_csv(
         self,

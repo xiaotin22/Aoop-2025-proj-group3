@@ -1,12 +1,12 @@
 import pygame
 from UI.components.base_scene import BaseScene
+from UI.main_scene import MainScene
 from UI.components.character_animator import CharacterAnimator
-from simulation import Simulation
 from UI.components.audio_manager import AudioManager
 
-class EndScene(BaseScene):
+class EndScene(MainScene):
     def __init__(self, screen, player):
-        super().__init__(screen)
+        super().__init__(screen, player)
         self.background = pygame.image.load(
             "resource/image/background_intro.png"
         ).convert_alpha()
@@ -14,10 +14,10 @@ class EndScene(BaseScene):
             self.background, self.screen.get_size()
         )
         self.background.set_alpha(100)
-
+        
         self.player = player
         self.title_font = pygame.font.Font(
-            "resource/font/JasonHandwriting3-SemiBold.ttf", 72
+            "resource/font/JasonHandwriting3-SemiBold.ttf", 54
         )
         self.subtitle_font = pygame.font.Font(
             "resource/font/JasonHandwriting3-Regular.ttf", 48
@@ -59,9 +59,8 @@ class EndScene(BaseScene):
             )
 
         # ---------- 裝飾動畫 ----------
-        self.animator1 = CharacterAnimator("resource/gif/four_char_frames", (850, 400),(300, 300)) 
         self.animator2 = CharacterAnimator(self.player.ending, (50, 400), (300, 300))
-        self.animator1.frame_delay = 3
+        
         self.animator2.frame_delay = 3
         # ---------- 其他 ----------
         self.selected_result = None
@@ -71,7 +70,7 @@ class EndScene(BaseScene):
     # -------------------------------------------------------------
     def update(self):
         self.clock.tick(self.FPS)
-        self.animator1.update()
+        
         self.animator2.update()
         mouse_pos = pygame.mouse.get_pos()
 
@@ -180,21 +179,27 @@ class EndScene(BaseScene):
         self.screen.blit(self.background, (0, 0))
         self.draw_player_stats()
         # 裝飾動畫
-        self.animator1.draw(self.screen)
         self.animator2.draw(self.screen)
 
         # 標題
         title_surf = self.title_font.render(
-            f"Congratulation!! Your Final GPA = {self.player.GPA}", True, (50, 50, 50)
+            f"Congratulation!!", True, (50, 50, 50)
         )
-        title_rect = title_surf.get_rect(center=(self.SCREEN_WIDTH // 2 + 150, 150))
+        title_rect = title_surf.get_rect(center=(self.SCREEN_WIDTH // 2 + 200, 150))
         self.screen.blit(title_surf, title_rect)
+
+        # 印出玩家的GPA
+        gpa_surf = self.subtitle_font.render(
+            f"{self.player.name}'s Final GPA：{self.player.GPA:.2f}", True, (50, 50, 50)
+        )
+        gpa_rect = gpa_surf.get_rect(center=(self.SCREEN_WIDTH // 2 + 200, 200))
+        self.screen.blit(gpa_surf, gpa_rect)
 
         # 副標題
         subtitle_surf = self.subtitle_font.render(
             f"期中考：{self.player.midterm}, 期末考：{self.player.final}", True, (50, 50, 50)
         )
-        subtitle_rect = subtitle_surf.get_rect(center=(self.SCREEN_WIDTH // 2 + 150 , 200))
+        subtitle_rect = subtitle_surf.get_rect(center=(self.SCREEN_WIDTH // 2 + 200 , 250))
         self.screen.blit(subtitle_surf, subtitle_rect)
 
 

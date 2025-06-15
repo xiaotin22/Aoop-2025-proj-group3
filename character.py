@@ -200,6 +200,8 @@ class Huihui(Character):
         self.testing = "resource/gif/huihui_running_frames"
         self.ending = "resource/gif/huihui_flower_frames"
 
+        self.week_number = 7
+
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
         if self.mood > 85:
