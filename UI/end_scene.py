@@ -246,6 +246,10 @@ class EndScene(MainScene):
     # 主循環
     # -------------------------------------------------------------
     def run(self):
+        if self.audio.is_sound_playing("resource/music/sound_effect/cheer_cheer.mp3"):
+            self.audio.stop_sound("resource/music/sound_effect/cheer_cheer.mp3")
+        self.audio.play_sound("resource/music/sound_effect/cheer_cheer.mp3")
+                       
         while self.running:
             result = self.update()
             if result is not None:
