@@ -45,7 +45,7 @@ class Character:
             (self.mood - 50) * 0.03 +
             (self.energy) * 0.01
         )
-        self.last_week_change = [growth, -15, 0, 3+int(round(growth * self.social * 0.01))]
+        self.last_week_change = [ 3, -15, growth, 3+int(round(growth * self.social * 0.01))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
@@ -139,7 +139,6 @@ class Bubu(Character):
         self.taketest = "resource/gif/bubu_no_study_frames"
         self.ending = "resource/gif/bubu_playgame_frames"
 
-        self.week_number = 2
 
         self.sad = "resource/gif/bubu_crying_frames"
         self.playgame = "resource/gif/bubu_playgame_frames"
