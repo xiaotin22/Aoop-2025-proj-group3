@@ -86,9 +86,7 @@ def game_loop(screen, player):
             else:
                 return False  # 如果不小心點 quit，就結束
 
-        if player_option == "Open Diary":
-            attr_scene = DairyScene(screen, player)
-            attr_scene.run()
+        
 
         elif player_option == "Next Story":
             player.week_number += 1
@@ -97,7 +95,11 @@ def game_loop(screen, player):
             event_scene = EventScene(screen, player)
             event_scene.run()
         
-        
+            
+        #if player_option == "Open Diary":
+        #  attr_scene = DairyScene(screen, player)
+        #  attr_scene.run()
+            
         elif player_option == "Quit":
             print("遊戲結束")
             return False

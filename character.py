@@ -205,6 +205,8 @@ class Mitao(Character):
         self.chname = "蜜桃"
         self.header =  setting.ImagePath.MITAO_HEAD_PATH
 
+        
+
         self.intro = setting.GIF_PATHS['MITAO_INTRO_FRAMES']
         self.storytyping = setting.GIF_PATHS['MITAO_REST_FRAMES']
         self.testing = setting.GIF_PATHS['MITAO_TESTING_FRAMES']

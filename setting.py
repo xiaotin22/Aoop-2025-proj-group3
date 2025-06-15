@@ -68,7 +68,7 @@ SIMULATION_PLOTS_DIR = os.path.join(BASE_DIR, 'simulations_plot')
 
 # Result 
 GPA_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'gpa_highlight.png')
-TOTAL_SCORE_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'total_score_highlight.png')
+TOTAL_SCORE_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'total_highlight.png')
 # Midterm & Final
 MIDTERM_FINAL_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'midterm_final_highlight.png')
 

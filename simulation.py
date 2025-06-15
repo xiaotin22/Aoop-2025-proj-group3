@@ -19,7 +19,7 @@ class Simulation:
     out_dir   : 圖檔輸出資料夾
     """
     def __init__(self, n_players: int = 300, n_actions: int = 16,
-                 actions=None, characters=None, out_dir: str = setting.SIMULATION_PLOT_DIR) -> None:
+                 actions=None, characters=None, out_dir: str = setting.SIMULATION_PLOTS_DIR) -> None:
         self.n_players = n_players
         self.n_actions = n_actions
         self.actions = actions or ["study", "rest", "play_game", "socialize"]
@@ -264,7 +264,7 @@ class Simulation:
         - Top%  ：你若擁有此分數，位於全班前幾 %
                     = (前面已累計人數 / 總人數) × 100
         """
-        path = os.path.join(self.out_dir, filename)
+        path = Path(self.out_dir, filename)
         counts   = Counter(self.gpa)            # GPA → 人數
         gpa_desc = sorted(counts, reverse=True) # 由高到低
         total    = len(self.gpa)
