@@ -149,7 +149,7 @@ class StoryScene(BaseScene):
         
         if self.player.week_number == 3:
             options = ["超可愛學姐\n帥潮學長", "看起來是系邊\n有點宅宅的學長", "超搞笑的系核\n第一次見面\n就表演倒立走路", "卷哥卷姐", "被放生了"]
-            lucky_scene = LuckyWheelScene(self.screen)
+            lucky_scene = LuckyWheelScene(self.screen, options)
             result = lucky_scene.run()
             self.player.home =  result
 

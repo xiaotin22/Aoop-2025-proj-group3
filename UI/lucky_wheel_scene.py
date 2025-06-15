@@ -4,32 +4,38 @@ import random
 from UI.components.base_scene import BaseScene
 
 
+'''Example usage:
+    
+    options1 = ["超可愛學姐\n帥潮學長", "看起來是系邊\n有點宅宅的學長", "超搞笑的系核\n第一次見面\n就表演倒立走路", "卷哥卷姐", "被放生了"]
+
+    wheel = LuckyWheelScene(screen, options1)
+    result = wheel.run()
+    print(f"轉盤結果: {result}")
+
+'''
+
 class LuckyWheelScene(BaseScene):
-    def __init__(self, screen):
+    def __init__(self, screen, options):
         super().__init__(screen)
+        self.options = options
+        self.wheel_radius = 300
         self.center = (self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2)
         self.angle = 0
         self.spin_speed = 0
-        self.wheel_radius = 300
         self.is_spinning = False
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
+        
+        
+
+        
         self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
+
         self.button_radius = 80
         self.result_text = None
-        self.options = [
-            "帥潮學長\n超可愛學姐",
-            "有點宅宅的學長\n看起來是系邊",
-            "的超搞笑系核\n就表演倒立走路\n第一次見面",
-            "卷哥卷姐",
-            "被放生了"
-        ]
-
-        # 新增：載入輪盤圖片
-        self.wheel_img = pygame.image.load("resource/image/luckywheel/5.png").convert_alpha()
-        self.wheel_img = pygame.transform.smoothscale(self.wheel_img, (self.wheel_radius*2.5, self.wheel_radius*2.5))
+        self.glow_phase = 0
 
     def handle_event(self, event):
         if event.type == pygame.QUIT:
@@ -64,44 +70,56 @@ class LuckyWheelScene(BaseScene):
     def calculate_result(self):
         n = len(self.options)
         degrees_per_segment = 360 / n
-        segment_angle =  [((i+0.5) * degrees_per_segment+self.angle) for i in range(n)]
-        head_angle = [((i+0.5) * degrees_per_segment+self.angle+36) for i in range(n)]
-        tail_angle = [((i+0.5) * degrees_per_segment+self.angle-36) for i in range(n)]
-        for i in range(n):
-            head_angle[i] = head_angle[i] % 360
-            tail_angle[i] = tail_angle[i] % 360
-            if tail_angle[i] - head_angle[i] > degrees_per_segment+5:
-                index = i
-        self.result_text = self.options[index]
-        print("angle:", self.angle, "index:", index, "result:", self.result_text)
-        print("segment_angle:", segment_angle[index])
-        print("head_angle:", head_angle[index], "tail_angle:", tail_angle[index])
+        # 讓指針正好指向每個扇區的中心
+        corrected_angle = (360 - self.angle % 360) % 360
+        index = int((corrected_angle + degrees_per_segment / 2) // degrees_per_segment) % n
+        self.result_text = self.options[index-1]
 
     def draw(self):
+        
         self.screen.fill((255, 255, 255))
         self.screen.blit(self.background, (0, 0))
 
-
-        # 畫輪盤圖片（旋轉）
-        rotated_img = pygame.transform.rotozoom(self.wheel_img, -self.angle, 1)
-        rect = rotated_img.get_rect(center=self.center)
-        self.screen.blit(rotated_img, rect)
-
-        # 畫選項文字
         n = len(self.options)
+        degrees_per_segment = 360 / n
+
+        # Glow effect
+        glow_color = (255, 255, 100, int(128 + 127 * math.sin(self.glow_phase)))
+        glow_surface = pygame.Surface((self.SCREEN_WIDTH, self.SCREEN_HEIGHT), pygame.SRCALPHA)
+        pygame.draw.circle(glow_surface, glow_color, self.center, self.wheel_radius + 10)
+        self.screen.blit(glow_surface, (0, 0))
 
         for i in range(n):
-            mid_angle = math.radians(self.angle + 36 + i * 72-90)
+            start_angle_deg = self.angle + i * degrees_per_segment
+            end_angle_deg = self.angle + (i + 1) * degrees_per_segment
+
+            start_angle = math.radians(start_angle_deg)
+            end_angle = math.radians(end_angle_deg)
+            mid_angle = math.radians((start_angle_deg + end_angle_deg) / 2)
+
+            color = (200 + i * 20 % 55, 100 + i * 30 % 155, 150 + i * 40 % 105)
+
+            # Use filled arc via polygon method
+            points = [self.center]
+            for step in range(10):
+                angle = start_angle + (end_angle - start_angle) * (step / 9)
+                x = self.center[0] + self.wheel_radius * math.cos(angle)
+                y = self.center[1] + self.wheel_radius * math.sin(angle)
+                points.append((x, y))
+
+            pygame.draw.polygon(self.screen, color, points)
+
+            # Draw text (support multi-line)
+            tx = self.center[0] + (self.wheel_radius * 0.6) * math.cos(mid_angle)
+            ty = self.center[1] + (self.wheel_radius * 0.6) * math.sin(mid_angle)
             lines = self.options[i].splitlines() if self.options[i] else []
             for j, line in enumerate(lines):
-                # 從外往內排
-                r = self.wheel_radius * 0.6 - j * 32  # 32為行距，可調整
-                tx = self.center[0] + r * math.cos(mid_angle)
-                ty = self.center[1] + r * math.sin(mid_angle)
                 text_surface = self.font_desc.render(line, True, (0, 0, 0))
-                text_rect = text_surface.get_rect(center=(tx, ty))
+                text_rect = text_surface.get_rect(center=(tx, ty + j * 30))
                 self.screen.blit(text_surface, text_rect)
-            
+
+        # Draw wheel outline
+        pygame.draw.circle(self.screen, (0, 0, 0), self.center, self.wheel_radius, 4)
 
         # Draw center button as circle
         pygame.draw.circle(self.screen, (250, 100, 100), self.center, self.button_radius)
@@ -120,16 +138,20 @@ class LuckyWheelScene(BaseScene):
         pygame.draw.polygon(pointer_surface, (250, 100, 100, pointer_alpha), pointer)
         self.screen.blit(pointer_surface, (0, 0))
 
+
         if self.result_text:
             tip = self.font.render("（點擊以結束）", True, (150, 150, 150))
             self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, 730))
+            
             result_lines = ["抽中"] + self.result_text.splitlines()
+            # 顯示在畫面右下方
             base_x = 950
             base_y = 600
             for j, line in enumerate(result_lines):
                 result_surface = self.font_desc.render(line, True, (0, 0, 0))
                 result_rect = result_surface.get_rect(center=(base_x, base_y + j * 32))
                 self.screen.blit(result_surface, result_rect)
+                
         
        
     
@@ -139,8 +161,7 @@ class LuckyWheelScene(BaseScene):
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-
+                    self.running = False
                 else:
                     self.handle_event(event)
                     
