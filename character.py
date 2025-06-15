@@ -28,7 +28,7 @@ class Character:
             self.social * 0.03
         )
         growth = round(growth/(1+((8 - self.week_number) * 0.1)),2) if self.week_number < 8 else round(growth/(1+((16 - self.week_number) * 0.1)),2)
-        self.last_week_change = [-10, -15, 0, growth+3]
+        self.last_week_change = [-15, -12, 0, growth+3]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
@@ -45,7 +45,7 @@ class Character:
             (self.mood - 50) * 0.03 +
             (self.energy) * 0.01
         )
-        self.last_week_change = [ 3, -15, growth, 3+int(round(growth * self.social * 0.01))]
+        self.last_week_change = [ 3, -5, growth, 3+int(round(growth * self.social * 0.01))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
@@ -99,14 +99,15 @@ class Character:
             fluctuation = round(random.uniform(luck, fluctuation_range), 2)
             grade = min(100, round(base + fluctuation, 2))
         return int(round(grade))
+    
 
     def get_final(self):
-        self.final = round(self.calculate_grade()) - 20
+        self.final = round(self.calculate_grade()) -20
 
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
-        total_score = max(0, int(math.sqrt(total_score) * 12 - 20))
+        total_score = max(0, int(math.sqrt(total_score) * 20 - 100))
         self.total_score = total_score
         gpa = []
         for _ in range(25):
