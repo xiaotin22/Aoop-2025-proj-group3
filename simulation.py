@@ -41,13 +41,13 @@ class Simulation:
 
         for _ in range(self.n_players):
             player = random.choice(self.characters)()
-            for _ in range(8):
+            for _ in range(7):
                 getattr(player, random.choice(self.actions))()
                 player.week_number += 1
 
             player.get_midterm()
 
-            for _ in range(8):
+            for _ in range(7):
                 getattr(player, random.choice(self.actions))()
                 player.week_number += 1
 
