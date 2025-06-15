@@ -146,10 +146,11 @@ class Bubu(Character):
     def socialize(self, degree):
         growth = round(
             (100 - self.social) * 0.1 +
-            (self.mood - 50) * 0.03 +
-            (self.energy - 30) * 0.01, 2
+            (self.mood - 30) * 0.03 +
+            (self.energy) * 0.01, 2
         )
-        self.last_week_change = [growth, -15, 0, 3+int(round(growth * 0.1))]
+
+        self.last_week_change = [ 3, -15, growth, 3+int(round(growth * self.social * 0.01))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change]
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
