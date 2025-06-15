@@ -112,6 +112,8 @@ class GradingScene(BaseScene):
         self.show_full_score = False
         self.frame_count = 0
 
+        self.ending_anim_switch = False  # 用於控制是否顯示結束動畫
+
     def update(self):
         self.animator.update()
         # 透明遮罩淡入
@@ -125,6 +127,13 @@ class GradingScene(BaseScene):
             if self.frame_count % 10 == 0:  # 每3幀才加一次分數，數字越大越慢
                 if self.displayed_score < int(self.score):
                     self.displayed_score += self.reveal_speed
+                    # 新增：分數大於75且還沒切換動畫時，切換到結束動畫
+                    if self.displayed_score >= 70 and not self.ending_anim_switch:
+                        self.animator.switch_animation(self.player.ending)
+                        if self.audio.is_sound_playing("resource/music/sound_effect/cheer_cheer.mp3"):
+                            self.audio.stop_sound("resource/music/sound_effect/cheer_cheer.mp3")
+                        self.audio.play_sound("resource/music/sound_effect/cheer_cheer.mp3")
+                        self.ending_anim_switch = True  # 切換動畫後設置為 True")
                     if self.displayed_score > int(self.score):
                         self.displayed_score = int(self.score)
                 else: 
