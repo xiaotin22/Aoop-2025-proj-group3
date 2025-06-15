@@ -8,7 +8,7 @@ class LuckyWheelScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
         self.center = (self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2)
-        self.angle = 90
+        self.angle = 0
         self.spin_speed = 0
         self.wheel_radius = 300
         self.is_spinning = False
@@ -64,9 +64,18 @@ class LuckyWheelScene(BaseScene):
     def calculate_result(self):
         n = len(self.options)
         degrees_per_segment = 360 / n
-        segment_angle =  [(i * degrees_per_segment) for i in range(n)]
-        index = min(range(n), key=lambda i: abs((self.angle % 360) - segment_angle[i]))
+        segment_angle =  [((i+0.5) * degrees_per_segment+self.angle) for i in range(n)]
+        head_angle = [((i+0.5) * degrees_per_segment+self.angle+36) for i in range(n)]
+        tail_angle = [((i+0.5) * degrees_per_segment+self.angle-36) for i in range(n)]
+        for i in range(n):
+            head_angle[i] = head_angle[i] % 360
+            tail_angle[i] = tail_angle[i] % 360
+            if tail_angle[i] - head_angle[i] > degrees_per_segment+5:
+                index = i
         self.result_text = self.options[index]
+        print("angle:", self.angle, "index:", index, "result:", self.result_text)
+        print("segment_angle:", segment_angle[index])
+        print("head_angle:", head_angle[index], "tail_angle:", tail_angle[index])
 
     def draw(self):
         self.screen.fill((255, 255, 255))
@@ -74,15 +83,15 @@ class LuckyWheelScene(BaseScene):
 
 
         # 畫輪盤圖片（旋轉）
-        rotated_img = pygame.transform.rotozoom(self.wheel_img, self.angle, 1)
+        rotated_img = pygame.transform.rotozoom(self.wheel_img, -self.angle, 1)
         rect = rotated_img.get_rect(center=self.center)
         self.screen.blit(rotated_img, rect)
 
         # 畫選項文字
         n = len(self.options)
-        degrees_per_segment = 360 / 5
+
         for i in range(n):
-            mid_angle = math.radians(self.angle + (i + 0.5) * degrees_per_segment)
+            mid_angle = math.radians(self.angle + 36 + i * 72-90)
             lines = self.options[i].splitlines() if self.options[i] else []
             for j, line in enumerate(lines):
                 # 從外往內排
@@ -92,8 +101,7 @@ class LuckyWheelScene(BaseScene):
                 text_surface = self.font_desc.render(line, True, (0, 0, 0))
                 text_rect = text_surface.get_rect(center=(tx, ty))
                 self.screen.blit(text_surface, text_rect)
-        
-
+            
 
         # Draw center button as circle
         pygame.draw.circle(self.screen, (250, 100, 100), self.center, self.button_radius)
