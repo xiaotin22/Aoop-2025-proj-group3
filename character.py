@@ -125,7 +125,7 @@ class Bubu(Character):
         self.week_number = 0
 
         self.sad = "resource/gif/bubu_crying_frames"
-        self.play_game = "resource/gif/bubu_playgame_frames"
+        self.playgame = "resource/gif/bubu_playgame_frames"
         
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4
