@@ -28,7 +28,7 @@ class Character:
             self.social * 0.03
         )
         growth = round(growth/(1+((8 - self.week_number) * 0.1)),2) if self.week_number < 8 else round(growth/(1+((16 - self.week_number) * 0.1)),2)
-        self.last_week_change = [-10, -15, 0, growth+3]
+        self.last_week_change = [-15, -12, 0, growth+3]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
@@ -45,13 +45,13 @@ class Character:
             (self.mood - 50) * 0.03 +
             (self.energy) * 0.01
         )
-        self.last_week_change = [ 3, -15, growth, 3+int(round(growth * self.social * 0.01))]
+        self.last_week_change = [ 3, -5, growth, 3+int(round(growth * self.social * 0.01))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
             max(0, self.energy + self.last_week_change[1]),\
-            max(0, self.social + self.last_week_change[2]),\
+            min(100, self.social + self.last_week_change[2]),\
             min(100, self.knowledge + self.last_week_change[3]) 
 
         #print(f"{self.name} 正在社交中 🤝🎉 社交能力提升了 {growth:.2f} 點！現在是 {self.social}/100")
@@ -68,8 +68,8 @@ class Character:
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
             max(0, self.energy + self.last_week_change[1]),\
-            max(0, self.social + self.last_week_change[2]),\
-            max(0, self.knowledge + self.last_week_change[3])
+            min(100, self.social + self.last_week_change[2]),\
+            min(100, self.knowledge + self.last_week_change[3])
         #print(f"{self.name} 正在玩遊戲 🎮😄 心情提升了 {growth:.2f} 點！現在是 {self.mood}/100")
 
     def rest(self, degree):
@@ -79,13 +79,13 @@ class Character:
             (self.intelligence - 50) * 0.2 -
             (self.social - 30) * 0.01
         )
-        self.last_week_change = [int(growth*0.6), growth, 0, 3+int(round(-growth * 0.1))]
+        self.last_week_change = [int(growth*0.6), growth, 1, 3+int(round(-growth * 0.1))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change]
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
             min(100, self.energy + self.last_week_change[1]),\
             max(0, self.social + self.last_week_change[2]),\
-            max(0, self.knowledge + self.last_week_change[3])
+            min(100, self.knowledge + self.last_week_change[3])
         #print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
 
     def calculate_grade(self):
@@ -99,14 +99,15 @@ class Character:
             fluctuation = round(random.uniform(luck, fluctuation_range), 2)
             grade = min(100, round(base + fluctuation, 2))
         return int(round(grade))
+    
 
     def get_final(self):
-        self.final = round(self.calculate_grade()) - 20
+        self.final = round(self.calculate_grade()) -20
 
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
-        total_score = max(0, int(math.sqrt(total_score) * 12 - 20))
+        total_score = max(0, int(math.sqrt(total_score) * 20 - 100))
         self.total_score = total_score
         gpa = []
         for _ in range(25):
