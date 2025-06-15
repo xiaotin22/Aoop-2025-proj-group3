@@ -2,16 +2,17 @@ import pygame
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
 from UI.components.character_animator import CharacterAnimator
+import setting
 
 class SoundControlScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
         self.audio = AudioManager.get_instance()
-        self.titlefont = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 70)
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
+        self.titlefont = pygame.font.Font(setting.JFONT_PATH_BOLD, 70)
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 48)
 
         self.background = pygame.image.load(
-            "resource/image/background_intro.png"
+            setting.ImagePath.BACKGROUND_PATH
         ).convert_alpha()
         self.background = pygame.transform.scale(
             self.background, self.screen.get_size()
@@ -32,8 +33,8 @@ class SoundControlScene(BaseScene):
 
         self.dragging_bgm = False
         self.dragging_sfx = False
-        self.animator = CharacterAnimator("resource/gif/bubu_playgame_frames", (850, 400), (300, 300))
-        self.animator2 = CharacterAnimator("resource/gif/yier_cheer_up_frames", (850, 30), (200, 200))
+        self.animator = CharacterAnimator(setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES'], (850, 400), (300, 300))
+        self.animator2 = CharacterAnimator(setting.GIF_PATHS['YIER_CHEER_UP_FRAMES'], (850, 30), (200, 200))
         self.animator2.frame_delay = 5
     def handle_event(self, event):
         super().handle_event(event)
@@ -44,7 +45,7 @@ class SoundControlScene(BaseScene):
             elif self._knob_rect(self.sfx_slider_rect, self.sfx_volume).collidepoint(event.pos):
                 self.dragging_sfx = True
                 # 按下音效滑桿的 knob 時播放一聲音效
-                self.audio.play_sound("resource/music/sound_effect/bo.MP3")
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
 
         elif event.type == pygame.MOUSEBUTTONUP:
             self.dragging_bgm = False

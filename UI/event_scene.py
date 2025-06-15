@@ -3,14 +3,14 @@ import sys
 import json
 from UI.components.base_scene import BaseScene, wrap_text
 from UI.components.button import Button
-
+import setting
 
 class EventScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
         self.player = player
-        self.background_img = pygame.image.load("resource/image/background_intro.png").convert()
-        note_img = pygame.image.load("resource/image/event_window.PNG").convert_alpha()
+        self.background_img = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert()
+        note_img = pygame.image.load(setting.ImagePath.EVENT_WINDOW_PATH).convert_alpha()
         orig_width, orig_height = note_img.get_size()
         target_width = 850
         scale_factor = target_width / orig_width
@@ -20,9 +20,9 @@ class EventScene(BaseScene):
         self.title_alpha = 0  # 標題淡入透明度
         self.title_alpha_speed = 20  # 每幀增加多少
 
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
-        self.title_font = pygame.font.Font("resource/font/hanyizhuziguozhiruantang.ttf",36)
-        self.font_small = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+        self.font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
+        self.title_font = pygame.font.Font(setting.HFONT_PATH,36)
+        self.font_small = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
         self.BUTTON_COLOR = (200, 180, 150)
         self.BUTTON_HOVER_COLOR = (255, 220, 180)
         self.BUTTON_TEXT_COLOR = (50, 30, 10)

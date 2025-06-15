@@ -3,12 +3,13 @@ from UI.components.base_scene import BaseScene
 from UI.main_scene import MainScene
 from UI.components.character_animator import CharacterAnimator
 from UI.components.audio_manager import AudioManager
+import setting
 
 class EndScene(MainScene):
     def __init__(self, screen, player):
         super().__init__(screen, player)
         self.background = pygame.image.load(
-            "resource/image/background_intro.png"
+            setting.ImagePath.BACKGROUND_PATH
         ).convert_alpha()
         self.background = pygame.transform.scale(
             self.background, self.screen.get_size()
@@ -17,15 +18,15 @@ class EndScene(MainScene):
         
         self.player = player
         self.title_font = pygame.font.Font(
-            "resource/font/JasonHandwriting3-SemiBold.ttf", 54
+            setting.JFONT_PATH_BOLD, 54
         )
         self.subtitle_font = pygame.font.Font(
-            "resource/font/JasonHandwriting3-Regular.ttf", 48
+            setting.JFONT_PATH_REGULAR, 48
         )
 
         # ---------- 音樂 ----------    
         self.audio = AudioManager.get_instance()
-        self.audio.play_bgm("resource/music/bgm/yier_bubu.MP3")
+        self.audio.play_bgm(setting.BGM.MITAO_HUIHUI_PATH)
 
 
         # ---------- 按鈕 ----------
@@ -87,7 +88,7 @@ class EndScene(MainScene):
         for btn in self.buttons:
             is_hovered = btn["rect"].collidepoint(mouse_pos)
             if is_hovered and not btn["hovered_last"]:
-                self.audio.play_sound("resource/music/sound_effect/bo.MP3")
+                self.audio.play_sound(setting.SoundEffect.BO_PATH)
             btn["hovered_last"] = is_hovered
             btn["hover"] = is_hovered
 
@@ -173,7 +174,7 @@ class EndScene(MainScene):
         self.screen.blit(label, (x, y + label_offset))
 
         # 印出玩家的總成績
-        font2 = pygame.font.Font("resource/font/JasonHandwriting3-Light.ttf", 22)
+        font2 = pygame.font.Font(setting.JFONT_PATH_Light, 22)
         text0 = font2.render(f"GPA: {self.player.GPA}", True, (0, 0, 0))
         text0_rect = text0.get_rect(topleft=(x_right + 60, 65))
         self.screen.blit(text0, text0_rect)
@@ -246,9 +247,9 @@ class EndScene(MainScene):
     # 主循環
     # -------------------------------------------------------------
     def run(self):
-        if self.audio.is_sound_playing("resource/music/sound_effect/cheer_cheer.mp3"):
-            self.audio.stop_sound("resource/music/sound_effect/cheer_cheer.mp3")
-        self.audio.play_sound("resource/music/sound_effect/cheer_cheer.mp3")
+        if self.audio.is_sound_playing(setting.SoundEffect.CHEER_CHEER_PATH):
+            self.audio.stop_sound(setting.SoundEffect.CHEER_CHEER_PATH)
+        self.audio.play_sound(setting.SoundEffect.CHEER_CHEER_PATH)
                        
         while self.running:
             result = self.update()

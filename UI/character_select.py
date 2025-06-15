@@ -1,6 +1,7 @@
 import pygame
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
+import setting
 
 
 class CharacterSelectScene(BaseScene):
@@ -16,19 +17,19 @@ class CharacterSelectScene(BaseScene):
         self.selected_character = None
 
         
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
-        self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+        self.font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
+        self.font_desc = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
 
 
         # ---------------- 音樂 ----------------
         self.audio = AudioManager.get_instance()
-        self.audio.play_bgm("resource/music/bgm/mitao_huihui.mp3")
+        self.audio.play_bgm(setting.BGM.MITAO_HUIHUI_PATH)
         
 
 
         # ---------------- 背景 ----------------
         self.background = pygame.image.load(
-            "resource/image/background_intro.png"
+            setting.ImagePath.BACKGROUND_PATH
         ).convert_alpha()
         self.background = pygame.transform.scale(
             self.background, self.screen.get_size()
@@ -41,7 +42,7 @@ class CharacterSelectScene(BaseScene):
         self.characters = [
             {
                 "name": "布布 Bubu",
-                "frames": self.load_frames("resource/gif/bubu_intro_frames"),
+                "frames": self.load_frames(setting.GIF_PATHS["BUBU_INTRO_FRAMES"]),
                 "description": (
                     "大家好～我是布布！\n我喜歡在網路上盡情地打遊戲！ \n"
                     "希望這學期所有的課都可以過 \n教授...菜菜...撈撈..."
@@ -54,7 +55,7 @@ class CharacterSelectScene(BaseScene):
             },
             {
                 "name": "一二 Yier",
-                "frames": self.load_frames("resource/gif/yier_intro_frames"),
+                "frames": self.load_frames(setting.GIF_PATHS["YIER_INTRO_FRAMES"]),
                 "description": (
                     "大家好～我是一二！\n我熱衷於系上活動以及社團～ \n"
                     "認識好多學長姐嘿嘿～ \n到處吃瓜聽八卦真爽！"
@@ -70,7 +71,7 @@ class CharacterSelectScene(BaseScene):
             },
             {
                 "name": "蜜桃 Mitao",
-                "frames": self.load_frames("resource/gif/mitao_intro_frames"),
+                "frames": self.load_frames(setting.GIF_PATHS["MITAO_INTRO_FRAMES"]),
                 "description": (
                     "大家好～我是蜜桃！\n嗚嗚嗚這學期不小心選太多課... \n"
                     "現在實在是捲不動了～ \n但我還是會努力拿卷的！"
@@ -86,7 +87,7 @@ class CharacterSelectScene(BaseScene):
             },
             {
                 "name": "灰灰 Huihui",
-                "frames": self.load_frames("resource/gif/huihui_intro_frames"),
+                "frames": self.load_frames(setting.GIF_PATHS["HUIHUI_INTRO_FRAMES"]),
                 "description": (
                     "大家好～我是灰灰！\n我正在追求自己真正想做的事!\n"
                     "讀書不是重點 ! \n重要的是追尋我的快樂貓生！"
@@ -132,7 +133,7 @@ class CharacterSelectScene(BaseScene):
             if is_hovered:
                 new_hover = char["name"]
                 if self.hovered_character != new_hover:
-                    self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
+                    self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
             # 可在此記錄 hover 旗標給 draw 使用（若需要動畫縮放等效果）
             char["is_hovered"] = is_hovered
         self.hovered_character = new_hover

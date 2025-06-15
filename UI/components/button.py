@@ -1,5 +1,6 @@
 import pygame
 from UI.components.base_scene import  wrap_text, draw_wrapped_text
+import setting
 
 class Button:
     def __init__(self, x, y, width, height, text, font,
@@ -22,7 +23,7 @@ class Button:
         self.height = height
         
         try:
-            self.hover_sound = pygame.mixer.Sound("resource/music/sound_effect/menu_hover.mp3")
+            self.hover_sound = pygame.mixer.Sound(setting.SoundEffect.MENU_HOVER_PATH)
         except Exception:
             self.hover_sound = None
 

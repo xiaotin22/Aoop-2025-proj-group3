@@ -2,7 +2,7 @@ import pygame
 import math
 import random
 from UI.components.base_scene import BaseScene
-
+import setting
 
 '''Example usage:
     
@@ -23,9 +23,9 @@ class LuckyWheelScene(BaseScene):
         self.angle = 0
         self.spin_speed = 0
         self.is_spinning = False
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 48)
-        self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
-        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 48)
+        self.font_desc = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
+        self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
         self.has_spinned = False
@@ -40,7 +40,7 @@ class LuckyWheelScene(BaseScene):
             dx = event.pos[0] - self.center[0]
             dy = event.pos[1] - self.center[1]
             if dx * dx + dy * dy <= self.button_radius * self.button_radius and not self.is_spinning and not self.has_spinned:
-                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
                 self.start_spin()
                 self.has_spinned = True
                 
@@ -51,7 +51,7 @@ class LuckyWheelScene(BaseScene):
         self.spin_speed = random.uniform(25, 30)
         self.target_angle = None
         self.result_text = None
-        self.audio.play_sound("resource/music/sound_effect/luckywheel.mp3")
+        self.audio.play_sound(setting.SoundEffect.LUCKYWHEEL_PATH)
 
     def update(self):
         if self.is_spinning:

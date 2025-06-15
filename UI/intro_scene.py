@@ -2,21 +2,22 @@ import pygame
 from UI.components.character_animator import CharacterAnimator
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
+import setting
 
 class IntroScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
         
         # 背景與透明遮罩
-        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
         self.overlay_surface = pygame.Surface(screen.get_size()).convert_alpha()
         self.overlay_alpha = 0
 
         # 字型設定
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
-        self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+        self.font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
+        self.font_desc = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
 
         self.text_lines = [
             "歡迎來到模擬人生大學版",
@@ -37,7 +38,7 @@ class IntroScene(BaseScene):
 
 
         # 動畫角色
-        self.animator = CharacterAnimator("resource/gif/yier_play_game_frames", (900, 50), (240, 220))
+        self.animator = CharacterAnimator(setting.GIF_PATHS['YIER_PLAY_GAME_FRAMES'], (900, 50), (240, 220))
         self.animator.frame_delay = 3  # 控制動畫速度
 
         
@@ -52,7 +53,7 @@ class IntroScene(BaseScene):
             self.draw(self.screen)
             pygame.display.update()
 
-        self.audio.stop_sound("resource/music/sound_effect/typing.MP3")  # 保險：離開場景時也停止打字音效
+        self.audio.stop_sound(setting.SoundEffect.TYPING_PATH)  # 保險：離開場景時也停止打字音效
 
 
     def handle_event(self, event):
@@ -62,14 +63,14 @@ class IntroScene(BaseScene):
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 if self.line_index >= len(self.text_lines):
-                    self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
+                    self.audio.stop_sound(setting.SoundEffect.TYPING_PATH)
                     self.running = False
                 else:
                     # 還沒打完就強制顯示完畢
                     self.reveal_lines = self.text_lines.copy()
                     self.line_index = len(self.text_lines)
                     self.char_index = 0
-                    self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
+                    self.audio.stop_sound(setting.SoundEffect.TYPING_PATH)
                     self.animator.reset()
 
     def update(self):
@@ -81,10 +82,10 @@ class IntroScene(BaseScene):
         if self.line_index < len(self.text_lines) and self.frame_count % self.type_speed == 0:
             # 重複播放音效
             if self.line_index == 0 and self.char_index == 0:
-                self.audio.play_sound("resource/music/sound_effect/typing.MP3")
+                self.audio.play_sound(setting.SoundEffect.TYPING_PATH)
             
-            if self.audio.is_sound_playing("resource/music/sound_effect/typing.MP3") is False:
-                self.audio.play_sound("resource/music/sound_effect/typing.MP3")
+            if self.audio.is_sound_playing(setting.SoundEffect.TYPING_PATH) is False:
+                self.audio.play_sound(setting.SoundEffect.TYPING_PATH)
                 
             current_line = self.text_lines[self.line_index]
             if self.char_index < len(current_line):
@@ -98,7 +99,7 @@ class IntroScene(BaseScene):
 
         if self.line_index >= len(self.text_lines):
             self.animator.reset()
-            self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
+            self.audio.stop_sound(setting.SoundEffect.TYPING_PATH)
 
         
 

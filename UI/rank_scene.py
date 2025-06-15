@@ -3,6 +3,7 @@ from UI.components.character_animator import CharacterAnimator
 from UI.components.base_scene import BaseScene
 from UI.components.audio_manager import AudioManager
 from simulation import Simulation
+import setting
 
 class RankScene(BaseScene):
     def __init__(self, screen, player):
@@ -10,7 +11,7 @@ class RankScene(BaseScene):
         self.audio = AudioManager.get_instance()
         self.player = player
         # 背景
-        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
         self.transition_direction = 1 
@@ -21,7 +22,7 @@ class RankScene(BaseScene):
         self.overlay_alpha = 0 
 
         # 字型
-        self.font_desc = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
+        self.font_desc = pygame.font.Font(setting.JFONT_PATH_REGULAR, 36)
 
         # 動畫角色
         self.animator = CharacterAnimator(self.player.ending, (900, 30), (240, 220))
@@ -31,9 +32,9 @@ class RankScene(BaseScene):
 
         # 圖片載入與縮放
         self.image_paths = [
-            "simulation_plots/gpa_highlight.png",
-            "simulation_plots/total_score_highlight.png",
-            "simulation_plots/midterm_final_highlight.png"
+            setting.GPA_HIGHLIGHT_PATH,
+            setting.TOTAL_SCORE_HIGHLIGHT_PATH,
+            setting.MIDTERM_FINAL_HIGHLIGHT_PATH,
         ]
         self.images = []
         for path in self.image_paths:
@@ -81,7 +82,7 @@ class RankScene(BaseScene):
         self.transitioning = True
         self.slide_offset = 0
         self.page_timer = 0
-        self.audio.play_sound("resource/music/sound_effect/next_page.mp3")
+        self.audio.play_sound(setting.SoundEffect.NEXT_PAGE_PATH)
 
     def draw(self, screen):
         screen.blit(self.background, (0, 0))

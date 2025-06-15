@@ -6,6 +6,7 @@ from UI.lucky_wheel_scene import LuckyWheelScene
 from UI.components.character_animator import CharacterAnimator
 from UI.taketest_scene import TakeTestScene
 from UI.end_scene import EndScene
+import setting
 
 class StoryScene(BaseScene):
     def __init__(self, screen, player):
@@ -16,19 +17,18 @@ class StoryScene(BaseScene):
 
 
         # 讀取故事
-        with open('event/events.json', 'r', encoding='utf-8') as f:
+        with open(setting.EVENTS_JSON_PATH, 'r', encoding='utf-8') as f:
             story_dict = json.load(f)
 
-        self.title_font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 48)
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
+        self.title_font = pygame.font.Font(setting.JFONT_PATH_BOLD, 48)
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 36)
         
         self.animator = CharacterAnimator(player.storytyping, (900, 50), (220, 200))
 
         self.title_alpha = 0  # 標題淡入透明度
         self.title_alpha_speed = 20  # 每幀增加多少
 
-        self.background = pygame.image.load(f"resource/image/backgrounds/week_1.png")
-        self.background = pygame.image.load(f"resource/image/backgrounds/week_1.png")
+        self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, screen.get_size())
         self.background.set_alpha(65)
 
@@ -49,7 +49,7 @@ class StoryScene(BaseScene):
         self.running = True
 
         # 開始打字音效
-        self.audio.play_sound("resource/music/sound_effect/typing.MP3")  # 迴圈播放
+        self.audio.play_sound(setting.SoundEffect.TYPING_PATH)  # 迴圈播放
 
                 
 
@@ -73,7 +73,7 @@ class StoryScene(BaseScene):
                         self.displayed_lines.append(self.lines[self.current_line])
                         self.current_line += 1
                     self.all_finished = True
-                    self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
+                    self.audio.stop_sound(setting.SoundEffect.TYPING_PATH)
 
                 
             
@@ -89,7 +89,7 @@ class StoryScene(BaseScene):
                 self.current_char = 0
                 if self.current_line >= len(self.lines):
                     self.all_finished = True
-                    self.audio.stop_sound("resource/music/sound_effect/typing.MP3")
+                    self.audio.stop_sound(setting.SoundEffect.TYPING_PATH)
 
 
     def draw(self):
@@ -130,8 +130,8 @@ class StoryScene(BaseScene):
             partial_text = self.lines[self.current_line][:self.current_char]
             text_surface = self.font.render(partial_text, True, (50, 50, 50))
             self.screen.blit(text_surface, (left_margin, y))
-            if self.audio.is_sound_playing("resource/music/sound_effect/typing.MP3") is False:
-                self.audio.play_sound("resource/music/sound_effect/typing.MP3")
+            if self.audio.is_sound_playing(setting.SoundEffect.TYPING_PATH) is False:
+                self.audio.play_sound(setting.SoundEffect.TYPING_PATH)
                 
 
     

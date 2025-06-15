@@ -34,6 +34,10 @@ class CharacterAnimator:
             screen.blit(self.frames[self.current_frame], self.position)
 
 
+    def reset(self):
+        self.current_frame = 0
+        self.frame_timer = 0
+        self.frame_count = len(self.frames)
 
     def switch_animation(self, new_folder_path):
         self.frames = []

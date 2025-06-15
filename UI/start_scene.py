@@ -2,12 +2,13 @@ import pygame
 from UI.components.base_scene import BaseScene
 from UI.components.character_animator import CharacterAnimator
 from UI.components.audio_manager import AudioManager
+import setting
 
 class StartScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
         self.background = pygame.image.load(
-            "resource/image/background_intro.png"
+            setting.ImagePath.BACKGROUND_PATH
         ).convert_alpha()
         self.background = pygame.transform.scale(
             self.background, self.screen.get_size()
@@ -15,15 +16,15 @@ class StartScene(BaseScene):
         self.background.set_alpha(100)
 
         self.title_font = pygame.font.Font(
-            "resource/font/JasonHandwriting3-SemiBold.ttf", 72
+            setting.JFONT_PATH_BOLD, 72
         )
         self.subtitle_font = pygame.font.Font(
-            "resource/font/JasonHandwriting3-Regular.ttf", 48
+            setting.JFONT_PATH_REGULAR, 48
         )
 
         # ---------- 音樂 ----------    
         self.audio = AudioManager.get_instance()
-        self.audio.play_bgm("resource/music/bgm/yier_bubu.MP3")
+        self.audio.play_bgm(setting.BGM.YIER_BUBU_PATH)
 
 
         # ---------- 按鈕 ----------
@@ -57,8 +58,8 @@ class StartScene(BaseScene):
             )
 
         # ---------- 裝飾動畫 ----------
-        self.animator1 = CharacterAnimator("resource/gif/four_char2_frames", (850, 400),(300, 300)) 
-        self.animator2 = CharacterAnimator("resource/gif/four_char_frames", (50, 400), (300, 300))
+        self.animator1 = CharacterAnimator(setting.GIF_PATHS['FOUR_CHAR2_FRAMES'], (850, 400),(300, 300)) 
+        self.animator2 = CharacterAnimator(setting.GIF_PATHS['FOUR_CHAR_FRAMES'] , (50, 400), (300, 300))
         self.animator1.frame_delay = 3
         self.animator2.frame_delay = 3
         # ---------- 其他 ----------
@@ -86,7 +87,7 @@ class StartScene(BaseScene):
         for btn in self.buttons:
             is_hovered = btn["rect"].collidepoint(mouse_pos)
             if is_hovered and not btn["hovered_last"]:
-                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
             btn["hovered_last"] = is_hovered
             btn["hover"] = is_hovered
 
