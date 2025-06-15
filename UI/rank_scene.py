@@ -13,6 +13,7 @@ class RankScene(BaseScene):
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
+        self.transition_direction = 1 
 
         self.simulation = Simulation()
         self.simulation.run_and_plot_all_with_player(player)
@@ -73,9 +74,10 @@ class RankScene(BaseScene):
                 self.transitioning = False
                 self.slide_offset = 0
                 self.page_timer = 0  # 重設計時器
-
-    def start_transition(self):
-        self.next_page = (self.current_page + 1) % len(self.images)
+    
+    def start_transition(self, direction=1):
+        self.transition_direction = direction
+        self.next_page = (self.current_page + direction) % len(self.images)
         self.transitioning = True
         self.slide_offset = 0
         self.page_timer = 0
