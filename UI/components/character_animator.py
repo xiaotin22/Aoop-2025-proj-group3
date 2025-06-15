@@ -33,6 +33,17 @@ class CharacterAnimator:
         if self.frames:
             screen.blit(self.frames[self.current_frame], self.position)
 
-    def reset(self):
+
+
+    def switch_animation(self, new_folder_path):
+        self.frames = []
+        for filename in sorted(os.listdir(new_folder_path), key=lambda x: int(x.split('_')[1].split('.')[0])):
+            if filename.endswith(".png"):
+                img = pygame.image.load(os.path.join(new_folder_path, filename)).convert_alpha()
+                img = pygame.transform.scale(img, self.size)
+                self.frames.append(img)
+
         self.current_frame = 0
+        self.frame_count = len(self.frames)
         self.frame_timer = 0
+        self.position = (self.position[0], self.position[1])
