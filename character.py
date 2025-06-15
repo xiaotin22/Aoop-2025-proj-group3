@@ -106,7 +106,7 @@ class Character:
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
-        total_score = int(math.sqrt(total_score) * 12 - 20) 
+        total_score = max(0, int(math.sqrt(total_score) * 12 - 20))
         self.total_score = total_score
         gpa = []
         for _ in range(25):
