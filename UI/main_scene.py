@@ -47,7 +47,7 @@ class MainScene(BaseScene):
 
         self.set_icon = pygame.image.load("resource/image/set.png").convert_alpha()
         self.set_icon = pygame.transform.smoothscale(self.set_icon, (80, 80))
-        self.set_rect = self.set_icon.get_rect(topleft=(20, 20))
+        self.set_rect = self.set_icon.get_rect(topleft=(20, 700))
         self.set_hover = False
 
 
@@ -60,6 +60,8 @@ class MainScene(BaseScene):
         # 設定按鈕 hover 與點擊
         if self.set_rect.collidepoint(mouse_pos):
             self.set_hover = True
+            if not self.audio.is_sound_playing("resource/music/sound_effect/menu_hover.MP3"):
+                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
             if mouse_pressed[0]:
                 return "SETTING"
         else:
@@ -181,8 +183,7 @@ class MainScene(BaseScene):
         self.next_week_button.draw(self.screen)
         self.draw_player_stats()
 
-
-
+        # 畫設定按鈕
         if self.set_hover:
             scaled = pygame.transform.scale(self.set_icon, (96, 96))
             rect = scaled.get_rect(center=self.set_rect.center)

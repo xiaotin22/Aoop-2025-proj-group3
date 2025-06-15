@@ -135,7 +135,7 @@ class Simulation:
     def plot_total(self, highlight: float | None = None) -> Path:
         fig, ax = plt.subplots(figsize=(12, 6))
         counts, edges, _ = ax.hist(
-            self.total_scores, bins=10, alpha=0.7, edgecolor='black',
+            self.total_scores, bins=14, alpha=0.7, edgecolor='black', color="#C89AEB",
             label=f"Total Avg {statistics.mean(self.total_scores):.2f}"
         )
 
@@ -199,7 +199,7 @@ class Simulation:
         """
         fig, ax = plt.subplots(figsize=(12, 6))
         counts, edges, _ = ax.hist(
-            self.gpa, bins=bins, alpha=0.7, edgecolor="black",
+            self.gpa, bins=bins, alpha=0.7, edgecolor="black",color ="#A1FAFF",
             label=f"GPA Avg {statistics.mean(self.gpa):.2f}"
         )
 
