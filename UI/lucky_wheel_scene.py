@@ -46,6 +46,8 @@ class LuckyWheelScene(BaseScene):
             if dx * dx + dy * dy <= self.button_radius * self.button_radius and not self.is_spinning:
                 self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
                 self.start_spin()
+                
+        
 
     def start_spin(self):
         self.is_spinning = True
@@ -138,6 +140,9 @@ class LuckyWheelScene(BaseScene):
 
 
         if self.result_text:
+            tip = self.font.render("（點擊以結束）", True, (150, 150, 150))
+            self.screen.blit(tip, (self.screen.get_width() // 2 - tip.get_width() // 2, 730))
+            
             result_lines = ["抽中"] + self.result_text.splitlines()
             # 顯示在畫面右下方
             base_x = 950
@@ -146,6 +151,9 @@ class LuckyWheelScene(BaseScene):
                 result_surface = self.font_desc.render(line, True, (0, 0, 0))
                 result_rect = result_surface.get_rect(center=(base_x, base_y + j * 32))
                 self.screen.blit(result_surface, result_rect)
+                
+        
+       
     
     def run(self):
         self.running = True
@@ -156,12 +164,13 @@ class LuckyWheelScene(BaseScene):
                     self.running = False
                 else:
                     self.handle_event(event)
+                    
+                if self.result_text and (event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN):
+                    self.running = False
             self.update()
             self.draw()
             pygame.display.flip()
             clock.tick(self.FPS)
-            # 若已經有結果，停留一段時間後自動結束
-            if self.result_text:
-                pygame.time.wait(4000)
-                self.running = False
+          
+            
         return self.result_text

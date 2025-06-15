@@ -122,7 +122,7 @@ class Bubu(Character):
         self.taketest = "resource/gif/bubu_no_study_frames"
         self.ending = "resource/gif/bubu_playgame_frames"
 
-        self.week_number = 0
+        self.week_number = 2
 
         self.sad = "resource/gif/bubu_crying_frames"
         self.playgame = "resource/gif/bubu_playgame_frames"
