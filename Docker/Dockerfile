@@ -5,7 +5,7 @@ ARG HOST_UID
 ARG HOST_GID
 
 # 安裝必要套件
-RUN apt update && apt install -y \
+RUN apt-get update && apt install -y \
     x11-apps \
     python3-tk \
     libgl1 \
