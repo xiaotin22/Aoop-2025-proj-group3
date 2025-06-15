@@ -56,7 +56,7 @@ class TakeTestScene(BaseScene):
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN or self.audio.is_sound_playing("resource/music/sound_effect/bigdrum.MP3"):
-                        self.audio.play_sound("resource/music/sound_effect/dongdong.mp3")
+                        self.audio.play_sound("resource/music/sound_effect/dongdong.MP3")
                         self.audio.stop_sound("resource/music/sound_effect/bigdrum.MP3")
                           # 播放按下 Enter 音效
                         # 按下 Enter 鍵後，切到 GradingScene
