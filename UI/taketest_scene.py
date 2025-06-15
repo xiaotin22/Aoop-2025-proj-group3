@@ -10,7 +10,7 @@ class TakeTestScene(BaseScene):
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
         self.player = player
         self.audio.fade_out_bgm(1000)  # 淡出背景音樂
-        self.audio.play_sound_loop("resource/music/sound_effect/bigdrum.MP3")  # 開始打字音效
+        self.audio.play_bgm("resource/music/bgm/drumdrum.mp3")  # 播放考試背景音樂
 
         # 背景與透明遮罩
         self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
@@ -55,7 +55,7 @@ class TakeTestScene(BaseScene):
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN or self.audio.is_sound_playing("resource/music/sound_effect/bigdrum.MP3"):
+                    if event.key == pygame.K_RETURN:
                         self.audio.play_sound("resource/music/sound_effect/dongdong.MP3")
                         self.audio.stop_sound("resource/music/sound_effect/bigdrum.MP3")
                           # 播放按下 Enter 音效
@@ -81,6 +81,7 @@ class GradingScene(BaseScene):
         self.titlefont = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 54)
         self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
         self.player = player
+        self.audio.fade_out_bgm(5000)
         self.audio.play_sound_loop("resource/music/sound_effect/small_drum.mp3")
 
         # 背景與透明遮罩

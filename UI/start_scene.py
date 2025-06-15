@@ -86,7 +86,7 @@ class StartScene(BaseScene):
         for btn in self.buttons:
             is_hovered = btn["rect"].collidepoint(mouse_pos)
             if is_hovered and not btn["hovered_last"]:
-                self.audio.play_sound("resource/music/sound_effect/bo.MP3")
+                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
             btn["hovered_last"] = is_hovered
             btn["hover"] = is_hovered
 

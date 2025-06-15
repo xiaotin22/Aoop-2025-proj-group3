@@ -51,8 +51,7 @@ class EventScene(BaseScene ):
                                 self.button_width, self.button_height, key + "." + text, self.font_small,
                                 self.BUTTON_COLOR, self.BUTTON_TEXT_COLOR, self.BUTTON_HOVER_COLOR), key)
                 self.buttons.append(button)
-
-       
+    
 
         # 動畫屬性
         self.note_anim_x = -1000  # 從螢幕左外側開始

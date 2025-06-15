@@ -2,10 +2,10 @@ import pygame
 import sys
 import json
 from UI.components.base_scene import BaseScene
-from UI.components.audio_manager import AudioManager
 from UI.lucky_wheel_scene import LuckyWheelScene
 from UI.components.character_animator import CharacterAnimator
 from UI.taketest_scene import TakeTestScene
+from UI.end_scene import EndScene
 
 class StoryScene(BaseScene):
     def __init__(self, screen, player):
@@ -163,7 +163,12 @@ class StoryScene(BaseScene):
         if self.player.week_number == 16: 
             taketest_scene = TakeTestScene(self.screen, self.player)
             self.player.final = taketest_scene.run()
-        
+            options = ["幸運教授指數3", "幸運教授指數5", "幸運教授指數4"]
+            lucky_scene = LuckyWheelScene(self.screen, options)
+            result = lucky_scene.run()
+            self.player.lucky_prof = result
+            
+                    
             
         
         
