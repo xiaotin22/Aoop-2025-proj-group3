@@ -64,13 +64,13 @@ class ImagePath:
 
 
 # 重要檔案路徑
-SIMULATION_PLOT_DIR = os.path.join(BASE_DIR, 'simulation_plot')
+SIMULATION_PLOTS_DIR = os.path.join(BASE_DIR, 'simulations_plot')
 
 # Result 
-GPA_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOT_DIR, 'gpa_highlight.png')
-TOTAL_SCORE_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOT_DIR, 'total_score_highlight.png')
+GPA_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'gpa_highlight.png')
+TOTAL_SCORE_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'total_score_highlight.png')
 # Midterm & Final
-MIDTERM_FINAL_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOT_DIR, 'midterm_final_highlight.png')
+MIDTERM_FINAL_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'midterm_final_highlight.png')
 
 EVENT_DIR = os.path.join(BASE_DIR, 'event')
 EVENTS_JSON_PATH = os.path.join(EVENT_DIR, 'events.json')
