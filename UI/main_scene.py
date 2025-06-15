@@ -41,7 +41,7 @@ class MainScene(BaseScene):
             "mood":         (255, 182, 193),  # 粉紅
             "energy":       (144, 238, 144),  # 淺綠
             "social":       (255, 165, 0),    # 橘色
-            "knowledge":    (160, 32, 240)    # 紫色
+            "knowledge":    (221, 160, 221)    # 紫色
         }
 
 
@@ -153,9 +153,27 @@ class MainScene(BaseScene):
         total_width = (x_right - x_left) + 130 + bar_width  # 橫跨兩欄
         fill = max(0, min(1, stats["knowledge"] / 100))
         pygame.draw.rect(self.screen, (200, 200, 200), (x + 65, y, total_width - 130, bar_height), 2)
-        pygame.draw.rect(self.screen, self.bar_colors["knowledge"], (x + 130, y, int((total_width - 130) * fill), bar_height))
+        pygame.draw.rect(self.screen, self.bar_colors["knowledge"], (x + 65, y, int((total_width - 130) * fill), bar_height))
         label = font.render(f"知識 {self.player.knowledge:.0f}/100", True, (0, 0, 0))
         self.screen.blit(label, (x, y + label_offset))
+
+        if self.player.week_number > 0:
+            # 印出玩家選擇改變
+            last_week_change = stats_change(self.player.last_week_change)
+            font2 = pygame.font.Font("resource/font/JasonHandwriting3-Light.ttf", 22)
+            text0 = font2.render("本週選擇改變：", True, (0, 0, 0))
+            text0_rect = text0.get_rect(topleft=(x_right + 60, 90))
+            self.screen.blit(text0, text0_rect)
+            # 心情，知識
+            text1 = font2.render(f"心情 {last_week_change[0]} 知識 {last_week_change[3]}", True, (0, 0, 0))
+            text1_rect = text1.get_rect(topleft=(x_right + 60, 115))
+            self.screen.blit(text1, text1_rect)
+            # 體力，社交
+            text2 = font2.render(f"體力 {last_week_change[1]} 社交 {last_week_change[2]}", True, (0, 0, 0))
+            text2_rect = text2.get_rect(topleft=(x_right + 60, 140))
+            self.screen.blit(text2, text2_rect)
+
+
         
     def draw(self):
         self.screen.blit(self.background, (0, 0))
@@ -235,3 +253,20 @@ class MainScene(BaseScene):
             self.clock.tick(self.FPS)
 
         return None
+    
+
+
+
+def stats_change(list):
+    # 將數字轉換為帶符號的字串
+    # 正數前加 "+"，負數前加 "-"，零則顯示 "-"
+    result = []
+    for change in list:
+        change = int(change)
+        if change > 0:
+            result.append( "+" + str(change))
+        if change == 0:
+            result.append("-")
+        elif change < 0:
+            result.append(str(change))
+    return result

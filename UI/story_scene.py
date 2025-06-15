@@ -166,6 +166,13 @@ class StoryScene(BaseScene):
             options = ["幸運教授指數3", "幸運教授指數5", "幸運教授指數4"]
             lucky_scene = LuckyWheelScene(self.screen, options)
             result = lucky_scene.run()
+            # 結果是分別對應 3, 5, 4
+            if result == "幸運教授指數3":
+                result = 3
+            elif result == "幸運教授指數5":
+                result = 5
+            elif result == "幸運教授指數4":
+                result = 4
             self.player.lucky_prof = result
             
                     
