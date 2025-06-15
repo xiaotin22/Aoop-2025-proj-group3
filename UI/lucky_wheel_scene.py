@@ -70,10 +70,9 @@ class LuckyWheelScene(BaseScene):
     def calculate_result(self):
         n = len(self.options)
         degrees_per_segment = 360 / n
-        # 讓指針正好指向每個扇區的中心
-        corrected_angle = (360 - self.angle % 360) % 360
-        index = int((corrected_angle + degrees_per_segment / 2) // degrees_per_segment) % n
-        self.result_text = self.options[index-1]
+        segment_angle =  [(i * degrees_per_segment) for i in range(n)]
+        index = min(range(n), key=lambda i: abs((self.angle % 360) - segment_angle[i]))
+        self.result_text = self.options[index]
 
     def draw(self):
         
@@ -161,7 +160,8 @@ class LuckyWheelScene(BaseScene):
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
+                    pygame.quit()
+
                 else:
                     self.handle_event(event)
                     
