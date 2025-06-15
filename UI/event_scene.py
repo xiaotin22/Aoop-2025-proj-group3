@@ -5,7 +5,7 @@ from UI.components.base_scene import BaseScene, wrap_text
 from UI.components.button import Button
 
 
-class EventScene(BaseScene ):
+class EventScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
         self.player = player
@@ -30,6 +30,8 @@ class EventScene(BaseScene ):
         self.button_height = 70
         self.button_margin = 20
         self.max_text_width = self.button_width - 20
+
+        self.has_sound = False
 
         with open("event/events.json", "r", encoding="utf-8") as f:
             self.all_weeks_data = json.load(f)
@@ -96,6 +98,7 @@ class EventScene(BaseScene ):
         self.screen.blit(self.background_img, (0, 0))
         # 便條紙滑入
         note_rect_anim = self.note_rect.copy()
+
         note_rect_anim.x = int(self.note_anim_x)
         self.screen.blit(self.note_img, note_rect_anim)
 
@@ -139,3 +142,15 @@ class EventScene(BaseScene ):
             surface.blit(txt_surf, (x, y))
             y += line_height + line_spacing
 
+    def run(self):
+        while self.running:
+            result = None
+            result = self.update()
+            if result is not None:
+                print(f"Scene result: {result}")
+                return result
+                
+            self.draw()
+            pygame.display.flip()
+            self.clock.tick(self.FPS)
+        return None 

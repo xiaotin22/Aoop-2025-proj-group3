@@ -175,7 +175,7 @@ class EndScene(MainScene):
         # 印出玩家的總成績
         font2 = pygame.font.Font("resource/font/JasonHandwriting3-Light.ttf", 22)
         text0 = font2.render(f"GPA: {self.player.GPA}", True, (0, 0, 0))
-        text0_rect = text0.get_rect(topleft=(x_right + 60, 75))
+        text0_rect = text0.get_rect(topleft=(x_right + 60, 65))
         self.screen.blit(text0, text0_rect)
         # 印出總成績
         text01 = font2.render(f"Total Score: {self.player.total_score}", True, (0, 0, 0))

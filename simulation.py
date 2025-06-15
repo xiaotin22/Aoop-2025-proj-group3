@@ -58,8 +58,8 @@ class Simulation:
             self.final.append(player.final)
             self.knowledge.append(player.knowledge)
             self.gpa.append(player.GPA)
+            self.total_scores.append(player.total_score)
 
-        self._calc_total_scores()
 
     # --------------------------------------------------
     # 資料處理
@@ -71,10 +71,6 @@ class Simulation:
             smoothed.append(sum(y[start:end]) / (end - start))
         return smoothed
 
-    def _calc_total_scores(self) -> None:
-        weighted = [m*0.35 + f*0.35 + k*0.30
-                    for m, f, k in zip(self.midterm, self.final, self.knowledge)]
-        self.total_scores = [math.sqrt(s)*10 for s in weighted]   # 轉換到 0–100
 
     # --------------------------------------------------
     # 圖表繪製

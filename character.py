@@ -43,9 +43,9 @@ class Character:
         growth = int(
             (self.social - 30) * 0.1 +
             (self.mood - 50) * 0.03 +
-            (self.energy - 30) * 0.01
+            (self.energy) * 0.01
         )
-        self.last_week_change = [growth, -15, 0, 3+int(round(growth * self.social * 0.01))]
+        self.last_week_change = [ 3, -15, growth, 3+int(round(growth * self.social * 0.01))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
@@ -59,11 +59,11 @@ class Character:
     def play_game(self, degree):
         growth = int(
             (100 - self.mood) * 0.2 +
-            (self.intelligence - 50) * 0.02 +
-            (self.energy - 30) * 0.01 -
+            (self.intelligence - 30) * 0.02 +
+            (self.energy) * 0.01 -
             (self.social - 30) * 0.01
         )
-        self.last_week_change = [growth, -3, 0, 3+int(round(-growth * 0.1))]
+        self.last_week_change = [growth, 3, 0, 3+int(round(-growth * 0.1))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
@@ -105,8 +105,8 @@ class Character:
 
 
     def calculate_GPA(self):
-        total_score = self.midterm * 0.35 + self.final * 0.35 + self.knowledge * 0.3
-        total_score = int(math.sqrt(total_score) * 10) 
+        total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
+        total_score = max(0, int(math.sqrt(total_score) * 12 - 20))
         self.total_score = total_score
         gpa = []
         for _ in range(25):
@@ -139,7 +139,6 @@ class Bubu(Character):
         self.taketest = "resource/gif/bubu_no_study_frames"
         self.ending = "resource/gif/bubu_playgame_frames"
 
-        self.week_number = 2
 
         self.sad = "resource/gif/bubu_crying_frames"
         self.playgame = "resource/gif/bubu_playgame_frames"
@@ -147,10 +146,11 @@ class Bubu(Character):
     def socialize(self, degree):
         growth = round(
             (100 - self.social) * 0.1 +
-            (self.mood - 50) * 0.03 +
-            (self.energy - 30) * 0.01, 2
+            (self.mood - 30) * 0.03 +
+            (self.energy) * 0.01, 2
         )
-        self.last_week_change = [growth, -15, 0, 3+int(round(growth * 0.1))]
+
+        self.last_week_change = [ 3, -15, growth, 3+int(round(growth * self.social * 0.01))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change]
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
@@ -231,7 +231,7 @@ class Huihui(Character):
         self.testing = "resource/gif/huihui_running_frames"
         self.ending = "resource/gif/huihui_flower_frames"
 
-        self.week_number = 15
+        self.week_number = 0
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
