@@ -25,24 +25,21 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-
     steps:
       - name: 📦 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 🐍 Set up Python 3.13
+      - name: 🐍 Set up Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.11'
 
       - name: 📚 Install Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip
-          pip install -r Docker/requirements.txt
+          pip install -r requirements.txt
           pip install pygbag 
 
       - name: 🧪 Verify Template File Presence
@@ -54,7 +51,7 @@ jobs:
         timeout-minutes: 30
         run: |
           echo "🔧 Building web version with pygbag..."
-          pygbag --build --archive . 
+          pygbag --build --archive .
           echo "✅ Pygbag build completed."
 
       - name: 🔎 Verify Build Output
