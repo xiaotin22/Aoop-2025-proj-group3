@@ -75,6 +75,8 @@ class TakeTestScene(BaseScene):
             self.draw(self.screen)
             pygame.display.update()
 
+
+
 class GradingScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
