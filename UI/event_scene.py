@@ -79,13 +79,13 @@ class EventScene(BaseScene ):
                 if button[0].handle_event(event):
                     attribute = self.week_data["events"]["options"][button[1]]["attribute"]
                     if "study" in attribute:
-                        self.player.study()
+                        self.player.study(1)
                     if "social" in attribute:
-                        self.player.socialize()
+                        self.player.socialize(1)
                     if "play_game" in attribute:
-                        self.player.play_game()
+                        self.player.play_game(1)
                     if "rest" in attribute:
-                        self.player.rest()
+                        self.player.rest(1)
                     self.player.chosen[self.player.week_number] = button[1]
                     print(f"你選擇了選項 {button[1]}: {button[0].text}")
                     return "finished"
@@ -99,7 +99,7 @@ class EventScene(BaseScene ):
         note_rect_anim.x = int(self.note_anim_x)
         self.screen.blit(self.note_img, note_rect_anim)
 
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
     
 
         # 文字滑入

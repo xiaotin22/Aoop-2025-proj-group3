@@ -13,62 +13,80 @@ class Character:
         self.midterm = 0     # 期中考成績
         self.final = 0       # 期末考成績
         self.week_number = 0
-        self.lucky_prof = 0
+        self.lucky_prof = 3
         self.total_score = 0
         self.GPA = 0
         self.chosen = ['0']*17
         self.home = ""
+        self.last_week_change = [0,0,0,0]  # [心情, 體力, 社交, 知識]
 
-    def study(self):
-        growth = round(
+    def study(self, degree):
+        growth = int(
             self.intelligence * 0.11 +
-            self.mood * 0.08 +
-            self.energy * 0.05 +
-            self.social * 0.03, 2
+            self.mood * 0.05 +
+            self.energy * 0.08 +
+            self.social * 0.03
         )
         growth = round(growth/(1+((8 - self.week_number) * 0.1)),2) if self.week_number < 8 else round(growth/(1+((16 - self.week_number) * 0.1)),2)
-        self.knowledge = round(min(100, self.knowledge + growth), 2)
-        self.mood = max(0, self.mood - 10)
-        self.energy = max(0, self.energy - 15)
+        self.last_week_change = [-10, -15, 0, growth+3]
+        self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
+        
+        self.mood , self.energy , self.social, self.knowledge = \
+            max(0, self.mood + self.last_week_change[0]),\
+            max(0, self.energy + self.last_week_change[1]),\
+            max(0, self.social + self.last_week_change[2]),\
+            min(100, self.knowledge + self.last_week_change[3]) 
     
-        print(f"{self.name} 認真學習中 📖✨ 知識增加了 {growth:.2f} 點！現在是 {self.knowledge}/100")
+        #print(f"{self.name} 認真學習中 📖✨ 知識增加了 {growth:.2f} 點！現在是 {self.knowledge}/100")
 
-    def socialize(self):
-        growth = round(
+    def socialize(self, degree):
+        growth = int(
             (self.social - 30) * 0.1 +
             (self.mood - 50) * 0.03 +
-            (self.energy - 30) * 0.01, 2
+            (self.energy - 30) * 0.01
         )
-        self.social = min(100, self.social + int(growth))
-        if growth > 6:
-            self.knowledge = round(min(100, self.knowledge + growth), 2)
-        self.mood = min(100, self.mood + 5)
-        self.energy = max(0, self.energy - 15)
-        print(f"{self.name} 正在社交中 🤝🎉 社交能力提升了 {growth:.2f} 點！現在是 {self.social}/100")
+        self.last_week_change = [growth, -15, 0, 3+int(round(growth * self.social * 0.01))]
+        self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
+        
+        self.mood , self.energy , self.social, self.knowledge = \
+            min(100, self.mood + self.last_week_change[0]),\
+            max(0, self.energy + self.last_week_change[1]),\
+            max(0, self.social + self.last_week_change[2]),\
+            min(100, self.knowledge + self.last_week_change[3]) 
 
-    def play_game(self):
-        growth = round(
+        #print(f"{self.name} 正在社交中 🤝🎉 社交能力提升了 {growth:.2f} 點！現在是 {self.social}/100")
+
+    def play_game(self, degree):
+        growth = int(
             (100 - self.mood) * 0.2 +
             (self.intelligence - 50) * 0.02 +
             (self.energy - 30) * 0.01 -
-            (self.social - 30) * 0.01, 2
+            (self.social - 30) * 0.01
         )
-        self.mood = min(100, self.mood + int(growth))
-        self.energy = max(0, self.energy - 5)
-        self.knowledge = round(max(0, self.knowledge - growth * 0.5), 2)
-        print(f"{self.name} 正在玩遊戲 🎮😄 心情提升了 {growth:.2f} 點！現在是 {self.mood}/100")
+        self.last_week_change = [growth, -3, 0, 3+int(round(-growth * 0.1))]
+        self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
+        self.mood , self.energy , self.social, self.knowledge = \
+            min(100, self.mood + self.last_week_change[0]),\
+            max(0, self.energy + self.last_week_change[1]),\
+            max(0, self.social + self.last_week_change[2]),\
+            max(0, self.knowledge + self.last_week_change[3])
+        #print(f"{self.name} 正在玩遊戲 🎮😄 心情提升了 {growth:.2f} 點！現在是 {self.mood}/100")
 
-    def rest(self):
-        growth = round(
+    def rest(self, degree):
+        growth = int(
             (100 - self.energy) * 0.15 +
             (100 - self.mood) * 0.02 +
             (self.intelligence - 50) * 0.2 -
-            (self.social - 30) * 0.01, 2
+            (self.social - 30) * 0.01
         )
-        self.energy = min(100, self.energy + int(growth))
-        self.mood = min(100, self.mood + int(growth * 0.5))
-        self.knowledge = round(max(0, self.knowledge - growth * 0.3), 2)
-        print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
+        self.last_week_change = [int(growth*0.6), growth, 0, 3+int(round(-growth * 0.1))]
+        self.last_week_change = [int(grow * degree) for grow in self.last_week_change]
+        self.mood , self.energy , self.social, self.knowledge = \
+            min(100, self.mood + self.last_week_change[0]),\
+            min(100, self.energy + self.last_week_change[1]),\
+            max(0, self.social + self.last_week_change[2]),\
+            max(0, self.knowledge + self.last_week_change[3])
+        #print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
 
     def calculate_grade(self):
         score = round(self.knowledge * 0.45 + self.mood * 0.3 + self.energy * 0.2 + self.intelligence * 0.1 , 2)
@@ -83,14 +101,13 @@ class Character:
         return int(round(grade))
 
     def get_final(self):
-        self.final = round(self.calculate_grade())
+        self.final = round(self.calculate_grade()) - 20
 
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + self.knowledge * 0.3
         total_score = int(math.sqrt(total_score) * 10) 
         self.total_score = total_score
-        self.lucky_prof = random.randint(3, 5)
         gpa = []
         for _ in range(25):
             if random.random() < 0.8:
@@ -126,6 +143,20 @@ class Bubu(Character):
 
         self.sad = "resource/gif/bubu_crying_frames"
         self.playgame = "resource/gif/bubu_playgame_frames"
+
+    def socialize(self, degree):
+        growth = round(
+            (100 - self.social) * 0.1 +
+            (self.mood - 50) * 0.03 +
+            (self.energy - 30) * 0.01, 2
+        )
+        self.last_week_change = [growth, -15, 0, 3+int(round(growth * 0.1))]
+        self.last_week_change = [int(grow * degree) for grow in self.last_week_change]
+        self.mood , self.energy , self.social, self.knowledge = \
+            min(100, self.mood + self.last_week_change[0]),\
+            max(0, self.energy + self.last_week_change[1]),\
+            max(0, self.social + self.last_week_change[2]),\
+            min(100, self.knowledge + self.last_week_change[3])
         
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4
@@ -135,7 +166,7 @@ class Bubu(Character):
             self.midterm -= 3
         if self.knowledge > 35:
             self.midterm += 8
-        self.midterm = int(round(self.midterm))+20
+        self.midterm = int(round(self.midterm))
 
 
 class Yier(Character):
@@ -161,7 +192,7 @@ class Yier(Character):
             self.midterm -= 3
         if self.knowledge > 40:
             self.midterm += 4
-        self.midterm = int(round(self.midterm))+20
+        self.midterm = int(round(self.midterm))
 
 
 class Mitao(Character):
@@ -184,7 +215,7 @@ class Mitao(Character):
             self.midterm -= 4
         if self.knowledge > 45:
             self.midterm += 5
-        self.midterm = int(round(self.midterm))+20
+        self.midterm = int(round(self.midterm))
 
 
 
@@ -200,6 +231,7 @@ class Huihui(Character):
         self.testing = "resource/gif/huihui_running_frames"
         self.ending = "resource/gif/huihui_flower_frames"
 
+        self.week_number = 15
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
@@ -209,7 +241,7 @@ class Huihui(Character):
             self.midterm -= 3
         if self.knowledge > 30:
             self.midterm += 2
-        self.midterm = int(round(self.midterm))+20
+        self.midterm = int(round(self.midterm))
 
 
 
@@ -224,25 +256,25 @@ def score_to_gpa(score):
 if __name__ == "__main__":
     player = Huihui()
 
-    player.socialize()
-    player.socialize()
-    player.rest()
-    player.play_game()
-    player.study()
-    player.socialize()
-    player.rest()
-    player.study()
+    player.socialize(1)
+    player.socialize(1)
+    player.rest(1)
+    player.play_game(1)
+    player.study(1)
+    player.socialize(1)
+    player.rest(1)
+    player.study(1)
 
     player.get_midterm()
 
-    player.study()
-    player.socialize()
-    player.rest()
-    player.study()
-    player.study()
-    player.rest()
-    player.study()
-    player.study()
+    player.study(1)
+    player.socialize(1)
+    player.rest(1)
+    player.study(1)
+    player.study(1)
+    player.rest(1)
+    player.study(1)
+    player.study(1)
 
     player.get_final()
 
