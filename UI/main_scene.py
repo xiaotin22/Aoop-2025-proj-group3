@@ -164,6 +164,7 @@ class MainScene(BaseScene):
         self.draw_player_stats()
 
 
+
         if self.set_hover:
             scaled = pygame.transform.scale(self.set_icon, (96, 96))
             rect = scaled.get_rect(center=self.set_rect.center)

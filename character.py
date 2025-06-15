@@ -120,6 +120,7 @@ class Bubu(Character):
         self.storytyping = "resource/gif/bubu_playcomputer_frames"
         self.testing = "resource/gif/bubu_study_frames"
         self.taketest = "resource/gif/bubu_no_study_frames"
+        self.ending = "resource/gif/bubu_playgame_frames"
 
         self.week_number = 0
 
@@ -147,6 +148,9 @@ class Yier(Character):
         self.storytyping = "resource/gif/yier_play_game_frames"
         self.testing = "resource/gif/yier_thinking_frames"
         self.taketest = "resource/gif/yier_no_study_frames"
+        self.ending = "resource/gif/yier_happyrest_frames"
+
+        self.week_number = 14
         
 
     def get_midterm(self):
@@ -170,6 +174,7 @@ class Mitao(Character):
         self.storytyping = "resource/gif/mitao_rest_frames"
         self.testing = "resource/gif/mitao_testing_frames"
         self.taketest = "resource/gif/mitao_low_mood_frames"
+        self.ending = "resource/gif/mitao_flower_frames"
 
 
     def get_midterm(self):
@@ -191,8 +196,9 @@ class Huihui(Character):
         self.intro = "resource/gif/huihui_intro_frames"
         self.header = "resource/image/Huihui_head.png"
         self.storytyping = "resource/gif/huihui_rest_frames"
-        self.taketest = "resource/gif/huihui_angry_frames"
-        self.testing = "resource/gif/huihui_sosad_frames"
+        self.taketest = "resource/gif/huihui_sosad_frames"
+        self.testing = "resource/gif/huihui_running_frames"
+        self.ending = "resource/gif/huihui_flower_frames"
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)

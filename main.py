@@ -10,6 +10,7 @@ from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
 from UI.set_scene import SetScene
 from UI.sound_control_scene import SoundControlScene
+from UI.end_scene import EndScene
 
 def start_game(screen):
     scene = StartScene(screen)
@@ -71,7 +72,7 @@ def select_character(screen):
 
 def game_loop(screen, player):
     pygame.display.set_caption(f"第 {player.week_number} 週｜角色：{player.name}")
-    while player.week_number <= 16:
+    while player.week_number < 16:
         scene = MainScene(screen, player)
         player_option = scene.run()
         print(f"玩家選擇的操作為：{player_option!r}")
@@ -85,18 +86,14 @@ def game_loop(screen, player):
             else:
                 return False  # 如果不小心點 quit，就結束
 
-        if player_option == "Open Character Info":
-            attr_scene = AttributeScene(screen, player)
+        if player_option == "Open Diary":
+            attr_scene = DairyScene(screen, player)
             attr_scene.run()
 
         elif player_option == "Next Story":
             player.week_number += 1
             story_scene = StoryScene(screen, player)
             story_scene.run()
-            event_scene = EventScene(screen, player)
-            event_scene.run()
-        
-        elif player_option == "Open Event":
             event_scene = EventScene(screen, player)
             event_scene.run()
         
@@ -111,8 +108,7 @@ def game_loop(screen, player):
 def end_game(screen, player):
     pygame.display.set_caption("End of Game")
     scene = EndScene(screen, player)
-    player.show_status()
-    player.calculate_GPA()
+    
 
     if scene.run() == "SHOW_RANK":
         rank_scene = RankScene(screen, player)
@@ -123,6 +119,12 @@ def end_game(screen, player):
         print("重新開始遊戲")
         return start_game(screen)
 
+
+    elif scene.run() == "FEEDBACK":
+        # 導入外部連結或表單
+        import webbrowser
+        webbrowser.open("https://forms.gle/kfpH9eV348CGnTZa8")
+        print("感謝您的回饋！")
     if scene.run() == "Exit":
         print("遊戲結束，謝謝遊玩！")
 
@@ -145,10 +147,15 @@ def main():
         if not isinstance(player, Character):
             continue  # 沒有選擇角色，回到主選單
 
-        player.show_status()
+        
         if not game_loop(screen, player):
             break
+        # 遊戲結束，進入結尾場景
         end_game(screen, player)
+        # 如果結尾場景選擇重新開始，則回到主選單
+        if not start_game(screen):
+            break
+    # 清理資源
         # 遊戲結束後自動回到主選單
     pygame.quit()
 
