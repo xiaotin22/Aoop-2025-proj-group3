@@ -26,6 +26,17 @@ class SetScene(BaseScene):
         self.button1 = ImageButton("resource/image/button.png", (280, 70), size=(650, 550))
         self.button2 = ImageButton("resource/image/button.png", (280, 280), size=(650, 550))
 
+    def draw_week_number(self):
+        font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
+        text = f"第 {self.week_number} 週"
+
+        text_surface = font.render(text, True, (255, 245, 200))
+        shadow_surface = font.render(text, True, (100, 80, 60))
+        x = self.SCREEN_WIDTH // 2 - text_surface.get_width() // 2
+        y = 175
+        self.screen.blit(shadow_surface, (x + 2, y + 2))   # 陰影微偏右下
+        self.screen.blit(text_surface, (x, y))
+
     def run(self):
         while self.running:
             self.screen.blit(self.blurred_bg, (0, 0))  # 模糊背景
