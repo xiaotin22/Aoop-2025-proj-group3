@@ -1,15 +1,18 @@
 # OOP 2025 Group 10 Project
-
-**本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果，主要在練習使用 Python, Pygame的一些函式庫** 
-
-
-
-
 <p align="center">
   <img src="resource/image/game_UI/start_scene.png" alt="遊戲主選單截圖" width="750"/>
 </p>
+**本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果，主要在練習使用 Python, Pygame的一些函式庫** 
 
-## ✨遊戲角色選擇
+Group10 開發人員如下：
+* NYCU_EE [113511116 tpvupu](https://github.com/tpvupu) : 陳欣怡
+* NYCU_EE [113511203 calistayang](https://github.com/calistayang)：楊馨惠
+* NYCU_EE [113511266 xiaotin22](https://github.com/xiaotin22)：楊庭瑞
+
+## ✨遊戲介紹
+
+**本遊戲可根據玩家的喜好選擇自己想要的玩家進行遊戲，共有四種選擇**
+
 <p align="center">
   <img src="resource/image/game_UI/select.png" alt="遊戲選擇" width="750"/>
 </p>
@@ -20,7 +23,7 @@
 
 ## 🎉事件選擇與考試結算
 
-** 本遊戲會根據不同的事件選擇，對角色狀態的改變，再進行評估成績 **
+**本遊戲會根據不同的事件選擇，對角色狀態的改變，再進行評估成績**
 
 <p align="center">
   <img src="resource/image/game_UI/event.png" alt="事件選擇" width="750"/>
@@ -41,10 +44,6 @@
   <img src="resource/image/game_UI/final_result.png" alt="結算結果" width="750"/>
 </p>
 
-Group10 開發人員如下：
-* NYCU_EE [113511116 tpvupu](https://github.com/tpvupu) : 陳欣怡
-* NYCU_EE [113511203 calistayang](https://github.com/calistayang)：楊馨惠
-* NYCU_EE [113511266 xiaotin22](https://github.com/xiaotin22)：楊庭瑞
 
 ## 📂 專案架構 (Project Structure)
 ``` bash
