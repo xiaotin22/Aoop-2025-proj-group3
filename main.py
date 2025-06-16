@@ -8,7 +8,7 @@ from UI.set_scene import SetScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
-from UI.set_scene import SetScene
+# from UI.diary import DairyScene
 from UI.sound_control_scene import SoundControlScene
 from UI.end_scene import EndScene
 
@@ -86,9 +86,9 @@ def game_loop(screen, player):
             else:
                 return False  # 如果不小心點 quit，就結束
 
-        if player_option == "Open Diary":
-            attr_scene = DairyScene(screen, player)
-            attr_scene.run()
+        # if player_option == "Open Diary":
+            # attr_scene = DairyScene(screen, player)
+            # attr_scene.run()
 
         elif player_option == "Next Story":
             player.week_number += 1
