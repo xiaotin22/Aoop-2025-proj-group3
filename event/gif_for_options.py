@@ -187,3 +187,11 @@ huihui = {
     "week_16":{
     }
 }
+
+yier = {
+    "week_1":{
+        "C" : setting.GIF_PATHS['YIER_HAPPY_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_PLAYGAME_FRAMES'],
+    },
+    
+}
