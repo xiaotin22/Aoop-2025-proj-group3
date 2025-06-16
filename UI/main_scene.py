@@ -8,7 +8,7 @@ from UI.components.base_scene import BaseScene
 import setting
 #Json,attribute : ["rest", "play_game", "social", "study"]
 
-
+# aaa
 class MainScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
