@@ -7,7 +7,7 @@ class ImageButton:
             self.image_original = pygame.transform.smoothscale(self.image_original, size)
         self.image = self.image_original
 
-        # ➕ 用來碰撞的 hitbox，固定大小不變
+        # 用來碰撞的 hitbox，固定大小不變
         self.hitbox = self.image_original.get_rect(topleft=pos)
         self.rect = self.hitbox.copy()  # 實際繪圖用的 rect
 
@@ -16,7 +16,7 @@ class ImageButton:
 
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
-        if self.hitbox.collidepoint(mouse_pos):  # ✅ 偵測用 hitbox
+        if self.hitbox.collidepoint(mouse_pos):  # 偵測用 hitbox
             if not self.is_hover:
                 self.is_hover = True
                 w, h = self.image_original.get_size()
@@ -24,7 +24,7 @@ class ImageButton:
                     self.image_original,
                     (int(w * self.hover_scale), int(h * self.hover_scale))
                 )
-                # ➕ 放大後要以「中心」對齊原 hitbox 中心
+                
                 self.rect = self.image.get_rect(center=self.hitbox.center)
         else:
             if self.is_hover:
