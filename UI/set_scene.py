@@ -30,7 +30,7 @@ class SetScene(BaseScene):
         font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
         text = f"第 {self.week_number} 週"
 
-        text_surface = font.render(text, True, (255, 245, 200))
+        text_surface = font.render(text, True, (250, 220, 100))
         shadow_surface = font.render(text, True, (100, 80, 60))
         x = self.SCREEN_WIDTH // 2 - text_surface.get_width() // 2
         y = 175
