@@ -43,15 +43,13 @@ class SetScene(BaseScene):
             else:
                 self.screen.blit(self.back_icon, self.back_rect.topleft)
 
-            # ✅ 顯示目前週數文字
+            # 顯示目前週數文字
             font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
             text_surface = font.render(f"第 {self.week_number} 週", True, (0, 0, 0))
-            self.screen.blit(text_surface, (
-                self.SCREEN_WIDTH // 2 - text_surface.get_width() // 2,
-                40
-            ))
+            text_x = self.SCREEN_WIDTH // 2 - text_surface.get_width() // 2
+            text_y = 40 
+            self.screen.blit(text_surface, (text_x, text_y))
 
-            # 按鈕更新 & 繪製
             self.button1.update()
             self.button2.update()
             self.button1.draw(self.screen)
