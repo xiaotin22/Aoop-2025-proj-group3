@@ -37,9 +37,9 @@ class StoryScene(BaseScene):
         self.line_spacing = 10
         self.line_height = self.font.get_linesize()
 
-        intro_text = story_dict.get(f"week_{current_week}", {}).get("intro", "")
+        intro_text = self.player.week_data.get("intro", "")
         self.lines = intro_text.splitlines() if intro_text else []
-        self.title = story_dict.get(f"week_{current_week}", {}).get("title", "")
+        self.title = self.player.week_data.get("title", "")
 
         self.current_line = 0
         self.current_char = 0

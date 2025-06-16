@@ -2,6 +2,7 @@ import random
 import math
 import setting
 from UI.components.character_animator import CharacterAnimator
+import json
 class Character:
     def __init__(self, name, intelligence, mood, energy, social):
         self.name = name
@@ -19,6 +20,9 @@ class Character:
         self.chosen = ['0']*17
         self.home = ""
         self.last_week_change = [0,0,0,0]  # [心情, 體力, 社交, 知識]
+        with open("event/events.json", "r", encoding="utf-8") as f:
+            self.all_weeks_data = json.load(f)
+        self.week_data = None
 
     def study(self, degree):
         growth = int(
@@ -37,7 +41,6 @@ class Character:
             max(0, self.social + self.last_week_change[2]),\
             min(100, self.knowledge + self.last_week_change[3]) 
     
-        #print(f"{self.name} 認真學習中 📖✨ 知識增加了 {growth:.2f} 點！現在是 {self.knowledge}/100")
 
     def socialize(self, degree):
         growth = int(
@@ -146,18 +149,31 @@ class Bubu(Character):
         self.tired = setting.GIF_PATHS['BUBU_TIRED_FRAMES']
         self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES'] 
         
+        self.study_gif = setting.GIF_PATHS['BUBU_STUDY_FRAMES']
+        self.rest_gif = setting.GIF_PATHS['BUBU_LAZY_FRAMES']
+        self.play_game_gif = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
+        self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES']
+        print(self.week_data)
+        
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.energy <= 50:
-            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
+        if self.week_number == 0:
+            return self.animator    
+        
+        #根據選擇撥放不同的動畫
+        option = self.week_data.get("events", {}).get("options", {}) 
+        attribute = option[self.chosen[self.week_number]]["attribute"]
+        
+        if attribute == "study":
+            self.animator = CharacterAnimator(self.study_gif, (400, 400), (300, 300))
             
-        elif self.mood <= 40:
-            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
+        elif attribute == "rest":
+            self.animator = CharacterAnimator(self.rest_gif, (400, 400), (300, 300))
             
-        elif self.mood >= 90:
-            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
+        elif attribute == "play_game":
+            self.animator = CharacterAnimator(self.play_game_gif, (400, 400), (300, 300))
             
-        elif self.social >= 50 :
+        elif attribute == "socialize":
             self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
             
         return self.animator

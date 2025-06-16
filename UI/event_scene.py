@@ -1,6 +1,5 @@
 import pygame
 import sys
-import json
 from UI.components.base_scene import BaseScene, wrap_text
 from UI.components.button import Button
 import setting
@@ -33,16 +32,13 @@ class EventScene(BaseScene):
 
         self.has_sound = False
 
-        with open("event/events.json", "r", encoding="utf-8") as f:
-            self.all_weeks_data = json.load(f)
-        self.week_data = self.all_weeks_data[f"week_{self.player.week_number}"]
-        self.title = self.week_data.get("title", "")
+        self.title = self.player.week_data.get("title", "")
 
-        if len(self.week_data["events"]) != 0:
-            self.event_text = self.week_data["events"]["description"]
+        if len(self.player.week_data["events"]) != 0:
+            self.event_text = self.player.week_data["events"]["description"]
 
             self.options = []
-            for key, option in self.week_data["events"]["options"].items():
+            for key, option in self.player.week_data["events"]["options"].items():
                 self.options.append((option["text"], key))
                 
             # 計算按鈕初始位置
@@ -72,14 +68,14 @@ class EventScene(BaseScene):
                     self.note_anim_x = self.note_target_x
                     self.animating_in = False
             return  # 動畫時不處理事件
-        if len(self.week_data["events"]) == 0 :
+        if len(self.player.week_data["events"]) == 0 :
             return "finished"
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
             for button in self.buttons:
                 if button[0].handle_event(event):
-                    attribute = self.week_data["events"]["options"][button[1]]["attribute"]
+                    attribute = self.player.week_data["events"]["options"][button[1]]["attribute"]
                     if "study" in attribute:
                         self.player.study(1)
                     if "social" in attribute:
@@ -93,7 +89,7 @@ class EventScene(BaseScene):
                     return "finished"
 
     def draw(self):
-        if len(self.week_data["events"]) == 0 :
+        if len(self.player.week_data["events"]) == 0 :
             return "finished"
         self.screen.blit(self.background_img, (0, 0))
         # 便條紙滑入
@@ -153,4 +149,4 @@ class EventScene(BaseScene):
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
-        return None 
+        return None
