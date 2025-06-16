@@ -286,6 +286,107 @@ yier = {
 }
 
 mitao = {
+    "week_1":{
+        "A" : setting.GIF_PATHS['MITAO_EATING_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_DRINKTEA_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_TESTING_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_CHIP_FRAMES'],
+    },
     
+    "week_2":{
+        "A" : setting.GIF_PATHS['MITAO_REST2_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_CUTIE_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_TESTING_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_TIRED_FRAMES'],
+    },
     
+    "week_3":{
+        "A" : setting.GIF_PATHS['MITAO_DRINKTEA_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_FLOWER_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_EATMELON_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_TIRED_FRAMES'],
+    },
+    
+    "week_4":{
+        "A" : setting.GIF_PATHS['MITAO_TESTING_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_CHIP_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_REST_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES'],
+    },
+    
+    "week_5":{
+        "A" : setting.GIF_PATHS['MITAO_INTRO_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_CRYING_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_CRYING_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_EATMELON_FRAMES'],
+    },
+    
+    "week_6":{
+        "A" : setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_DRINKTEA_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_EATING_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_TIRED_FRAMES'],
+    },
+    
+    "week_7":{
+        "A" : setting.GIF_PATHS['MITAO_CUTIE_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_TESTING_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_TESTING_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_TIRED_FRAMES'],
+    },
+    
+    "week_8":{
+    },
+    
+    "week_9":{
+        "A" : setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_CRYING_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_REST2_FRAMES'],
+    },
+    
+    "week_10":{
+        "A" : setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_REST_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_TIRED_FRAMES'],
+    },
+    
+    "week_11":{
+        "A" : setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_CUTIE_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_CUTIE_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_EATMELON_FRAMES'],
+    },
+    
+    "week_12":{
+        "A" : setting.GIF_PATHS['MITAO_RUNNING_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_REST_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_EATMELON_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_CUTIE_FRAMES'],
+    },
+    
+    "week_13":{
+        "A" : setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_CRYING_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_REST_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_REST2_FRAMES'],
+    },
+    
+    "week_14":{
+        "A" : setting.GIF_PATHS['MITAO_INTRO_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_TIRED_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_EATMELON_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_TIRED_FRAMES'],
+    },
+    
+    "week_15":{
+        "A" : setting.GIF_PATHS['MITAO_CRYING_FRAMES'],
+        "B" : setting.GIF_PATHS['MITAO_CRYING_FRAMES'],
+        "C" : setting.GIF_PATHS['MITAO_EATMELON_FRAMES'],
+        "D" : setting.GIF_PATHS['MITAO_REST_FRAMES'],
+    },
+    
+    "week_16":{
+    }
 }
