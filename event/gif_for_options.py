@@ -202,32 +202,34 @@ yier = {
     
     
     "week_3":{
+        "A" : setting.GIF_PATHS['YIER_SOSOSAD_FRAMES'],
         "B" : setting.GIF_PATHS['YIER_EXCITING_FRAMES'],
         "D" : setting.GIF_PATHS['YIER_DADADADA_FRAMES'],
     },
     
     "week_4":{
-        "A" : setting.GIF_PATHS['YIER_PLAY_GAME_FRAMES'],
+        "A" : setting.GIF_PATHS['YIER_WORKING_FRAMES'],
         "C" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
-        "D" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_TRASH_FRAMES'],
     },
     
     "week_5":{
         "B" : setting.GIF_PATHS['YIER_SAD_FRAMES'],
-        "C" : setting.GIF_PATHS['YIER_SAD_FRAMES'],
+        "C" : setting.GIF_PATHS['YIER_TRASH_FRAMES'],
     },
     
     "week_6":{
-        "A" : setting.GIF_PATHS['YIER_SAD_FRAMES'],
+        "A" : setting.GIF_PATHS['YIER_CRYING_FRAMES'],
         "B" : setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES'],
         "C" : setting.GIF_PATHS['YIER_THINKING_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_TIRED_FRAMES'],
     },
     
     "week_7":{
         "A" : setting.GIF_PATHS['YIER_CHEER_UP_FRAMES'],
-        "B" : setting.GIF_PATHS['YIER_SAD_FRAMES'],
+        "B" : setting.GIF_PATHS['YIER_WORKING_FRAMES'],
         "C" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
-        "D" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_NO_WORK_FRAMES'],
     },
     
     "week_8":{
@@ -236,14 +238,14 @@ yier = {
     "week_9":{
         "B" : setting.GIF_PATHS['YIER_SAD_FRAMES'],
         "C" : setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES'],
-        "D" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_TIRED_FRAMES'],
     },
     
     "week_10":{
-        "A" : setting.GIF_PATHS['YIER_SAD_FRAMES'],
+        "A" : setting.GIF_PATHS['YIER_CRYING_FRAMES'],
         "B" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
         "C" : setting.GIF_PATHS['YIER_HAPPYREST_FRAMES'],
-        #"D" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_TIRED_FRAMES'],
     },
     
     "week_11":{
@@ -260,21 +262,30 @@ yier = {
     },
     
     "week_13":{
-        "A" : setting.GIF_PATHS['YIER_SAD_FRAMES'],
-        "B" : setting.GIF_PATHS['YIER_CRYING_FRAMES'],
+        "A" : setting.GIF_PATHS['YIER_TRASH_FRAMES'],
+        "B" : setting.GIF_PATHS['YIER_TRASH_FRAMES'],
         "C" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
         "D" : setting.GIF_PATHS['YIER_HAPPYREST_FRAMES'],
     },
     
     "week_14":{
         "A" : setting.GIF_PATHS['YIER_EXCITING_FRAMES'],
-        "B" : setting.GIF_PATHS['YIER_CRYING_FRAMES'],
+        "B" : setting.GIF_PATHS['YIER_SOSOSAD_FRAMES'],
         "C" : setting.GIF_PATHS['YIER_EXCITING_FRAMES'],
-        "D" : setting.GIF_PATHS['YIER_CRYING_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_WORKING_FRAMES'],
     },
     
-    
-    
+    "week_15":{
+        "A" : setting.GIF_PATHS['YIER_QQ_FRAMES'],
+        "B" : setting.GIF_PATHS['YIER_WORKING_FRAMES'],
+        "C" : setting.GIF_PATHS['YIER_DADADADA_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_DADADADA_FRAMES'],
+    },
+    "week_16":{
+    }
+}
+
+mitao = {
     
     
 }
