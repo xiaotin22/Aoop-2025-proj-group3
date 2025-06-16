@@ -6,6 +6,7 @@ from UI.components.button import Button
 from UI.components.audio_manager import AudioManager
 from UI.components.base_scene import BaseScene
 import setting
+#Json,attribute : ["rest", "play_game", "social", "study"]
 
 
 class MainScene(BaseScene):
@@ -13,7 +14,11 @@ class MainScene(BaseScene):
         super().__init__(screen)
         self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
+        self.player = player
         self.animator = CharacterAnimator(player.intro, (400, 400), (300, 300))
+        
+        if self.player.mood <= 40:
+            self.animator = CharacterAnimator(self.player.sad, (400, 400), (300, 300))
         font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
@@ -29,8 +34,7 @@ class MainScene(BaseScene):
         self.player = player
         self.is_hover = False
         self.hover_scale = 1.1
-        if player.name == "Bubu":
-            self.animator.frame_delay = 10  # 控制動畫速度
+        
 
 
         self.stats_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
@@ -53,8 +57,8 @@ class MainScene(BaseScene):
 
 
     def update(self):
-        self.animator.update()
-
+        
+        self.animator.update()    
         mouse_pos = pygame.mouse.get_pos()
         mouse_pressed = pygame.mouse.get_pressed()
 

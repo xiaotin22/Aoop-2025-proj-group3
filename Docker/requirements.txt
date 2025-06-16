@@ -6,5 +6,6 @@ pytest
 pygame_gui
 Pillow
 Counter
+pygbag
 
 #加完東西要跑一次 source docker_build.sh
