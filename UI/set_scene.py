@@ -17,6 +17,10 @@ class SetScene(BaseScene):
         self.back_rect = self.back_icon.get_rect(topleft=(200, 157))  # 你原本的位置
         self.back_hover = False
 
+        # 顯示第幾週
+        self.week_number = week_number
+        self.week_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 48)
+
         # 設定按鈕
         self.button1 = ImageButton("resource/image/button.png", (260, 70), size=(650, 550))
         self.button2 = ImageButton("resource/image/button.png", (260, 280), size=(650, 550))
@@ -31,6 +35,7 @@ class SetScene(BaseScene):
             mouse_pos = pygame.mouse.get_pos()
             self.back_hover = self.back_rect.collidepoint(mouse_pos)
 
+
             if self.back_hover:
                 scaled = pygame.transform.scale(self.back_icon, (96, 96))
                 rect = scaled.get_rect(center=self.back_rect.center)
@@ -38,13 +43,13 @@ class SetScene(BaseScene):
             else:
                 self.screen.blit(self.back_icon, self.back_rect.topleft)
 
-            # 更新與繪製兩個圖片按鈕
+            # ✅ 更新與繪製兩個圖片按鈕
             self.button1.update()
             self.button2.update()
             self.button1.draw(self.screen)
             self.button2.draw(self.screen)
 
-            # 處理事件
+            # 🎮 處理事件
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "QUIT"
