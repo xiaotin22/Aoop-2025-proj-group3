@@ -11,6 +11,7 @@ from UI.rank_scene import RankScene
 # from UI.diary import DairyScene
 from UI.sound_control_scene import SoundControlScene
 from UI.end_scene import EndScene
+from UI.feedback_scene import FeedbackScene
 
 def start_game(screen):
     scene = StartScene(screen)
@@ -46,23 +47,15 @@ def select_character(screen):
 
     if selected == "布布 Bubu":
         player = Bubu()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     elif selected == "一二 Yier":
         player = Yier()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     elif selected == "蜜桃 Mitao":
         player = Mitao()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     elif selected == "灰灰 Huihui":
         player = Huihui()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     else:
         print("未選擇角色，回到主畫面")
@@ -121,8 +114,8 @@ def end_game(screen, player):
             print("重新開始遊戲")
             return "RESTART"
         elif result == "FEEDBACK":
-            import webbrowser
-            webbrowser.open("https://forms.gle/kfpH9eV348CGnTZa8")
+            feedback_scene = FeedbackScene(screen, player)
+            feedback_scene.run()
             print("感謝您的回饋！")
             # 回到結尾場景
         elif result == "Exit":

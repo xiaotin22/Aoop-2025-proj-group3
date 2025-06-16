@@ -88,7 +88,7 @@ class Character:
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
             min(100, self.energy + self.last_week_change[1]),\
-            max(0, self.social + self.last_week_change[2]),\
+            min(100,max(0, self.social + self.last_week_change[2])),\
             min(100, self.knowledge + self.last_week_change[3])
         #print(f"{self.name} 正在休息 💤😌 體力提升了 {growth:.2f} 點！現在是 {self.energy}/100")
 
@@ -111,7 +111,7 @@ class Character:
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
-        total_score = max(0, int(math.sqrt(total_score) * 20 - 100))
+        total_score = max(0, int(math.sqrt(total_score) * 12 - 20))
         self.total_score = total_score
         gpa = []
         for _ in range(25):
@@ -214,24 +214,16 @@ class Yier(Character):
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.week_number == 0:
-            return self.animator    
-        
-        #根據選擇撥放不同的動畫
-        option = self.week_data.get("events", {}).get("options", {}) 
-        attribute = option[self.chosen[self.week_number]]["attribute"]
-        print (attribute)
-        
-        if attribute == "study":
-            self.animator = CharacterAnimator(self.study_gif, (400, 400), (300, 300))
+        if self.energy <= 10:
+            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
             
-        elif attribute == "rest":
-            self.animator = CharacterAnimator(self.rest_gif, (400, 400), (300, 300))
+        elif self.mood <= 30:
+            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
             
-        elif attribute == "play_game":
-            self.animator = CharacterAnimator(self.play_game_gif, (400, 400), (300, 300))
+        elif self.mood >= 80:
+            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
             
-        elif attribute == "social":
+        elif self.social >= 90 :
             self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
             
         return self.animator
