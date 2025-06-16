@@ -2,6 +2,7 @@
 <p align="center">
   <img src="resource/image/game_UI/start_scene.png" alt="遊戲主選單截圖" width="750"/>
 </p>
+
 **本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果，主要在練習使用 Python, Pygame的一些函式庫** 
 
 Group10 開發人員如下：
@@ -38,11 +39,23 @@ Group10 開發人員如下：
 </p>
 
 ## 🥚小彩蛋 --- 輪盤抽籤
-** 除了主要的小介面，本專案另設有些小彩蛋，歡迎各位前往遊玩～ **
+
+**除了主要的小介面，本專案另設有些小彩蛋，歡迎各位前往遊玩～**
 
 <p align="center">
-  <img src="resource/image/game_UI/final_result.png" alt="結算結果" width="750"/>
+  <img src="resource/image/game_UI/luckywheel.png" alt="結算結果" width="750"/>
 </p>
+
+## 😎模擬大學GPA系統
+
+**使用python 函式庫 matplotlib 畫出由300次隨機選擇的分布圖，角色的每一步選擇都會影響最後的學期GPA**
+
+<p align="center">
+  <img src="simulations_plot/gpa_highlight.png" alt="GPA" width="750"/>
+</p>
+
+
+
 
 
 ## 📂 專案架構 (Project Structure)
