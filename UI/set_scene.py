@@ -31,6 +31,12 @@ class SetScene(BaseScene):
             self.screen.blit(self.blurred_bg, (0, 0))  # 模糊背景
             self.screen.blit(self.panel, (0, 0))       # 上層面板
 
+            # 顯示週數文字（居中顯示）
+            if self.week_number is not None:
+                text = self.week_font.render(f"目前是第 {self.week_number} 週", True, (0, 0, 0))
+                text_rect = text.get_rect(center=(self.SCREEN_WIDTH // 2, 50))
+                self.screen.blit(text, text_rect)
+
             # hover 狀態更新
             mouse_pos = pygame.mouse.get_pos()
             self.back_hover = self.back_rect.collidepoint(mouse_pos)
