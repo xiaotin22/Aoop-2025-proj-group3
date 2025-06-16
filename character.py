@@ -154,7 +154,7 @@ class Bubu(Character):
         self.rest_gif = setting.GIF_PATHS['BUBU_LAZY_FRAMES']
         self.play_game_gif = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
         self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES']
-        print(self.week_data)
+        #print(self.week_data)
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
