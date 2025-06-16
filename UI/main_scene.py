@@ -5,6 +5,7 @@ from UI.components.character_animator import CharacterAnimator
 from UI.components.button import Button
 from UI.components.audio_manager import AudioManager
 from UI.components.base_scene import BaseScene
+from UI.components.floating_emoji import FloatingEmoji
 import setting
 #Json,attribute : ["rest", "play_game", "social", "study"]
 
@@ -63,15 +64,69 @@ class MainScene(BaseScene):
 
         self.set_icon = pygame.image.load(setting.ImagePath.SET_PATH).convert_alpha()
         self.set_icon = pygame.transform.smoothscale(self.set_icon, (80, 80))
-        self.set_rect = self.set_icon.get_rect(topleft=(20, 700))
+        self.set_rect = self.set_icon.get_rect(topleft=(1100, 20))
         self.set_hover = False
 
+        # 表情圖初始化
+        self.emoji_paths = [
+            setting.ImagePath.SAD_PATH,
+            setting.ImagePath.BALLON_PATH,
+            setting.ImagePath.LIGHTENING_PATH,
+            setting.ImagePath.LOVE_PATH,
+            setting.ImagePath.HEART_PATH,
+            setting.ImagePath.ROCKET_PATH,
+        ]
+        self.emoji_surfaces = [pygame.image.load(p).convert_alpha() for p in self.emoji_paths]
+        self.emoji_surfaces = [pygame.transform.smoothscale(img, (60, 60)) for img in self.emoji_surfaces]
+        self.emoji_rects = []
+        self.emoji_clicked_frames = [0] * 6  # 點擊動畫持續幀數
+        self.emoji_frame_max = 3  # 點擊放大的持續幀數
+        self.floating_emojis = []
+
+
+    def draw_emoji(self):
+        self.emoji_rects = []
+
+        # 表情符號座標
+        left_start_x = 50
+        left_y = self.SCREEN_HEIGHT - 80
+        right_x = self.SCREEN_WIDTH - 100
+        right_start_y = self.SCREEN_HEIGHT - 360
+
+        for i, emoji in enumerate(self.emoji_surfaces):
+            # 計算位置
+            if i < 3:
+                x = left_start_x + i * 60
+                y = left_y
+            else:
+                x = right_x
+                y = right_start_y + (i - 3) * 60
+
+            rect = emoji.get_rect(topleft=(x, y))
+            self.emoji_rects.append(rect)
+
+            # 根據是否在點擊動畫狀態進行放大
+            if self.emoji_clicked_frames[i] > 0:
+                scale = 1.2
+                self.emoji_clicked_frames[i] -= 1
+            else:
+                scale = 1.0
+
+            new_size = int(40 * scale)
+            scaled_img = pygame.transform.smoothscale(self.emoji_surfaces[i], (new_size, new_size))
+            new_rect = scaled_img.get_rect(center=rect.center)
+            self.screen.blit(scaled_img, new_rect.topleft)
 
     def update(self):
         
         self.animator.update()    
         mouse_pos = pygame.mouse.get_pos()
         mouse_pressed = pygame.mouse.get_pressed()
+
+        for emoji in self.floating_emojis:
+            emoji.update()
+        # 清掉過期的
+        self.floating_emojis = [e for e in self.floating_emojis if not e.is_expired()]
 
         # 設定按鈕 hover 與點擊
         if self.set_rect.collidepoint(mouse_pos):
@@ -198,6 +253,7 @@ class MainScene(BaseScene):
         self.animator.draw(self.screen)
         self.next_week_button.draw(self.screen)
         self.draw_player_stats()
+        self.draw_emoji()
 
         # 畫設定按鈕
         if self.set_hover:
@@ -238,11 +294,27 @@ class MainScene(BaseScene):
             
             self.screen.blit(scaled_img, scaled_rect)
 
+            # 畫出所有飄移表情
+            for emoji in self.floating_emojis:
+                emoji.draw(self.screen)
+
     def run(self):
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "Quit"
+
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    for i, rect in enumerate(self.emoji_rects):
+                        if rect.collidepoint(event.pos):
+                            self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
+                            self.emoji_clicked_frames[i] = self.emoji_frame_max
+
+                            # 建立新的飄動畫（用目前表情圖片）
+                            float_img = pygame.transform.smoothscale(self.emoji_surfaces[i], (40, 40))
+                            float_start = rect.center
+                            floating = FloatingEmoji(float_img, float_start)
+                            self.floating_emojis.append(floating)
 
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.set_rect.collidepoint(event.pos):

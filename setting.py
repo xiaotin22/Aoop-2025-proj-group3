@@ -64,6 +64,13 @@ class ImagePath:
 
     EVENT_ICON_PATH = os.path.join(IMAGE_DIR, 'event_icon.PNG')
     EVENT_WINDOW_PATH = os.path.join(IMAGE_DIR, 'event_window.PNG')
+    
+    SAD_PATH = os.path.join(IMAGE_DIR, 'sad.png')
+    BALLON_PATH = os.path.join(IMAGE_DIR, 'ballon.png')
+    LIGHTENING_PATH = os.path.join(IMAGE_DIR, 'lightening.png')
+    LOVE_PATH = os.path.join(IMAGE_DIR, 'love.png')
+    HEART_PATH = os.path.join(IMAGE_DIR, 'heart.png')
+    ROCKET_PATH = os.path.join(IMAGE_DIR, 'rocket.png')
 
 
 # 重要檔案路徑
