@@ -75,7 +75,7 @@ class ImagePath:
     LIGHTENING_PATH = os.path.join(IMAGE_DIR, 'lightening.png')
     LIGHTENING_W_PATH = os.path.join(IMAGE_DIR, 'lightening_white.png')
     
-    ROCKET_PATH = os.path.join(IMAGE_DIR, 'rocket.png')
+    ROCKET_PATH = os.path.join(IMAGE_DIR, 'rocket_white.png')
     ROCKET_W_PATH = os.path.join(IMAGE_DIR, 'rocket_white.png')
     
     KISS_PATH = os.path.join(IMAGE_DIR, 'kiss.png')
