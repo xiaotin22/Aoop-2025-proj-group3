@@ -47,7 +47,7 @@ class SetScene(BaseScene):
             font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
             text_surface = font.render(f"第 {self.week_number} 週", True, (0, 0, 0))
             text_x = self.SCREEN_WIDTH // 2 - text_surface.get_width() // 2
-            text_y = 157
+            text_y = 163
             self.screen.blit(text_surface, (text_x, text_y))
 
             self.button1.update()
