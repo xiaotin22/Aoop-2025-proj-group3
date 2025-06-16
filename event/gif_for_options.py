@@ -93,3 +93,97 @@ bubu = {
     
     
 }
+
+huihui = {
+    
+    "week_1":{
+        "C" : setting.GIF_PATHS['HUIHUI_HEHE_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_HAPPY_FRAMES'],
+    },
+    
+    "week_2":{
+        "A" : setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_REST_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_HEHE_FRAMES'],
+    },
+    
+    "week_3":{
+        "A" : setting.GIF_PATHS['HUIHUI_HEHE_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_HAPPY_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_HEHE_FRAMES'],
+    },
+    
+    "week_4":{
+        "A" : setting.GIF_PATHS['HUIHUI_REST_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES'],
+    },
+    
+    "week_5":{
+        "B" : setting.GIF_PATHS['HUIHUI_SAD_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES'],
+    },
+    
+    "week_6":{
+        "A" : setting.GIF_PATHS['HUIHUI_SAD_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_SAD_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_SLEEP_FRAMES'],
+    },
+    
+    "week_7":{
+        "A" : setting.GIF_PATHS['HUIHUI_CELEBRATE_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_ANGRY_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_REST_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_SLEEP_FRAMES'],
+    },
+    
+    "week_8":{
+    },
+    
+    "week_9":{
+        "A" : setting.GIF_PATHS['HUIHUI_HAPPY_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_SAD_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_SLEEP_FRAMES'],
+    },
+    
+    "week_10":{
+        "A" : setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_REST_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_SLEEP_FRAMES'],
+    },
+    
+    "week_11":{
+        "A" : setting.GIF_PATHS['HUIHUI_HAPPY_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_ANGRY_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_HEHE_FRAMES'],
+    },
+    
+    "week_12":{
+        "A" : setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_REST_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_HEHE_FRAMES'],
+    },
+    
+    "week_13":{
+        "A" : setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_SAD_FRAMES'],
+    },
+    
+    "week_14":{
+        "A" : setting.GIF_PATHS['HUIHUI_HAPPY_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_REST_FRAMES'],
+    },
+    
+    "week_15":{
+        "A" : setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES'],
+        "B" : setting.GIF_PATHS['HUIHUI_ANGRY_FRAMES'],
+        "C" : setting.GIF_PATHS['HUIHUI_HEHE_FRAMES'],
+        "D" : setting.GIF_PATHS['HUIHUI_REST_FRAMES'],
+    },
+    
+    "week_16":{
+    }
+}
