@@ -41,6 +41,7 @@ class SetScene(BaseScene):
         while self.running:
             self.screen.blit(self.blurred_bg, (0, 0))  # 模糊背景
             self.screen.blit(self.panel, (0, 0))       # 上層面板
+            self.draw_week_number()
 
             # hover 狀態更新
             mouse_pos = pygame.mouse.get_pos()
