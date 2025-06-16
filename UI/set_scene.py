@@ -23,8 +23,8 @@ class SetScene(BaseScene):
         self.week_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 48)
 
         # 設定按鈕
-        self.button1 = ImageButton("resource/image/button.png", (260, 70), size=(650, 550))
-        self.button2 = ImageButton("resource/image/button.png", (260, 280), size=(650, 550))
+        self.button1 = ImageButton("resource/image/button.png", (280, 70), size=(650, 550))
+        self.button2 = ImageButton("resource/image/button.png", (280, 280), size=(650, 550))
 
     def run(self):
         while self.running:
