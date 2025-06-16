@@ -221,7 +221,7 @@ class Mitao(Character):
         
         self.sad = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
         self.happy = setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES']
-        self.tired = setting.GIF_PATHS['MITAO_TIERED_FRAMES']
+        self.tired = setting.GIF_PATHS['MITAO_TIRED_FRAMES']
         self.social_gif = setting.GIF_PATHS['MITAO_EATMELON_FRAMES'] 
         
 
