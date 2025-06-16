@@ -311,7 +311,7 @@ class Huihui(Character):
         self.taketest = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
         self.testing = setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES']
         self.ending = setting.GIF_PATHS['HUIHUI_FLOWER_FRAMES']
-        self.week_number = 0
+        self.week_number = 15
         self.sad = setting.GIF_PATHS['HUIHUI_SAD_FRAMES']
         self.happy = setting.GIF_PATHS['HUIHUI_HEHE_FRAMES']
         self.tired = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']

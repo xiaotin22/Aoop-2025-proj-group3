@@ -22,6 +22,7 @@ JFONT_PATH_BOLD = os.path.join(FONT_DIR, 'JasonHandwriting3-SemiBold.ttf')
 JFONT_PATH_REGULAR = os.path.join(FONT_DIR, 'JasonHandwriting3-Regular.ttf')
 JFONT_PATH_Light = os.path.join(FONT_DIR, 'JasonHandwriting3-Light.ttf')
 HFONT_PATH = os.path.join(FONT_DIR, 'hanyizhuziguozhiruantang.ttf')
+CFONT_PATH = os.path.join(FONT_DIR, 'ChenYuluoyan-Thin-Monospaced.ttf')
 
 # 背景音樂路徑
 
@@ -71,6 +72,8 @@ class ImagePath:
     LOVE_PATH = os.path.join(IMAGE_DIR, 'love.png')
     HEART_PATH = os.path.join(IMAGE_DIR, 'heart.png')
     ROCKET_PATH = os.path.join(IMAGE_DIR, 'rocket.png')
+
+    FEEDBACK_PATH = os.path.join(IMAGE_DIR, 'game_UI', 'feedback_qr.png')
 
 
 # 重要檔案路徑

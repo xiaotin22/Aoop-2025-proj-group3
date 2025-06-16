@@ -11,6 +11,7 @@ from UI.rank_scene import RankScene
 # from UI.diary import DairyScene
 from UI.sound_control_scene import SoundControlScene
 from UI.end_scene import EndScene
+from UI.feedback_scene import FeedbackScene
 
 def start_game(screen):
     scene = StartScene(screen)
@@ -121,8 +122,8 @@ def end_game(screen, player):
             print("重新開始遊戲")
             return "RESTART"
         elif result == "FEEDBACK":
-            import webbrowser
-            webbrowser.open("https://forms.gle/kfpH9eV348CGnTZa8")
+            feedback_scene = FeedbackScene(screen, player)
+            feedback_scene.run()
             print("感謝您的回饋！")
             # 回到結尾場景
         elif result == "Exit":
