@@ -255,7 +255,7 @@ class Huihui(Character):
         
         
         self.sad = setting.GIF_PATHS['HUIHUI_SAD_FRAMES']
-        self.happy = setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES']
+        #self.happy = setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES']
         self.tired = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
         self.socialize = setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'] 
         
