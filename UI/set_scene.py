@@ -1,6 +1,7 @@
 import pygame
 from UI.components.base_scene import BaseScene
 from UI.components.image_button import ImageButton
+import setting
 
 class SetScene(BaseScene):
     def __init__(self, screen, blurred_bg, week_number):
@@ -9,11 +10,14 @@ class SetScene(BaseScene):
 
         self.blurred_bg = pygame.transform.scale(blurred_bg, screen.get_size())
 
-        # 上層的設定頁面板
-        self.panel = pygame.image.load("resource/image/set_page.png").convert_alpha()
+
+        # ✅ 上層的設定頁面板
+        self.panel = pygame.image.load(setting.ImagePath.SET_PAGE_PATH).convert_alpha()
         self.panel = pygame.transform.scale(self.panel, screen.get_size())
 
-        self.back_icon = pygame.image.load("resource/image/back.png").convert_alpha()
+        # ✅ 返回按鈕圖
+        self.back_icon = pygame.image.load(setting.ImagePath.BACK_PATH).convert_alpha()
+
         self.back_icon = pygame.transform.smoothscale(self.back_icon, (80, 80))
         self.back_rect = self.back_icon.get_rect(topleft=(200, 157))  # 你原本的位置
         self.back_hover = False
@@ -22,9 +26,10 @@ class SetScene(BaseScene):
         self.week_number = week_number
         self.week_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 48)
 
-        # 設定按鈕
-        self.button1 = ImageButton("resource/image/button.png", (280, 70), size=(650, 550))
-        self.button2 = ImageButton("resource/image/button.png", (280, 280), size=(650, 550))
+        
+        # ✅ 設定按鈕（可自由調整位置與大小）
+        self.button1 = ImageButton(setting.ImagePath.BUTTON_PATH, (260, 70), size=(650, 550))
+        self.button2 = ImageButton(setting.ImagePath.BUTTON_PATH, (260, 280), size=(650, 550))
 
     def draw_week_number(self):
         font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
@@ -36,6 +41,7 @@ class SetScene(BaseScene):
         y = 175
         self.screen.blit(shadow_surface, (x + 2, y + 2))   # 陰影微偏右下
         self.screen.blit(text_surface, (x, y))
+
 
     def run(self):
         while self.running:

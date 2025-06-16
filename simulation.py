@@ -1,5 +1,7 @@
 # simulation.py
-from character import Bubu, Yier, Mitao, Huihui,Character
+from character import Bubu, Yier, Mitao, Huihui
+import setting  # 用來取得資源路徑
+import os
 import random, statistics, math
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -17,7 +19,7 @@ class Simulation:
     out_dir   : 圖檔輸出資料夾
     """
     def __init__(self, n_players: int = 300, n_actions: int = 16,
-                 actions=None, characters=None, out_dir: str = "./simulation_plots") -> None:
+                 actions=None, characters=None, out_dir: str = setting.SIMULATION_PLOTS_DIR) -> None:
         self.n_players = n_players
         self.n_actions = n_actions
         self.actions = actions or ["study", "rest", "play_game", "socialize"]
@@ -127,7 +129,7 @@ class Simulation:
         ax.grid(True)
         fig.tight_layout()
 
-        out_file = self.out_dir / "midterm_final_highlight.png"
+        out_file = os.path.join(self.out_dir, "midterm_final_highlight.png" if highlight_mid or highlight_final else "midterm_final.png")
         fig.savefig(out_file)
         plt.close(fig)
         return out_file
@@ -154,7 +156,7 @@ class Simulation:
         ax.set_xlabel("Total Score"); ax.set_ylabel("People")
         ax.legend(); ax.grid(True); fig.tight_layout()
 
-        out_file = self.out_dir / ("total_score_highlight.png" if highlight else "total_score.png")
+        out_file = os.path.join(self.out_dir, "total_highlight.png" if highlight else "total.png")
         fig.savefig(out_file); plt.close(fig)
         return out_file
 
@@ -225,7 +227,8 @@ class Simulation:
         ax.legend()
         ax.grid(True)
 
-        out_file = self.out_dir / ("gpa_highlight.png" if highlight else "gpa.png")
+        out_file = os.path.join(self.out_dir, "gpa_highlight.png" if highlight else "gpa.png")
+    
         fig.tight_layout()
         fig.savefig(out_file)
         plt.close(fig)
@@ -261,7 +264,7 @@ class Simulation:
         - Top%  ：你若擁有此分數，位於全班前幾 %
                     = (前面已累計人數 / 總人數) × 100
         """
-        path = self.out_dir / filename
+        path = Path(self.out_dir, filename)
         counts   = Counter(self.gpa)            # GPA → 人數
         gpa_desc = sorted(counts, reverse=True) # 由高到低
         total    = len(self.gpa)

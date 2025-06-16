@@ -2,18 +2,19 @@ import pygame
 import time
 from UI.components.base_scene import BaseScene
 from UI.components.character_animator import CharacterAnimator
+import setting
 
 class TakeTestScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
-        self.titlefont = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 54)
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
+        self.titlefont = pygame.font.Font(setting.JFONT_PATH_BOLD, 54)
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 36)
         self.player = player
         self.audio.fade_out_bgm(1000)  # 淡出背景音樂
-        self.audio.play_bgm("resource/music/bgm/drumdrum.mp3")  # 播放考試背景音樂
+        self.audio.play_bgm(setting.BGM.DRUMDRUM_PATH)  # 播放考試背景音樂
 
         # 背景與透明遮罩
-        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
         self.overlay_surface = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
@@ -56,8 +57,7 @@ class TakeTestScene(BaseScene):
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                        self.audio.play_sound("resource/music/sound_effect/dongdong.MP3")
-                        self.audio.stop_sound("resource/music/sound_effect/bigdrum.MP3")
+                        self.audio.play_sound(setting.SoundEffect.DONGDONG_PATH)
                           # 播放按下 Enter 音效
                         # 按下 Enter 鍵後，切到 GradingScene
                         # 延遲一段時間以模擬考試過程
@@ -80,14 +80,14 @@ class TakeTestScene(BaseScene):
 class GradingScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
-        self.titlefont = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 54)
-        self.font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 36)
+        self.titlefont = pygame.font.Font(setting.JFONT_PATH_BOLD, 54)
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 36)
         self.player = player
         self.audio.fade_out_bgm(5000)
-        self.audio.play_sound_loop("resource/music/sound_effect/small_drum.mp3")
+        self.audio.play_sound_loop(setting.SoundEffect.SMALL_DRUM_PATH)
 
         # 背景與透明遮罩
-        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.background.set_alpha(100)
         self.overlay_surface = pygame.Surface(screen.get_size(), pygame.SRCALPHA)
@@ -130,19 +130,19 @@ class GradingScene(BaseScene):
                     # 新增：分數大於75且還沒切換動畫時，切換到結束動畫
                     if self.displayed_score >= 70 and not self.ending_anim_switch:
                         self.animator.switch_animation(self.player.ending)
-                        if self.audio.is_sound_playing("resource/music/sound_effect/cheer_cheer.mp3"):
-                            self.audio.stop_sound("resource/music/sound_effect/cheer_cheer.mp3")
-                        self.audio.play_sound("resource/music/sound_effect/cheer_cheer.mp3")
+                        if self.audio.is_sound_playing(setting.SoundEffect.CHEER_CHEER_PATH):
+                            self.audio.stop_sound(setting.SoundEffect.CHEER_CHEER_PATH)
+                        self.audio.play_sound(setting.SoundEffect.CHEER_CHEER_PATH)
                         self.ending_anim_switch = True  # 切換動畫後設置為 True")
                     if self.displayed_score > int(self.score):
                         self.displayed_score = int(self.score)
                 else: 
                     self.show_full_score = True
-                    self.audio.stop_sound("resource/music/sound_effect/small_drum.mp3")  # 停止跳分音效
+                    self.audio.stop_sound(setting.SoundEffect.SMALL_DRUM_PATH)  # 停止跳分音效
                     # 播放成績完成音效
-                    self.audio.play_sound("resource/music/sound_effect/bling.mp3")  # 播放成績完成音效
+                    self.audio.play_sound(setting.SoundEffect.BLING_PATH)  # 播放成績完成音效
                     # 淡入恢復背景音樂
-                    self.audio.play_bgm("resource/music/bgm/mitao_huihui.mp3", loop=-1)
+                    self.audio.play_bgm(setting.BGM.MITAO_HUIHUI_PATH, loop=-1)
                     
         
     def draw(self, screen):

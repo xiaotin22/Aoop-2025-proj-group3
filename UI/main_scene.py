@@ -5,15 +5,16 @@ from UI.components.character_animator import CharacterAnimator
 from UI.components.button import Button
 from UI.components.audio_manager import AudioManager
 from UI.components.base_scene import BaseScene
+import setting
 
 
 class MainScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
-        self.background = pygame.image.load("resource/image/background_intro.png").convert_alpha()
+        self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.animator = CharacterAnimator(player.intro, (400, 400), (300, 300))
-        font = pygame.font.Font("resource/font/JasonHandwriting3-SemiBold.ttf", 36)
+        font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
 
@@ -21,7 +22,7 @@ class MainScene(BaseScene):
 
         
 
-        excl_img = pygame.image.load("resource/image/event_icon.PNG").convert_alpha()
+        excl_img = pygame.image.load(setting.ImagePath.EVENT_ICON_PATH).convert_alpha()
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
         self.excl_rect = self.excl_img.get_rect(center=(430, 400))
         self.excl_mask = pygame.mask.from_surface(self.excl_img)
@@ -32,7 +33,7 @@ class MainScene(BaseScene):
             self.animator.frame_delay = 10  # 控制動畫速度
 
 
-        self.stats_font = pygame.font.Font("resource/font/JasonHandwriting3-Regular.ttf", 28)
+        self.stats_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
         self.bar_width = 150
         self.bar_height = 20
         self.bar_gap = 10
@@ -45,7 +46,7 @@ class MainScene(BaseScene):
         }
 
 
-        self.set_icon = pygame.image.load("resource/image/set.png").convert_alpha()
+        self.set_icon = pygame.image.load(setting.ImagePath.SET_PATH).convert_alpha()
         self.set_icon = pygame.transform.smoothscale(self.set_icon, (80, 80))
         self.set_rect = self.set_icon.get_rect(topleft=(20, 700))
         self.set_hover = False
@@ -60,8 +61,8 @@ class MainScene(BaseScene):
         # 設定按鈕 hover 與點擊
         if self.set_rect.collidepoint(mouse_pos):
             self.set_hover = True
-            if not self.audio.is_sound_playing("resource/music/sound_effect/menu_hover.MP3"):
-                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
+            if not self.audio.is_sound_playing(setting.SoundEffect.MENU_HOVER_PATH):
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
             if mouse_pressed[0]:
                 return "SETTING"
         else:
@@ -74,7 +75,7 @@ class MainScene(BaseScene):
             self.excl_mask.get_at(relative_pos)):
 
             if not self.is_hover:
-                self.audio.play_sound("resource/music/sound_effect/menu_hover.MP3")
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
                 self.is_hover = True
 
             if mouse_pressed[0]:
@@ -162,7 +163,7 @@ class MainScene(BaseScene):
         if self.player.week_number > 0:
             # 印出玩家選擇改變
             last_week_change = stats_change(self.player.last_week_change)
-            font2 = pygame.font.Font("resource/font/JasonHandwriting3-Light.ttf", 22)
+            font2 = pygame.font.Font(setting.JFONT_PATH_Light, 22)
             text0 = font2.render("本週選擇改變：", True, (0, 0, 0))
             text0_rect = text0.get_rect(topleft=(x_right + 60, 90))
             self.screen.blit(text0, text0_rect)

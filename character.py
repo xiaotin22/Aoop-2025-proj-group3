@@ -1,6 +1,6 @@
 import random
 import math
-import json
+import setting
 
 class Character:
     def __init__(self, name, intelligence, mood, energy, social):
@@ -133,16 +133,16 @@ class Bubu(Character):
         super().__init__("Bubu", intelligence=70, mood=65, energy=80, social=30)
         self.chname = "布布"
         self.animal = "熊熊"
-        self.intro = "resource/gif/bubu_intro_frames"
-        self.header = "resource/image/Bubu_head.png"
-        self.storytyping = "resource/gif/bubu_playcomputer_frames"
-        self.testing = "resource/gif/bubu_study_frames"
-        self.taketest = "resource/gif/bubu_no_study_frames"
-        self.ending = "resource/gif/bubu_playgame_frames"
+        self.header = setting.ImagePath.BUBU_HEAD_PATH
+       
+        self.intro = setting.GIF_PATHS['BUBU_INTRO_FRAMES']
+        self.storytyping = setting.GIF_PATHS['BUBU_PLAYCOMPUTER_FRAMES']
+        self.testing = setting.GIF_PATHS['BUBU_STUDY_FRAMES']
+        self.taketest = setting.GIF_PATHS['BUBU_NO_STUDY_FRAMES']       
+        self.ending = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
 
-
-        self.sad = "resource/gif/bubu_crying_frames"
-        self.playgame = "resource/gif/bubu_playgame_frames"
+        self.sad = setting.GIF_PATHS['BUBU_CRYING_FRAMES']
+        self.playgame = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
 
     def socialize(self, degree):
         growth = round(
@@ -175,12 +175,14 @@ class Yier(Character):
         super().__init__("Yier", intelligence=75, mood=85, energy=60, social=90)
         self.animal = "熊熊"
         self.chname = "一二"
-        self.intro = "resource/gif/yier_intro_frames"
-        self.header = "resource/image/Yier_head.png"
-        self.storytyping = "resource/gif/yier_play_game_frames"
-        self.testing = "resource/gif/yier_thinking_frames"
-        self.taketest = "resource/gif/yier_no_study_frames"
-        self.ending = "resource/gif/yier_happyrest_frames"
+        self.header = setting.ImagePath.YIER_HEAD_PATH
+
+        self.intro = setting.GIF_PATHS['YIER_INTRO_FRAMES']
+        self.storytyping = setting.GIF_PATHS['YIER_PLAY_GAME_FRAMES']
+        self.testing = setting.GIF_PATHS['YIER_THINKING_FRAMES']
+        self.taketest = setting.GIF_PATHS['YIER_NO_STUDY_FRAMES']
+        self.ending = setting.GIF_PATHS['YIER_HAPPYREST_FRAMES']
+        
 
         
         
@@ -201,12 +203,16 @@ class Mitao(Character):
         super().__init__("Mitao", intelligence=95, mood=50, energy=45, social=60)
         self.animal = "貓貓"
         self.chname = "蜜桃"
-        self.intro = "resource/gif/mitao_intro_frames"
-        self.header = "resource/image/Mitao_head.png"
-        self.storytyping = "resource/gif/mitao_rest_frames"
-        self.testing = "resource/gif/mitao_testing_frames"
-        self.taketest = "resource/gif/mitao_low_mood_frames"
-        self.ending = "resource/gif/mitao_flower_frames"
+        self.header =  setting.ImagePath.MITAO_HEAD_PATH
+
+        
+
+        self.intro = setting.GIF_PATHS['MITAO_INTRO_FRAMES']
+        self.storytyping = setting.GIF_PATHS['MITAO_REST_FRAMES']
+        self.testing = setting.GIF_PATHS['MITAO_TESTING_FRAMES']
+        self.taketest = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
+        self.ending = setting.GIF_PATHS['MITAO_FLOWER_FRAMES']
+        
 
 
     def get_midterm(self):
@@ -225,13 +231,13 @@ class Huihui(Character):
         super().__init__("Huihui", intelligence=80, mood=90, energy=50, social=65)
         self.animal = "貓貓"
         self.chname = "灰灰"
-        self.intro = "resource/gif/huihui_intro_frames"
-        self.header = "resource/image/Huihui_head.png"
-        self.storytyping = "resource/gif/huihui_rest_frames"
-        self.taketest = "resource/gif/huihui_sosad_frames"
-        self.testing = "resource/gif/huihui_running_frames"
-        self.ending = "resource/gif/huihui_flower_frames"
-
+        
+        self.header = setting.ImagePath.HUIHUI_HEAD_PATH
+        self.intro = setting.GIF_PATHS['HUIHUI_INTRO_FRAMES']
+        self.storytyping = setting.GIF_PATHS['HUIHUI_REST_FRAMES']  
+        self.taketest = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
+        self.testing = setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES']
+        self.ending = setting.GIF_PATHS['HUIHUI_FLOWER_FRAMES']
         self.week_number = 0
 
     def get_midterm(self):
