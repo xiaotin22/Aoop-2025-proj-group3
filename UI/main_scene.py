@@ -25,7 +25,7 @@ class MainScene(BaseScene):
         elif self.player.mood >= 75:
             self.animator = CharacterAnimator(self.player.happy, (400, 400), (300, 300))
             
-        elif self.player.social >= 100 and self.player.name == "Yier":
+        elif self.player.social >= 100 and (self.player.name == "Yier"):
             self.animator = CharacterAnimator(self.player.social, (400, 400), (300, 300))
         elif self.player.social >= 75 :
             self.animator = CharacterAnimator(self.player.social, (400, 400), (300, 300))    

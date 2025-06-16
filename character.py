@@ -142,7 +142,9 @@ class Bubu(Character):
         self.ending = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
 
         self.sad = setting.GIF_PATHS['BUBU_CRYING_FRAMES']
-        self.playgame = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
+        self.happy = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
+        self.tired = setting.GIF_PATHS['BUBU_TIRED_FRAMES']
+        #self.socialize = setting.GIF_PATHS['BUBU_SOCIAL_FRAMES'] 
 
     def socialize(self, degree):
         growth = round(
@@ -181,7 +183,12 @@ class Yier(Character):
         self.storytyping = setting.GIF_PATHS['YIER_PLAY_GAME_FRAMES']
         self.testing = setting.GIF_PATHS['YIER_THINKING_FRAMES']
         self.taketest = setting.GIF_PATHS['YIER_NO_STUDY_FRAMES']
-        self.ending = setting.GIF_PATHS['YIER_HAPPYREST_FRAMES']
+        self.ending = setting.GIF_PATHS['YIER_EXCITING_FRAMES']
+        
+        self.sad = setting.GIF_PATHS['YIER_CRYING_FRAMES']
+        self.happy = setting.GIF_PATHS['YIER_HAPPYREST_FRAMES']
+        self.tired = setting.GIF_PATHS['YIER_SAD_FRAMES']
+        #self.socialize = setting.GIF_PATHS['BUBU_SOCIAL_FRAMES'] 
         
 
         
@@ -207,11 +214,17 @@ class Mitao(Character):
 
         
 
-        self.intro = setting.GIF_PATHS['MITAO_INTRO_FRAMES']
+        self.intro = setting.GIF_PATHS['MITAO_CHIP_FRAMES']
         self.storytyping = setting.GIF_PATHS['MITAO_REST_FRAMES']
         self.testing = setting.GIF_PATHS['MITAO_TESTING_FRAMES']
         self.taketest = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
         self.ending = setting.GIF_PATHS['MITAO_FLOWER_FRAMES']
+        
+        
+        self.sad = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
+        self.happy = setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES']
+        #self.tired = setting.GIF_PATHS['YIER_SAD_FRAMES']
+        self.socialize = setting.GIF_PATHS['MITAO_EATMELON_FRAMES'] 
         
 
 
@@ -239,6 +252,13 @@ class Huihui(Character):
         self.testing = setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES']
         self.ending = setting.GIF_PATHS['HUIHUI_FLOWER_FRAMES']
         self.week_number = 0
+        
+        
+        self.sad = setting.GIF_PATHS['HUIHUI_SAD_FRAMES']
+        self.happy = setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES']
+        self.tired = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
+        self.socialize = setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'] 
+        
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
