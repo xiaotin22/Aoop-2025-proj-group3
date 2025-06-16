@@ -122,7 +122,8 @@ class Simulation:
         if highlight_final is not None:
             plot_highlight(highlight_final, fin_x, smooth_fin_y, "red", "Your Final", self.final)
 
-        ax.set_title("Score Distribution of Midterm and Final Exams")
+        # 設定圖表標題置左
+        ax.set_title("Midterm and Final Score Distribution", loc='left')
         ax.set_xlabel("Score")
         ax.set_ylabel("People")
         ax.legend()
@@ -152,7 +153,7 @@ class Simulation:
                     f"Your Total {highlight:.1f}\nTop {pct:.1f}%", 
                     ha="center", va="bottom", fontsize=12)
 
-        ax.set_title("Total Score Distribution")
+        ax.set_title("Total Score Distribution", loc='left')
         ax.set_xlabel("Total Score"); ax.set_ylabel("People")
         ax.legend(); ax.grid(True); fig.tight_layout()
 
@@ -221,8 +222,8 @@ class Simulation:
                 va="bottom", ha="center", fontsize=12
             )
 
-        ax.set_title("GPA Distribution")
-        ax.set_xlabel("GPA (0–4.3)")
+        ax.set_title("GPA Distribution", loc='left')
+        ax.set_xlabel("GPA (0 ~ 4.3)")
         ax.set_ylabel("People")
         ax.legend()
         ax.grid(True)

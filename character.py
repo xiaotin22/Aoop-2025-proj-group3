@@ -33,7 +33,7 @@ class Character:
             self.social * 0.03
         )
         growth = round(growth/(1+((8 - self.week_number) * 0.1)),2) if self.week_number < 8 else round(growth/(1+((16 - self.week_number) * 0.1)),2)
-        self.last_week_change = [-15, -12, 0, growth+3]
+        self.last_week_change = [-int(growth*0.8), -int(growth*0.5)-3, 0, growth+1]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
@@ -49,7 +49,7 @@ class Character:
             (self.mood - 50) * 0.03 +
             (self.energy) * 0.01
         )
-        self.last_week_change = [ 3, -5, growth, 3+int(round(growth * self.social * 0.01))]
+        self.last_week_change = [ 4, -5, growth, 4+int(round(growth * self.social * 0.01))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         
         self.mood , self.energy , self.social, self.knowledge = \
@@ -65,9 +65,9 @@ class Character:
             (100 - self.mood) * 0.2 +
             (self.intelligence - 30) * 0.02 +
             (self.energy) * 0.01 -
-            (self.social - 30) * 0.01
+            (self.social) * 0.01
         )
-        self.last_week_change = [growth, 3, 0, 3+int(round(-growth * 0.1))]
+        self.last_week_change = [growth, int(growth*0.2), 1, 1+int(round(-growth * 0.1))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change] 
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
@@ -83,7 +83,7 @@ class Character:
             (self.intelligence - 50) * 0.2 -
             (self.social - 30) * 0.01
         )
-        self.last_week_change = [int(growth*0.6), growth, 1, 3+int(round(-growth * 0.1))]
+        self.last_week_change = [int(growth*0.6), growth, 1, 2+int(round(-growth * 0.1))]
         self.last_week_change = [int(grow * degree) for grow in self.last_week_change]
         self.mood , self.energy , self.social, self.knowledge = \
             min(100, self.mood + self.last_week_change[0]),\
@@ -106,12 +106,12 @@ class Character:
     
 
     def get_final(self):
-        self.final = round(self.calculate_grade()) -20
+        self.final = round(self.calculate_grade()) -15
 
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
-        total_score = max(0, int(math.sqrt(total_score) * 12 - 20))
+        total_score = max(0, int(math.sqrt(total_score) * 13 - 30))
         self.total_score = total_score
         gpa = []
         for _ in range(25):
@@ -154,7 +154,7 @@ class Bubu(Character):
         self.rest_gif = setting.GIF_PATHS['BUBU_LAZY_FRAMES']
         self.play_game_gif = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
         self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES']
-        print(self.week_data)
+        #print(self.week_data)
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
@@ -186,11 +186,11 @@ class Bubu(Character):
     def get_midterm(self):
         self.midterm = self.calculate_grade() + self.knowledge * 0.4
         if self.mood > 65:
-            self.midterm += 10
+            self.midterm += 6
         if self.energy < 70:
-            self.midterm -= 3
+            self.midterm -= 2
         if self.knowledge > 35:
-            self.midterm += 8
+            self.midterm += 6
         self.midterm = int(round(self.midterm))
 
 
@@ -282,7 +282,7 @@ class Mitao(Character):
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
-        self.midterm += 10
+        self.midterm += 6
         if self.mood < 60:
             self.midterm -= 4
         if self.knowledge > 45:
@@ -331,7 +331,7 @@ class Huihui(Character):
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
         if self.mood > 85:
-            self.midterm += 7
+            self.midterm += 5
         if self.energy < 50:
             self.midterm -= 3
         if self.knowledge > 30:
