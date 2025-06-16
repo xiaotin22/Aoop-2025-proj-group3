@@ -2,7 +2,46 @@
 
 **本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果，主要在練習使用 Python, Pygame的一些函式庫** 
 
-我們的組員如下 Group10： 
+
+
+
+<p align="center">
+  <img src="resource/image/game_UI/start_scene.png" alt="遊戲主選單截圖" width="750"/>
+</p>
+
+## ✨遊戲角色選擇
+<p align="center">
+  <img src="resource/image/game_UI/select.png" alt="遊戲選擇" width="750"/>
+</p>
+
+<p align="center">
+  <img src="resource/image/game_UI/main_scene.png" alt="遊戲主頁" width="750"/>
+</p>
+
+## 🎉事件選擇與考試結算
+
+** 本遊戲會根據不同的事件選擇，對角色狀態的改變，再進行評估成績 **
+
+<p align="center">
+  <img src="resource/image/game_UI/event.png" alt="事件選擇" width="750"/>
+</p>
+
+<p align="center">
+  <img src="resource/image/game_UI/midterm.png" alt="期中考" width="750"/>
+</p>
+
+<p align="center">
+  <img src="resource/image/game_UI/final_result.png" alt="結算結果" width="750"/>
+</p>
+
+## 🥚小彩蛋 --- 輪盤抽籤
+** 除了主要的小介面，本專案另設有些小彩蛋，歡迎各位前往遊玩～ **
+
+<p align="center">
+  <img src="resource/image/game_UI/final_result.png" alt="結算結果" width="750"/>
+</p>
+
+Group10 開發人員如下：
 * NYCU_EE [113511116 tpvupu](https://github.com/tpvupu) : 陳欣怡
 * NYCU_EE [113511203 calistayang](https://github.com/calistayang)：楊馨惠
 * NYCU_EE [113511266 xiaotin22](https://github.com/xiaotin22)：楊庭瑞
@@ -14,24 +53,26 @@ oop-2025-proj-group10/
 ├── main.py                      # 主程式入口，負責遊戲流程控制
 ├── character.py                 # 角色類別與屬性、行為邏輯
 ├── simulation.py                # 用以模擬隨機選擇結果
+├── setting.py                   # 用以設定遊戲參數
 │
 ├── UI/
-│   ├── intro_scene.py           # 遊戲開場動畫/說明場景
+│   ├── start_scene.py           # 遊戲開場介面
+│   ├── intro_scene.py           # 遊戲介紹場景
+│   ├── character_select.py      # 角色選擇場景 
 │   ├── main_scene.py            # 遊戲主畫面場景
 │   ├── story_scene.py           # 劇情推進場景
 │   ├── event_scene.py           # 事件觸發場景
-│   ├── attribute_scene.py       # 角色屬性顯示場景
-│   ├── character_select.py      # 角色選擇場景
 │   ├── end_scene.py             # 遊戲結束/結局場景
-│   ├── sound_control_scene.py   # 音效/音樂控制場景
+│   ├── rank_scene.py            # 排行介面
 │   ├── lucky_wheel_scene.py     # 幸運轉盤小遊戲
+│   ├── ...
 │   └── components/
 │       ├── audio_manager.py      # 音效/音樂管理單例
 │       ├── base_scene.py         # 場景基底類別
 │       ├── character_animator.py # 角色動畫管理
 │       └── ...                   # 其他 UI 元件
 │
-├── simulation_plots/            # 模擬成績繪製圖形存放
+├── simulations_plot/            # 模擬成績，繪製圖形存放
 │
 ├── resource/
 │   ├── font/                    # 字型檔案
@@ -41,22 +82,21 @@ oop-2025-proj-group10/
 │       └── sound_effect/        # 音效檔案
 │
 ├── event/
-│   └── event.json               # 各週事件資料
-│
+│   ├── event.json               # 各週事件資料
+│   └── game_setting/            # 遊戲劇情文件
+│ 
 ├── README.md                    # 專案說明文件
-├── game_setting/                # 遊戲劇情總述
-│      └── ...
 ├── Docker/
 ```
 ---
 
-## 🛠️ 安裝與執行 (Getting Started)
+## 🛠️ 安裝與執行 (建置虛擬環境版）
 
 如果想要在自己的本機執行這個遊戲，請依照下列步驟執行呦～
 
 ### 必要條件
 
-* Python 3.13 (建議）
+* Python 3.12 + 
 * Git
   
 ### 安裝步驟
@@ -92,7 +132,8 @@ oop-2025-proj-group10/
 
 
 
-# About Our Docker (現在有音效無法播放的問題，先不要用)🚀
+# About Our Docker 🚀
+** 除了上述的虛擬環境，也可以使用我們建置的 Docker ~  **
 
 🧰 前置需求（第一次才需要）
 
