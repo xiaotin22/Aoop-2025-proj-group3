@@ -26,9 +26,9 @@ class MainScene(BaseScene):
             self.animator = CharacterAnimator(self.player.happy, (400, 400), (300, 300))
             
         elif self.player.social >= 100 and (self.player.name == "Yier"):
-            self.animator = CharacterAnimator(self.player.social, (400, 400), (300, 300))
+            self.animator = CharacterAnimator(self.player.social_gif, (400, 400), (300, 300))
         elif self.player.social >= 75 :
-            self.animator = CharacterAnimator(self.player.social, (400, 400), (300, 300))    
+            self.animator = CharacterAnimator(self.player.social_gif, (400, 400), (300, 300))    
             
         font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
         self.next_week_button = Button(
