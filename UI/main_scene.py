@@ -8,7 +8,6 @@ from UI.components.base_scene import BaseScene
 import setting
 #Json,attribute : ["rest", "play_game", "social", "study"]
 
-# aaa
 class MainScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
@@ -17,8 +16,20 @@ class MainScene(BaseScene):
         self.player = player
         self.animator = CharacterAnimator(player.intro, (400, 400), (300, 300))
         
-        if self.player.mood <= 40:
+        if self.player.energy <= 10:
+            self.animator = CharacterAnimator(self.player.tiered, (400, 400), (300, 300))
+            
+        elif self.player.mood <= 35:
             self.animator = CharacterAnimator(self.player.sad, (400, 400), (300, 300))
+            
+        elif self.player.mood >= 75:
+            self.animator = CharacterAnimator(self.player.happy, (400, 400), (300, 300))
+            
+        elif self.player.social >= 100 and self.player.name == "Yier":
+            self.animator = CharacterAnimator(self.player.social, (400, 400), (300, 300))
+        elif self.player.social >= 75 :
+            self.animator = CharacterAnimator(self.player.social, (400, 400), (300, 300))    
+            
         font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
