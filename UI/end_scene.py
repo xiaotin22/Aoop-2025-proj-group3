@@ -66,6 +66,22 @@ class EndScene(MainScene):
         # ---------- 其他 ----------
         self.selected_result = None
 
+                # 表情圖初始化
+        self.emoji_paths = [
+            setting.ImagePath.SAD_PATH,
+            setting.ImagePath.BALLON_PATH,
+            setting.ImagePath.LIGHTENING_PATH,
+            setting.ImagePath.LOVE_PATH,
+            setting.ImagePath.HEART_PATH,
+            setting.ImagePath.ROCKET_PATH,
+        ]
+        self.emoji_surfaces = [pygame.image.load(p).convert_alpha() for p in self.emoji_paths]
+        self.emoji_surfaces = [pygame.transform.smoothscale(img, (60, 60)) for img in self.emoji_surfaces]
+        self.emoji_rects = []
+        self.emoji_clicked_frames = [0] * 6  # 點擊動畫持續幀數
+        self.emoji_frame_max = 3  # 點擊放大的持續幀數
+        self.floating_emojis = []
+
     # -------------------------------------------------------------
     # 更新邏輯 & 事件處理
     # -------------------------------------------------------------
@@ -190,6 +206,41 @@ class EndScene(MainScene):
         text2_rect = text2.get_rect(topleft=(x_right + 60, 140))
         self.screen.blit(text2, text2_rect)
 
+    def draw_emoji(self):
+        self.emoji_rects = []
+
+        # 表情符號座標
+        left_start_x = 50
+        left_y = self.SCREEN_HEIGHT - 80
+
+        for i, emoji in enumerate(self.emoji_surfaces):
+            # 計算位置
+            if i < 3:
+                x = left_start_x + i * 60
+                y = left_y
+            else:
+                x = left_start_x + (i - 3) * 60  # Start a new row for emojis with index >= 3
+                y = left_y - 60  # Position the new row slightly above the first row
+
+            rect = emoji.get_rect(topleft=(x, y))
+            self.emoji_rects.append(rect)
+
+            # 根據是否在點擊動畫狀態進行放大
+            if self.emoji_clicked_frames[i] > 0:
+                scale = 1.2
+                self.emoji_clicked_frames[i] -= 1
+            else:
+                scale = 1.0
+
+            new_size = int(40 * scale)
+            scaled_img = pygame.transform.smoothscale(self.emoji_surfaces[i], (new_size, new_size))
+            new_rect = scaled_img.get_rect(center=rect.center)
+            self.screen.blit(scaled_img, new_rect.topleft)
+        
+        # 畫出所有飄移表情
+        for emoji in self.floating_emojis:
+            emoji.draw(self.screen)
+
 
 
     def draw(self):
@@ -203,7 +254,7 @@ class EndScene(MainScene):
         title_surf = self.title_font.render(
             f"Congratulation!!", True, (50, 50, 50)
         )
-        title_rect = title_surf.get_rect(center=(self.SCREEN_WIDTH // 2 + 200, 150))
+        title_rect = title_surf.get_rect(center=(self.SCREEN_WIDTH // 2 + 200, 120))
         self.screen.blit(title_surf, title_rect)
 
         # 印出玩家的GPA
