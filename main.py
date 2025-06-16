@@ -155,15 +155,22 @@ def blocking_main(screen):
             break
 
 
-async def async_main():
-    pygame.init()
+async def main():
+    await asyncio.sleep(0.1)
+    pygame.display.init()
+    pygame.font.init()
     pygame.mixer.init()
-    await  asyncio.sleep(0)  # 確保事件循環已啟動
+    await  asyncio.sleep(0.1)  # 確保事件循環已啟動
     screen = pygame.display.set_mode((1200, 800))
     pygame.display.set_caption('Game_Start')
 
     loop = asyncio.get_running_loop()
     await loop.run_in_executor(None, blocking_main, screen)
 
-if __name__ == "__main__":
-    asyncio.run(async_main())
+if __name__ == '__main__':
+    try:
+        asyncio.run(main())
+    except Exception as e:
+        print(f"An error occurred in the main loop: {e}")
+        # In a web context, you might want to display this on the page itself.
+        # For now, printing to the console is fine for debugging.
