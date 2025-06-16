@@ -3,8 +3,9 @@ from UI.components.base_scene import BaseScene
 from UI.components.image_button import ImageButton
 
 class SetScene(BaseScene):
-    def __init__(self, screen, blurred_bg):
+    def __init__(self, screen, blurred_bg, week_number):
         super().__init__(screen)
+        self.week_number = week_number
 
         self.blurred_bg = pygame.transform.scale(blurred_bg, screen.get_size())
 
@@ -27,21 +28,14 @@ class SetScene(BaseScene):
 
     def run(self):
         while self.running:
-            # 背景與面板
             self.screen.blit(self.blurred_bg, (0, 0))  # 模糊背景
             self.screen.blit(self.panel, (0, 0))       # 上層面板
-
-            # 顯示週數文字（居中顯示）
-            if self.week_number is not None:
-                text = self.week_font.render(f"目前是第 {self.week_number} 週", True, (0, 0, 0))
-                text_rect = text.get_rect(center=(self.SCREEN_WIDTH // 2, 50))
-                self.screen.blit(text, text_rect)
 
             # hover 狀態更新
             mouse_pos = pygame.mouse.get_pos()
             self.back_hover = self.back_rect.collidepoint(mouse_pos)
 
-
+            # 返回鍵放大
             if self.back_hover:
                 scaled = pygame.transform.scale(self.back_icon, (96, 96))
                 rect = scaled.get_rect(center=self.back_rect.center)
@@ -49,17 +43,24 @@ class SetScene(BaseScene):
             else:
                 self.screen.blit(self.back_icon, self.back_rect.topleft)
 
-            # ✅ 更新與繪製兩個圖片按鈕
+            # ✅ 顯示目前週數文字
+            font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
+            text_surface = font.render(f"第 {self.week_number} 週", True, (0, 0, 0))
+            self.screen.blit(text_surface, (
+                self.SCREEN_WIDTH // 2 - text_surface.get_width() // 2,
+                40
+            ))
+
+            # 按鈕更新 & 繪製
             self.button1.update()
             self.button2.update()
             self.button1.draw(self.screen)
             self.button2.draw(self.screen)
 
-            # 🎮 處理事件
+            # 事件處理
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "QUIT"
-
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.back_hover:
                         return "BACK"
