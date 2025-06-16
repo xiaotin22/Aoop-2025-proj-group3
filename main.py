@@ -132,16 +132,13 @@ def end_game(screen, player):
             return False
         
 
-# 🕹️ 主程序入口點
-def main():
-    pygame.init()
-    pygame.mixer.init()
 
-    SCREEN_HEIGHT = 800
-    SCREEN_WIDTH = 1200
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption('Game_Start')
+import asyncio
+import pygame
 
+def blocking_main(screen):
+    # 同原本 main 裡面所有的主邏輯
+    
     while True:
         if not start_game(screen):
             break  # 玩家選擇結束遊戲
@@ -158,8 +155,15 @@ def main():
             break
 
 
-    pygame.quit()
+async def async_main():
+    pygame.init()
+    pygame.mixer.init()
+    await  asyncio.sleep(0)  # 確保事件循環已啟動
+    screen = pygame.display.set_mode((1200, 800))
+    pygame.display.set_caption('Game_Start')
 
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(None, blocking_main, screen)
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(async_main())
