@@ -1,7 +1,7 @@
 import random
 import math
 import setting
-
+from UI.components.character_animator import CharacterAnimator
 class Character:
     def __init__(self, name, intelligence, mood, energy, social):
         self.name = name
@@ -130,7 +130,7 @@ class Character:
 # 🧸 各角色子類別
 class Bubu(Character):
     def __init__(self):
-        super().__init__("Bubu", intelligence=70, mood=65, energy=80, social=30)
+        super().__init__("Bubu", intelligence=70, mood=75, energy=90, social=30)
         self.chname = "布布"
         self.animal = "熊熊"
         self.header = setting.ImagePath.BUBU_HEAD_PATH
@@ -145,6 +145,22 @@ class Bubu(Character):
         self.happy = setting.GIF_PATHS['BUBU_HAPPY_FRAMES']
         self.tired = setting.GIF_PATHS['BUBU_TIRED_FRAMES']
         self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES'] 
+        
+    def gif_choose(self):
+        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
+        if self.energy <= 50:
+            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
+            
+        elif self.mood <= 40:
+            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
+            
+        elif self.mood >= 90:
+            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
+            
+        elif self.social >= 50 :
+            self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
+            
+        return self.animator
 
     def socialize(self, degree):
         growth = round(
@@ -190,6 +206,23 @@ class Yier(Character):
         self.tired = setting.GIF_PATHS['YIER_SAD_FRAMES']
         self.social_gif = setting.GIF_PATHS['YIER_SOCIAL_FRAMES'] 
         
+    def gif_choose(self):
+        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
+        if self.energy <= 20:
+            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
+            
+        elif self.mood <= 40:
+            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
+            
+        elif self.mood >= 90:
+            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
+            
+        elif self.social >= 100 :
+            self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
+            
+        return self.animator
+        
+                
 
         
         
@@ -224,6 +257,22 @@ class Mitao(Character):
         self.tired = setting.GIF_PATHS['MITAO_TIRED_FRAMES']
         self.social_gif = setting.GIF_PATHS['MITAO_EATMELON_FRAMES'] 
         
+    def gif_choose(self):
+        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
+        if self.energy <= 10:
+            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
+            
+        elif self.mood <= 30:
+            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
+            
+        elif self.mood >= 80:
+            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
+            
+        elif self.social >= 90 :
+            self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
+            
+        return self.animator
+        
 
 
     def get_midterm(self):
@@ -254,6 +303,24 @@ class Huihui(Character):
         self.happy = setting.GIF_PATHS['HUIHUI_HEHE_FRAMES']
         self.tired = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
         self.social_gif = setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'] 
+        
+    
+    def gif_choose(self):
+        
+        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
+        if self.energy <= 20:
+            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
+            
+        elif self.mood <= 50:
+            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
+            
+        elif self.mood >= 100:
+            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
+            
+        elif self.social >= 75 :
+            self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
+            
+        return self.animator
         
 
     def get_midterm(self):

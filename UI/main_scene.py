@@ -15,21 +15,7 @@ class MainScene(BaseScene):
         self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.player = player
-        self.animator = CharacterAnimator(player.intro, (400, 400), (300, 300))
-        
-        if self.player.energy <= 10:
-            self.animator = CharacterAnimator(self.player.tiered, (400, 400), (300, 300))
-            
-        elif self.player.mood <= 35:
-            self.animator = CharacterAnimator(self.player.sad, (400, 400), (300, 300))
-            
-        elif self.player.mood >= 75:
-            self.animator = CharacterAnimator(self.player.happy, (400, 400), (300, 300))
-            
-        elif self.player.social >= 100 and (self.player.name == "Yier"):
-            self.animator = CharacterAnimator(self.player.social_gif, (400, 400), (300, 300))
-        elif self.player.social >= 75 :
-            self.animator = CharacterAnimator(self.player.social_gif, (400, 400), (300, 300))    
+        self.animator = self.player.gif_choose()
             
         font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
         self.next_week_button = Button(
@@ -148,11 +134,6 @@ class MainScene(BaseScene):
                 self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
                 self.is_hover = True
 
-            if mouse_pressed[0]:
-                if self.player.chosen[self.player.week_number] == '0':
-                    return "Open Event"
-                else:
-                    print("this week's event has been done !")
         else:
             self.is_hover = False
 

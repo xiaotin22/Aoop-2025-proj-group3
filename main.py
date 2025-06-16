@@ -72,7 +72,7 @@ def select_character(screen):
 
 def game_loop(screen, player):
     while player.week_number < 16:
-        pygame.display.set_caption(f"第 {player.week_number} 週｜角色：{player.name}")
+        pygame.display.set_caption(f"第 {player.week_number+1} 週｜角色：{player.name}")
         scene = MainScene(screen, player)
         player_option = scene.run()
         print(f"玩家選擇的操作為：{player_option!r}")
