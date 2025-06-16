@@ -47,23 +47,15 @@ def select_character(screen):
 
     if selected == "布布 Bubu":
         player = Bubu()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     elif selected == "一二 Yier":
         player = Yier()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     elif selected == "蜜桃 Mitao":
         player = Mitao()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     elif selected == "灰灰 Huihui":
         player = Huihui()
-        scene = MainScene(screen, player)
-        scene.run()
         return player
     else:
         print("未選擇角色，回到主畫面")
