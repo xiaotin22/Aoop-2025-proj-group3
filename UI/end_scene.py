@@ -218,6 +218,9 @@ class EndScene(MainScene):
             if i < 3:
                 x = left_start_x + i * 60
                 y = left_y
+            else:
+                x = left_start_x + (i - 3) * 60  # Start a new row for emojis with index >= 3
+                y = left_y - 60  # Position the new row slightly above the first row
 
             rect = emoji.get_rect(topleft=(x, y))
             self.emoji_rects.append(rect)
