@@ -1,5 +1,4 @@
 import pygame
-import time
 from UI.components.base_scene import BaseScene
 from UI.components.character_animator import CharacterAnimator
 import setting
