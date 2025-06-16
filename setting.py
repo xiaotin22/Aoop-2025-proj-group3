@@ -66,12 +66,29 @@ class ImagePath:
     EVENT_ICON_PATH = os.path.join(IMAGE_DIR, 'event_icon.PNG')
     EVENT_WINDOW_PATH = os.path.join(IMAGE_DIR, 'event_window.PNG')
     
+    SAD_W_PATH = os.path.join(IMAGE_DIR, 'sad_white.png')
     SAD_PATH = os.path.join(IMAGE_DIR, 'sad.png')
-    BALLON_PATH = os.path.join(IMAGE_DIR, 'ballon.png')
+    
+    HAPPY_W_PATH = os.path.join(IMAGE_DIR, 'happy_white.png')
+    HAPPY_PATH = os.path.join(IMAGE_DIR, 'happy.png')
+    
     LIGHTENING_PATH = os.path.join(IMAGE_DIR, 'lightening.png')
-    LOVE_PATH = os.path.join(IMAGE_DIR, 'love.png')
-    HEART_PATH = os.path.join(IMAGE_DIR, 'heart.png')
+    LIGHTENING_W_PATH = os.path.join(IMAGE_DIR, 'lightening_white.png')
+    
     ROCKET_PATH = os.path.join(IMAGE_DIR, 'rocket.png')
+    ROCKET_W_PATH = os.path.join(IMAGE_DIR, 'rocket_white.png')
+    
+    KISS_PATH = os.path.join(IMAGE_DIR, 'kiss.png')
+    KISS_W_PATH = os.path.join(IMAGE_DIR, 'kiss_white.png')
+    
+    HEART_PATH = os.path.join(IMAGE_DIR, 'heart.png')
+    HEART_W_PATH = os.path.join(IMAGE_DIR, 'heart_white.png')
+    
+    HEHE_PATH = os.path.join(IMAGE_DIR, 'hehe.png')
+    HEHE_W_PATH = os.path.join(IMAGE_DIR, 'hehe_white.png')
+
+    ANGRY_PATH = os.path.join(IMAGE_DIR, 'angry.png')
+    ANGRY_W_PATH = os.path.join(IMAGE_DIR, 'angry_white.png')
 
     FEEDBACK_PATH = os.path.join(IMAGE_DIR, 'game_UI', 'feedback_qr.png')
 
