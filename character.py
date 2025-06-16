@@ -214,19 +214,16 @@ class Yier(Character):
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.energy <= 10:
-            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
-            
-        elif self.mood <= 30:
-            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
-            
-        elif self.mood >= 80:
-            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
-            
-        elif self.social >= 90 :
-            self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
+        if self.week_number == 0:
+            return self.animator    
+        
+        #根據選擇撥放不同的動畫
+        option = self.chosen[self.week_number]
+        if option in bubu[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
+
                 
 
         
@@ -264,19 +261,16 @@ class Mitao(Character):
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.energy <= 10:
-            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
-            
-        elif self.mood <= 30:
-            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
-            
-        elif self.mood >= 80:
-            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
-            
-        elif self.social >= 90 :
-            self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
+        if self.week_number == 0:
+            return self.animator    
+        
+        #根據選擇撥放不同的動畫
+        option = self.chosen[self.week_number]
+        if option in bubu[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
+
         
 
 
@@ -311,21 +305,17 @@ class Huihui(Character):
         
     
     def gif_choose(self):
-        
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.energy <= 20:
-            self.animator = CharacterAnimator(self.tired, (400, 400), (300, 300))
-            
-        elif self.mood <= 50:
-            self.animator = CharacterAnimator(self.sad, (400, 400), (300, 300))
-            
-        elif self.mood >= 100:
-            self.animator = CharacterAnimator(self.happy, (400, 400), (300, 300))
-            
-        elif self.social >= 75 :
-            self.animator = CharacterAnimator(self.social_gif, (400, 400), (300, 300))
+        if self.week_number == 0:
+            return self.animator    
+        
+        #根據選擇撥放不同的動畫
+        option = self.chosen[self.week_number]
+        if option in bubu[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
+
         
 
     def get_midterm(self):
