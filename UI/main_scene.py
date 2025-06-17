@@ -314,7 +314,7 @@ class MainScene(BaseScene):
         if self.diary_rect.collidepoint(mouse_pos):
             self.diary_hover = True
             if mouse_pressed[0]:
-                print("點擊了日記圖示")
+                # print("點擊了日記圖示")
                 return "DIARY"
         else:
             self.diary_hover = False
@@ -336,18 +336,18 @@ class MainScene(BaseScene):
                         blurred_bg = fast_blur(self.screen.copy())
                         set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
                         setting_result = set_scene.run()
-                        print(f"設定場景回傳：{setting_result}")
+                        # print(f"設定場景回傳：{setting_result}")
                         if setting_result == "BACK":
                             break
                         elif setting_result == "QUIT":
                             return "Quit"
                         elif setting_result == "RESTART":
-                            print("[MainScene] 收到 RESTART，return 中")
+                            # print("[MainScene] 收到 RESTART，return 中")
                             return "RESTART"
 
                     # 點擊日記按鈕
                     if self.diary_rect.collidepoint(mouse_pos):
-                        print("點擊了日記圖示（從 run）")
+                        # print("點擊了日記圖示（從 run）")
                         self.running = False
                         return "DIARY"
 
