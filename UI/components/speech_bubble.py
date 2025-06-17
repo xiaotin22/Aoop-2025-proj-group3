@@ -29,34 +29,34 @@ class SpeechBubble:
         if self.player.mood <= self.player.low_mood_limit:
 
             if self.player.knowledge <= self.player.low_knowledge_limit:
-                num = random.randint(0, len(self.player.low_knowledge) - 1)
-                self.text = self.player.low_knowledge[num]
+                num = random.randint(0, len(low_knowledge) - 1)
+                self.text = low_knowledge[num]
                 
             elif self.player.social <= self.player.low_social_limit :
-                num = random.randint(0, len(self.player.low_social) - 1)
-                self.text = self.player.low_social[num]
+                num = random.randint(0, len(low_social) - 1)
+                self.text = low_social[num]
                 
             else :
-                num = random.randint(0, len(self.player.low_energy) - 1)
-                self.text = self.player.low_energy[num]
+                num = random.randint(0, len(low_energy) - 1)
+                self.text = low_energy[num]
                 
         elif self.player.mood >= self.player.high_mood_limit:
             
             if self.player.knowledge >= self.player.high_knowledge_limit:
-                num = random.randint(0, len(self.player.high_knowledge) - 1)
-                self.text = self.player.high_knowledge[num]
+                num = random.randint(0, len(high_knowledge) - 1)
+                self.text = high_knowledge[num]
                 
             elif self.player.social >= self.player.low_social_limit :
-                num = random.randint(0, len(self.player.high_social) - 1)
-                self.text = self.player.high_social[num]
+                num = random.randint(0, len(high_social) - 1)
+                self.text = high_social[num]
                 
             else :
-                num = random.randint(0, len(self.player.high_energy) - 1)
-                self.text = self.player.high_energy[num]
+                num = random.randint(0, len(high_energy) - 1)
+                self.text = high_energy[num]
                 
         else:
-            num = random.randint(0, len(self.player.commom) - 1)
-            self.text = self.player.commom[num]
+            num = random.randint(0, len(commom) - 1)
+            self.text = commom[num]
             
         low_knowledge = [ "「我不是不想唸書，我只是醒著的時間都在焦慮。」",
                         "「成績單不是紙，是我精神狀況的體檢報告。」",
