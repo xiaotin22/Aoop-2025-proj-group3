@@ -313,7 +313,7 @@ class MainScene(BaseScene):
                             self.running = False
                             return "Quit"
                         elif setting_result == "RESTART":
-                            self.running = False  # 🔥 關鍵一行：讓 while 結束
+                            self.running = False  # 關鍵一行：讓 while 結束
                             return "RESTART"
 
                     for i, rect in enumerate(self.emoji_rects):
