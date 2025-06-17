@@ -1,108 +1,91 @@
 import pygame
 from UI.components.base_scene import BaseScene
+from UI.components.image_button import ImageButton
 import setting
 
 class DiaryScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
         self.player = player
-        self.current_week_index = 0
+        self.current_week = 1
+        self.total_weeks = len(player.event_history)
 
-        # 背景色（柔和米色）
-        self.bg_color = (255, 248, 230)
+        self.bg_color = (255, 248, 240)
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
+        self.font_bold = pygame.font.Font(setting.JFONT_PATH_BOLD, 32)
 
-        # Diary 圖片
-        self.diary = pygame.image.load("resource/image/diary_image.png").convert_alpha()
-        self.diary = pygame.transform.smoothscale(self.diary, (800, 600))
-        self.diary_rect = self.diary.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2))
+        self.diary_img = pygame.image.load("resource/image/diary/diary_base.png")
+        self.diary_img = pygame.transform.smoothscale(self.diary_img, (900, 600))
+        self.diary_rect = self.diary_img.get_rect(center=(600, 400))
 
-        # 左右按鈕
-        self.left_img = pygame.image.load("resource/image/left.png").convert_alpha()
-        self.right_img = pygame.image.load("resource/image/right.png").convert_alpha()
-        self.left_img = pygame.transform.smoothscale(self.left_img, (60, 60))
-        self.right_img = pygame.transform.smoothscale(self.right_img, (60, 60))
-        self.left_rect = self.left_img.get_rect(topleft=(100, 650))
-        self.right_rect = self.right_img.get_rect(topleft=(200, 650))
+        self.left_btn = ImageButton("resource/image/diary/left.png", (250, 670), scale=1.0)
+        self.right_btn = ImageButton("resource/image/diary/right.png", (950, 670), scale=1.0)
+        self.back_btn = ImageButton("resource/image/button/back.png", (30, 30), scale=1.0)
 
-        # 返回按鈕
-        self.back_img = pygame.image.load("resource/image/back.png").convert_alpha()
-        self.back_img = pygame.transform.smoothscale(self.back_img, (60, 60))
-        self.back_rect = self.back_img.get_rect(topleft=(30, 30))
-
-        # 狀態
-        self.hover_left = False
-        self.hover_right = False
-        self.hover_back = False
-
-        # 字型
-        self.title_font = pygame.font.Font(setting.JFONT_PATH_BOLD, 48)
-        self.text_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
-
-    def draw_text(self, surface, text, pos, font, color=(50, 30, 10), max_width=700):
-        words = text.split(' ')
+    def draw_text(self, text, pos, max_width=700, color=(0, 0, 0)):
+        words = text.split(" ")
         lines = []
         current_line = ""
+
         for word in words:
             test_line = current_line + word + " "
-            if font.size(test_line)[0] <= max_width:
-                current_line = test_line
-            else:
-                lines.append(current_line.strip())
+            if self.font.size(test_line)[0] > max_width:
+                lines.append(current_line)
                 current_line = word + " "
-        lines.append(current_line.strip())
+            else:
+                current_line = test_line
+        lines.append(current_line)
+
         x, y = pos
         for line in lines:
-            rendered = font.render(line, True, color)
-            surface.blit(rendered, (x, y))
-            y += font.get_linesize() + 5
+            surface = self.font.render(line.strip(), True, color)
+            self.screen.blit(surface, (x, y))
+            y += self.font.get_linesize() + 4
+
+    def draw(self):
+        self.screen.fill(self.bg_color)
+        self.screen.blit(self.diary_img, self.diary_rect)
+
+        if self.current_week in self.player.event_history:
+            entry = self.player.event_history[self.current_week]
+            title = f"第 {self.current_week} 週"
+            event = entry["event_text"]
+            option = entry["option_text"]
+            changes = entry["changes"]
+
+            self.screen.blit(self.font_bold.render(title, True, (90, 50, 20)), (330, 180))
+            self.draw_text("事件：" + event, (330, 240))
+            self.draw_text("你的選擇：" + option, (330, 320))
+
+            change_text = f"狀態變化：心情 {format_change(changes['mood'])}、體力 {format_change(changes['energy'])}、社交 {format_change(changes['social'])}、知識 {format_change(changes['knowledge'])}"
+            self.draw_text(change_text, (330, 410))
+
+        self.left_btn.draw(self.screen)
+        self.right_btn.draw(self.screen)
+        self.back_btn.draw(self.screen)
+
+    def update(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+            if self.left_btn.handle_event(event):
+                if self.current_week > 1:
+                    self.current_week -= 1
+            if self.right_btn.handle_event(event):
+                if self.current_week < self.total_weeks:
+                    self.current_week += 1
+            if self.back_btn.handle_event(event):
+                return "BACK"
 
     def run(self):
         while self.running:
-            self.screen.fill(self.bg_color)
-            self.screen.blit(self.diary, self.diary_rect)
-
-            mouse_pos = pygame.mouse.get_pos()
-            self.hover_left = self.left_rect.collidepoint(mouse_pos)
-            self.hover_right = self.right_rect.collidepoint(mouse_pos)
-            self.hover_back = self.back_rect.collidepoint(mouse_pos)
-
-            # 畫按鈕（有 hover 放大）
-            self.screen.blit(
-                pygame.transform.smoothscale(self.left_img, (72, 72)) if self.hover_left else self.left_img,
-                self.left_rect)
-            self.screen.blit(
-                pygame.transform.smoothscale(self.right_img, (72, 72)) if self.hover_right else self.right_img,
-                self.right_rect)
-            self.screen.blit(
-                pygame.transform.smoothscale(self.back_img, (72, 72)) if self.hover_back else self.back_img,
-                self.back_rect)
-
-            if 0 <= self.current_week_index < len(self.player.event_history):
-                entry = self.player.event_history[self.current_week_index]
-                week_title = f"第 {entry['week']} 週"
-                self.draw_text(self.screen, week_title, (150, 100), self.title_font)
-
-                self.draw_text(self.screen, "事件：", (150, 170), self.text_font)
-                self.draw_text(self.screen, entry["event_text"], (180, 210), self.text_font)
-
-                self.draw_text(self.screen, "你的選擇：", (150, 310), self.text_font)
-                self.draw_text(self.screen, entry["option_text"], (180, 350), self.text_font)
-
-                self.draw_text(self.screen, "影響：", (150, 450), self.text_font)
-                stat_map = {"study": "知識", "social": "社交", "play_game": "娛樂", "rest": "休息"}
-                change_lines = [f"{stat_map[k]} +{v}" for k, v in entry["changes"].items() if v != 0]
-                self.draw_text(self.screen, "，".join(change_lines), (180, 490), self.text_font)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    return "QUIT"
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    if self.hover_back:
-                        return "BACK"
-                    elif self.hover_left and self.current_week_index > 0:
-                        self.current_week_index -= 1
-                    elif self.hover_right and self.current_week_index < len(self.player.event_history) - 1:
-                        self.current_week_index += 1
-
+            result = self.update()
+            if result is not None:
+                return result
+            self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
+        return None
+
+def format_change(value):
+    return f"+{value}" if value > 0 else str(value)
