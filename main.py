@@ -8,7 +8,7 @@ from UI.set_scene import SetScene
 from character import Character, Bubu, Yier, Mitao, Huihui
 from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
-# from UI.diary import DairyScene
+# from UI.diary_scene import DairyScene
 from UI.sound_control_scene import SoundControlScene
 from UI.end_scene import EndScene
 from UI.feedback_scene import FeedbackScene

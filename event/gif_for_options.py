@@ -197,7 +197,7 @@ yier = {
     "week_2":{
         "A" : setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES'],
         "C" : setting.GIF_PATHS['YIER_RESTING_FRAMES'],
-        "D" : setting.GIF_PATHS['YIER_CHEER-UP_FRAMES'],
+        "D" : setting.GIF_PATHS['YIER_CHEER_UP_FRAMES'],
     },
     
     
