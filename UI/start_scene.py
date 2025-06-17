@@ -16,7 +16,7 @@ class StartScene(BaseScene):
         self.background.set_alpha(100)
 
         self.title_font = pygame.font.Font(
-            setting.JFONT_PATH_BOLD, 72
+            setting.MFONT_PATH, 72
         )
         self.subtitle_font = pygame.font.Font(
             setting.JFONT_PATH_REGULAR, 48

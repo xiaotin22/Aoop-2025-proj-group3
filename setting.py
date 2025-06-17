@@ -23,6 +23,7 @@ JFONT_PATH_REGULAR = os.path.join(FONT_DIR, 'JasonHandwriting3-Regular.ttf')
 JFONT_PATH_Light = os.path.join(FONT_DIR, 'JasonHandwriting3-Light.ttf')
 HFONT_PATH = os.path.join(FONT_DIR, 'hanyizhuziguozhiruantang.ttf')
 CFONT_PATH = os.path.join(FONT_DIR, 'ChenYuluoyan-Thin-Monospaced.ttf')
+MFONT_PATH = os.path.join(FONT_DIR, 'MoreSugar-Regular.ttf')
 
 # 背景音樂路徑
 
