@@ -147,16 +147,14 @@ def main():
             continue  # 沒有選擇角色，回到主選單
 
         result = game_loop(screen, player)
-        if result == "RESTART": 
-            continue              # 回到 start_game ➜ IntroScene ➜ select_character
-        if not result:
-            break
+        if result == "RESTART":
+            continue  # ⭐ 回到 StartScene 開始新遊戲
+        elif not result:
+            break  # 結束遊戲
 
-        
         player.calculate_GPA()
         if not end_game(screen, player):
             break
-
 
     pygame.quit()
 
