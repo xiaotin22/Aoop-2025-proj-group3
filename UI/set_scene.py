@@ -87,6 +87,7 @@ class SetScene(BaseScene):
                         confirm = ConfirmScene(self.screen)
                         result = confirm.run()
                         if result == "RESTART":
+                            print("[SetScene] 收到 RESTART，return 中")
                             return "RESTART"  # 回傳給外層 MainScene 處理跳轉邏輯
                         elif result == "BACK":
                             continue

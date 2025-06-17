@@ -313,6 +313,7 @@ class MainScene(BaseScene):
                             self.running = False
                             return "Quit"
                         elif setting_result == "RESTART":
+                            print("[MainScene] 收到 RESTART，return 中")
                             self.running = False  # 關鍵一行：讓 while 結束
                             return "RESTART"
 
