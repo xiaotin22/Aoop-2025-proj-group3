@@ -124,7 +124,7 @@ class SceneManager:
     
     def diary_scene(self):
         print("進入日記場景")
-        scene = DiaryScene(self.screen)
+        scene = DiaryScene(self.screen, self.player)
         result = scene.run()
         return "MAIN" if result == "BACK" else result
 
