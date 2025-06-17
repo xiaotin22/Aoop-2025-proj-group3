@@ -9,10 +9,10 @@ class DiaryScene(BaseScene):
         self.player = player
 
         self.diary_img = pygame.image.load("resource/image/diary_image.png").convert_alpha()
-        self.diary_img = pygame.transform.smoothscale(self.diary_img, (900, 700))
+        self.diary_img = pygame.transform.smoothscale(self.diary_img, (1200, 900))
         self.diary_rect = self.diary_img.get_rect(center=(600, 400))
 
-        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 30)
+        self.font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf",38)
         print("是否載入字體成功？", self.font)
 
         self.week_index = 0
