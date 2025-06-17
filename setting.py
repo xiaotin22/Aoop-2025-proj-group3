@@ -94,7 +94,7 @@ class ImagePath:
 
 
 # 重要檔案路徑
-SIMULATION_PLOTS_DIR = os.path.join(BASE_DIR, 'simulations_plot')
+SIMULATION_PLOTS_DIR = os.path.join(BASE_DIR, 'simulation_plots')
 
 # Result 
 GPA_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'gpa_highlight.png')
