@@ -2,7 +2,7 @@ import random
 import math
 import setting
 from UI.components.character_animator import CharacterAnimator
-from event.gif_for_options import bubu
+from event.gif_for_options import bubu, yier, mitao, huihui
 import json
 class Character:
     def __init__(self, name, intelligence, mood, energy, social):
@@ -220,8 +220,8 @@ class Yier(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[self.week_number]
-        if option in bubu[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        if option in yier[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(yier[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
 
@@ -270,8 +270,8 @@ class Mitao(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[self.week_number]
-        if option in bubu[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        if option in mitao[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(mitao[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
 
@@ -321,8 +321,8 @@ class Huihui(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[self.week_number]
-        if option in bubu[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        if option in huihui[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(huihui[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
 
