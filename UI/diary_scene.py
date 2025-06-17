@@ -52,6 +52,7 @@ class DiaryScene(BaseScene):
         self.screen.blit(self.diary_img, self.diary_rect)
 
         if self.player.event_history:
+            print(self.player.event_history)
             print("正在讀取第", self.week_index, "週日記")
             sorted_weeks = sorted(self.player.event_history.keys())
             if self.week_index < len(sorted_weeks):
