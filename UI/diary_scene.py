@@ -3,9 +3,11 @@ from UI.components.base_scene import BaseScene
 import setting
 
 class DiaryScene(BaseScene):
-    def __init__(self, screen, background):
+    def __init__(self, screen):
         super().__init__(screen)
-        self.background = background  # 傳入主畫面 screenshot 當背景
+
+        # 柔和背景色（淡米色 / 天藍色都可）
+        self.bg_color = (245, 240, 230)  # 或換成你喜歡的，例如 (220, 235, 250)
 
         # diary 圖片
         self.diary = pygame.image.load("resource/image/diary_image.png").convert_alpha()
@@ -25,21 +27,14 @@ class DiaryScene(BaseScene):
 
     def run(self):
         while self.running:
-            self.screen.blit(self.background, (0, 0))
-
-            # 🕶️ 加上半透明黑色遮罩
-            dark_overlay = pygame.Surface(self.screen.get_size(), pygame.SRCALPHA)
-            dark_overlay.fill((0, 0, 0, 120))  # RGBA，A=120 表示透明度
-            self.screen.blit(dark_overlay, (0, 0))
-
-            # diary 主圖
+            self.screen.fill(self.bg_color)  # 柔和背景色
             self.screen.blit(self.diary, self.diary_rect.topleft)
 
-            # 滑鼠 hover 效果
             mouse_pos = pygame.mouse.get_pos()
             self.hover_left = self.left_rect.collidepoint(mouse_pos)
             self.hover_right = self.right_rect.collidepoint(mouse_pos)
 
+            # 放大效果
             if self.hover_left:
                 left_scaled = pygame.transform.smoothscale(self.left_img, (72, 72))
                 rect = left_scaled.get_rect(center=self.left_rect.center)
