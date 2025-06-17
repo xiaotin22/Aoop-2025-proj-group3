@@ -63,7 +63,11 @@ class SetScene(BaseScene):
                     if self.back_hover:
                         return "BACK"
                     if self.button1.is_clicked(event):
-                        return "OPTION_1"
+                        from UI.sound_control_scene import SoundControlScene
+                        sound_scene = SoundControlScene(self.screen)
+                        sound_scene.run()
+                        # 回來之後繼續待在設定頁
+                        continue
                     if self.button2.is_clicked(event):
                         return "OPTION_2"
 
