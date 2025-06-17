@@ -137,8 +137,12 @@ def main():
         if not isinstance(player, Character):
             continue  # 沒有選擇角色，回到主選單
 
-        if not game_loop(screen, player):
+        result = game_loop(screen, player)
+        if result == "RESTART":   # ⭐ 新增這段
+            continue              # 回到 start_game ➜ IntroScene ➜ select_character
+        if not result:
             break
+
         
         player.calculate_GPA()
         if not end_game(screen, player):
