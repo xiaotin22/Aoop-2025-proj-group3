@@ -17,7 +17,7 @@ class SpeechBubble:
         bubble_w = text_surf.get_width() + padding
         bubble_h = text_surf.get_height() + padding
         bubble_rect = pygame.Rect(0, 0, bubble_w, bubble_h)
-        bubble_rect.center = self.pos
+        bubble_rect.topleft= self.pos
         pygame.draw.rect(screen, (255, 255, 255), bubble_rect, border_radius=15)
         pygame.draw.rect(screen, (0, 0, 0), bubble_rect, 2, border_radius=15)
         screen.blit(text_surf, text_surf.get_rect(center=bubble_rect.center))
@@ -26,38 +26,7 @@ class SpeechBubble:
         return pygame.time.get_ticks() - self.start_time > self.duration
     
     def get_text(self):
-        if self.player.mood <= self.player.low_mood_limit:
-
-            if self.player.knowledge <= self.player.low_knowledge_limit:
-                num = random.randint(0, len(low_knowledge) - 1)
-                self.text = low_knowledge[num]
-                
-            elif self.player.social <= self.player.low_social_limit :
-                num = random.randint(0, len(low_social) - 1)
-                self.text = low_social[num]
-                
-            else :
-                num = random.randint(0, len(low_energy) - 1)
-                self.text = low_energy[num]
-                
-        elif self.player.mood >= self.player.high_mood_limit:
-            
-            if self.player.knowledge >= self.player.high_knowledge_limit:
-                num = random.randint(0, len(high_knowledge) - 1)
-                self.text = high_knowledge[num]
-                
-            elif self.player.social >= self.player.low_social_limit :
-                num = random.randint(0, len(high_social) - 1)
-                self.text = high_social[num]
-                
-            else :
-                num = random.randint(0, len(high_energy) - 1)
-                self.text = high_energy[num]
-                
-        else:
-            num = random.randint(0, len(commom) - 1)
-            self.text = commom[num]
-            
+                    
         low_knowledge = [ "「我不是不想唸書，我只是醒著的時間都在焦慮。」",
                         "「成績單不是紙，是我精神狀況的體檢報告。」",
                         "「我不是不努力，是未來看起來真的不值得我努力。」",
@@ -117,7 +86,39 @@ class SpeechBubble:
                     "「這學期怎麼已經快過完了，我什麼都還沒做。」",
                 ]
     
-        
+  
+        if self.player.mood <= self.player.low_mood_limit:
+
+            if self.player.knowledge <= self.player.low_knowledge_limit:
+                num = random.randint(0, len(low_knowledge) - 1)
+                self.text = low_knowledge[num]
+                
+            elif self.player.social <= self.player.low_social_limit :
+                num = random.randint(0, len(low_social) - 1)
+                self.text = low_social[num]
+                
+            else :
+                num = random.randint(0, len(low_energy) - 1)
+                self.text = low_energy[num]
+                
+        elif self.player.mood >= self.player.high_mood_limit:
+            
+            if self.player.knowledge >= self.player.high_knowledge_limit:
+                num = random.randint(0, len(high_knowledge) - 1)
+                self.text = high_knowledge[num]
+                
+            elif self.player.social >= self.player.low_social_limit :
+                num = random.randint(0, len(high_social) - 1)
+                self.text = high_social[num]
+                
+            else :
+                num = random.randint(0, len(high_energy) - 1)
+                self.text = high_energy[num]
+                
+        else:
+            num = random.randint(0, len(commom) - 1)
+            self.text = commom[num]
+      
         return self.text
     
     
