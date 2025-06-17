@@ -149,4 +149,4 @@ class SceneManager:
 
     def quit_game(self):
         self.running = False
-        return None
+        return  "QUIT"
