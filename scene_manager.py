@@ -106,6 +106,7 @@ class SceneManager:
             "SETTING": "SETTING",
             "Quit": "QUIT",
             "DIARY": "DIARY",
+            "RESTART": "RESTART",
         }.get(result, "MAIN")
 
     def story_and_event(self):
