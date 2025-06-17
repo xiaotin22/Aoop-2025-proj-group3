@@ -133,25 +133,23 @@ def main():
     pygame.display.set_caption('Game_Start')
 
     while True:
+        # 每輪都重新從頭開始（包含選角色）
         if not start_game(screen):
-            break  # 玩家選擇結束遊戲
+            break
 
         player = select_character(screen)
         if not isinstance(player, Character):
-            continue  # 沒有選擇角色，回到主選單
+            continue  # 沒有選角色就回主選單
 
         result = game_loop(screen, player)
+
         if result == "RESTART":
-            continue  # 回到 StartScene 開始新遊戲
+            continue  # 回到最外層 while 重新開始
         elif not result:
-            break  # 結束遊戲
+            break  # 玩家選擇結束
 
         player.calculate_GPA()
         if not end_game(screen, player):
             break
 
     pygame.quit()
-
-
-if __name__ == "__main__":
-    main()
