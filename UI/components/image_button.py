@@ -8,7 +8,7 @@ class ImageButton:
             self.image_original = pygame.transform.smoothscale(self.image_original, size)
 
         self.image = self.image_original
-        self.center = pos  # ❤️ 改成以 center 為主
+        self.center = pos
         self.hover_scale = hover_scale
         self.scale = 1.0
         self.is_hover = False
