@@ -1,9 +1,1 @@
-pygame
-numpy
-pandas
-matplotlib
-pytest
-pygame_gui
-Pillow
-Counter
-pygbag
+Docker/requirements.txt

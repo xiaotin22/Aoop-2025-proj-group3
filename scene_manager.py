@@ -27,7 +27,7 @@ class SceneManager:
             "MAIN": self.main_game_loop,
             "STORY": self.story_and_event,
             "SETTING": self.setting_scene,
-            "SOUND_CONTROL":  SoundControlScene(screen).run,
+            "SOUND_CONTROL":  self.sound_control_scene,
             "SHOW_INTRO": self.intro_scene,
             "RANK": self.rank_scene,
             "END": self.end_scene,
@@ -84,6 +84,10 @@ class SceneManager:
         else:
             return "START"
         return "MAIN"
+    
+    def sound_control_scene(self):
+        SoundControlScene(self.screen).run()
+        return "START" if self.player is None else "SETTING"
 
     def main_game_loop(self):
         if self.player.week_number >= 16:
@@ -114,6 +118,7 @@ class SceneManager:
             "SOuND_CONTROL": "SOUND_CONTROL",
             "QUIT": "QUIT"
         }.get(result, "MAIN")
+    
 
     
 
@@ -144,4 +149,4 @@ class SceneManager:
 
     def quit_game(self):
         self.running = False
-        return None
+        return  "QUIT"
