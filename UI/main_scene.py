@@ -27,7 +27,7 @@ class MainScene(BaseScene):
 
         excl_img = pygame.image.load(setting.ImagePath.EVENT_ICON_PATH).convert_alpha()
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
-        self.excl_rect = self.excl_img.get_rect(center=(365, 450))
+        self.excl_rect = self.excl_img.get_rect(center=(400, 400))
         self.excl_mask = pygame.mask.from_surface(self.excl_img)
         self.player = player
         self.is_hover = False
@@ -327,7 +327,7 @@ class MainScene(BaseScene):
                         0 <= relative_pos[1] < self.excl_rect.height and
                         self.excl_mask.get_at(relative_pos)):
                         bubble_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
-                        self.speech_bubble = SpeechBubble( self.player, (435, 370), bubble_font )
+                        self.speech_bubble = SpeechBubble( self.player, (470, 330), bubble_font )
                     
                     for i, rect in enumerate(self.emoji_rects):
                         if rect.collidepoint(event.pos):
