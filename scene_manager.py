@@ -38,10 +38,10 @@ class SceneManager:
         }
 
     def run(self):
-        print("SceneManager 開始跑了")
+        # print("SceneManager 開始跑了")
         next_scene = "FIRST"
         while self.running and next_scene:
-            print(f"[SceneManager] 下一個場景是：{next_scene}") 
+            # print(f"[SceneManager] 下一個場景是：{next_scene}") 
             handler = self.scene_map.get(next_scene)
             if handler:
                 next_scene = handler()
@@ -59,10 +59,10 @@ class SceneManager:
         }.get(result, "FIRST")
 
     def start_scene(self):
-        print("[SceneManager] 進入 start_scene")
+        # print("[SceneManager] 進入 start_scene")
         scene = StartScene(self.screen)
         result = scene.run()
-        print(f"[SceneManager] StartScene 回傳：{result}") 
+        # print(f"[SceneManager] StartScene 回傳：{result}") 
         return {
             "START": "CHARACTER_SELECT",
             "SHOW_INTRO": "SHOW_INTRO",
@@ -121,7 +121,7 @@ class SceneManager:
         blurred = fast_blur(self.screen.copy())
         set_scene = SetScene(self.screen, blurred, self.player.week_number)
         result = set_scene.run()
-        print(f"[SceneManager] SetScene 回傳：{result}") 
+        # print(f"[SceneManager] SetScene 回傳：{result}") 
         return {
             "BACK": "MAIN",
             "RESTART": "RESTART",
@@ -131,7 +131,7 @@ class SceneManager:
 
     
     def diary_scene(self):
-        print("進入日記場景")
+        # print("進入日記場景")
         scene = DiaryScene(self.screen, self.player)
         result = scene.run()
         return "MAIN" if result == "BACK" else result
@@ -158,7 +158,7 @@ class SceneManager:
         return "END"
 
     def restart_game(self):
-        print("[SceneManager] restart_game 觸發了！")
+        # print("[SceneManager] restart_game 觸發了！")
         self.player = None
         return "START"
 
