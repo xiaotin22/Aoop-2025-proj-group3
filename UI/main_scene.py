@@ -311,8 +311,6 @@ class MainScene(BaseScene):
                                 break
                             elif setting_result == "QUIT":
                                 return "Quit"
-                            elif setting_result in ("OPTION_1", "OPTION_2"):
-                                print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
                             elif setting_result == "RESTART":
                                 return "RESTART"
 
