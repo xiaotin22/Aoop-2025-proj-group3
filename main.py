@@ -138,7 +138,7 @@ def main():
             continue  # 沒有選擇角色，回到主選單
 
         result = game_loop(screen, player)
-        if result == "RESTART":   # ⭐ 新增這段
+        if result == "RESTART": 
             continue              # 回到 start_game ➜ IntroScene ➜ select_character
         if not result:
             break
