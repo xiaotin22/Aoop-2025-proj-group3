@@ -77,7 +77,7 @@ def game_loop(screen, player):
             if setting_result == "BACK":
                 continue  # 回主畫面
             elif setting_result == "RESTART":
-                return "RESTART"  # ⭐⭐ 重啟遊戲流程
+                return "RESTART"  # 重啟遊戲流程
             else:
                 return False  # 點到 Quit 就結束
 
