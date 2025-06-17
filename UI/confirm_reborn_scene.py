@@ -38,9 +38,6 @@ class ConfirmScene(BaseScene):
                     return "QUIT"
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.button_yes.is_clicked(event):
-                        # 跳回 IntroScene
-                        intro_scene = IntroScene(self.screen)
-                        intro_scene.run()
                         return "RESTART"
                     elif self.button_no.is_clicked(event):
                         return "BACK"
