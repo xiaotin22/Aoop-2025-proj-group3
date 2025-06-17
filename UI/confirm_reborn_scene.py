@@ -12,7 +12,7 @@ class ConfirmScene(BaseScene):
         # 使用你最新提供的紅色按鈕圖
         self.yes_button = ImageButton("resource/image/yes_no_button.png", (400, 400), size=(240, 120), text="是",
                                       font_path="resource/font/ChenYuluoyan-Thin-Monospaced.ttf", font_size=36)
-        self.no_button = ImageButton("resource/image/red_button.png", (750, 400), size=(240, 120), text="否",
+        self.no_button = ImageButton("resource/image/yes_no_button.png", (750, 400), size=(240, 120), text="否",
                                      font_path="resource/font/ChenYuluoyan-Thin-Monospaced.ttf", font_size=36)
 
     def run(self):
