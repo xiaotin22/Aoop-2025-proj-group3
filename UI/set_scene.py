@@ -49,6 +49,11 @@ class SetScene(BaseScene):
             else:
                 self.screen.blit(self.back_icon, self.back_rect.topleft)
 
+            from UI.components.image_button import ImageButton  # 如果還沒加
+
+            self.yes_button = ImageButton("resource/image/button.png", (400, 350), size=(300, 150), text="是", font_path="resource/font/ChenYuluoyan-Thin-Monospaced.ttf", font_size=42)
+            self.no_button = ImageButton("resource/image/button.png", (800, 350), size=(300, 150), text="否", font_path="resource/font/ChenYuluoyan-Thin-Monospaced.ttf", font_size=42)
+
             # 更新＆畫圖片按鈕
             self.button1.update()
             self.button2.update()
