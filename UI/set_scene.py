@@ -49,8 +49,6 @@ class SetScene(BaseScene):
             else:
                 self.screen.blit(self.back_icon, self.back_rect.topleft)
 
-            from UI.components.image_button import ImageButton  # 如果還沒加
-
             # 更新＆畫圖片按鈕
             self.button1.update()
             self.button2.update()
@@ -72,28 +70,24 @@ class SetScene(BaseScene):
             text_rect2 = text2.get_rect(center=self.button2.rect.center)
             self.screen.blit(text2, text_rect2)
 
-            # 事件處理
+            # 處理事件
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "QUIT"
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.back_hover:
                         return "BACK"
-                    if self.button1.is_clicked(event):
+                    elif self.button1.is_clicked(event):
                         from UI.sound_control_scene import SoundControlScene
                         sound_scene = SoundControlScene(self.screen)
                         sound_scene.run()
-                        # 回來之後繼續待在設定頁
                         continue
                     elif self.button2.is_clicked(event):
                         from UI.confirm_reborn_scene import ConfirmScene
                         confirm = ConfirmScene(self.screen)
                         result = confirm.run()
                         if result == "RESTART":
-                            from UI.intro_scene import IntroScene
-                            intro = IntroScene(self.screen)
-                            intro.run()
-                            continue
+                            return "RESTART"  # 回傳給外層 MainScene 處理跳轉邏輯
                         elif result == "BACK":
                             continue
 
