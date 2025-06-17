@@ -17,7 +17,7 @@ class SetScene(BaseScene):
         self.back_rect = self.back_icon.get_rect(topleft=(200, 157))
         self.back_hover = False
 
-        # 👇 兩個 hover 放大圖片按鈕
+        # 兩個 hover 放大圖片按鈕
         self.button1 = ImageButton("resource/image/button.png", (300, 95), size=(600, 450))
         self.button2 = ImageButton("resource/image/button.png", (300, 295), size=(600, 450))
 

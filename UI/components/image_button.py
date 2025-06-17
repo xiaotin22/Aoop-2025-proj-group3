@@ -36,10 +36,14 @@ class ImageButton:
             # 更新位置保持中心不變
             center = (self.base_pos[0] + w // 2, self.base_pos[1] + h // 2)
             self.rect = self.image.get_rect(center=center)
+
+            self.scale = self.hover_scale
         else:
             # 回復原圖與位置
             self.image = self.image_original
             self.rect = self.image.get_rect(topleft=self.base_pos)
+
+            self.scale = 1.0
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
