@@ -319,69 +319,69 @@ class MainScene(BaseScene):
         else:
             self.diary_hover = False
 
-def run(self):
-    while self.running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-                return "Quit"
-
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                mouse_pos = event.pos
-
-                # 點擊設定按鈕
-                if self.set_rect.collidepoint(mouse_pos):
-                    from UI.set_scene import SetScene
-                    from UI.components.blur import fast_blur
-                    blurred_bg = fast_blur(self.screen.copy())
-                    set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
-                    setting_result = set_scene.run()
-                    print(f"設定場景回傳：{setting_result}")
-                    if setting_result == "BACK":
-                        break
-                    elif setting_result == "QUIT":
-                        return "Quit"
-                    elif setting_result in ("OPTION_1", "OPTION_2"):
-                        print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
-
-                # 點擊日記按鈕
-                if self.diary_rect.collidepoint(mouse_pos):
-                    print("點擊了日記圖示（從 run）")
+    def run(self):
+        while self.running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
                     self.running = False
-                    return "DIARY"
+                    return "Quit"
 
-                # 點擊事件氣泡
-                relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
-                if (0 <= relative_pos[0] < self.excl_rect.width and
-                    0 <= relative_pos[1] < self.excl_rect.height and
-                    self.excl_mask.get_at(relative_pos)):
-                    bubble_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
-                    self.speech_bubble = SpeechBubble(self.player, (470, 330), bubble_font)
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    mouse_pos = event.pos
 
-                # 點擊表情按鈕
-                for i, rect in enumerate(self.emoji_rects):
-                    if rect.collidepoint(mouse_pos):
-                        rel_x = mouse_pos[0] - rect.left
-                        rel_y = mouse_pos[1] - rect.top
-                        if 0 <= rel_x < rect.width and 0 <= rel_y < rect.height:
-                            if self.emoji_mask[i].get_at((rel_x, rel_y)):
-                                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
-                                self.emoji_clicked_frames[i] = self.emoji_frame_max
-                                float_img = pygame.transform.smoothscale(self.floating_emoji_surfaces[i], (90, 90))
-                                float_start = rect.center
-                                floating = FloatingEmoji(float_img, float_start)
-                                self.floating_emojis.append(floating)
+                    # 點擊設定按鈕
+                    if self.set_rect.collidepoint(mouse_pos):
+                        from UI.set_scene import SetScene
+                        from UI.components.blur import fast_blur
+                        blurred_bg = fast_blur(self.screen.copy())
+                        set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
+                        setting_result = set_scene.run()
+                        print(f"設定場景回傳：{setting_result}")
+                        if setting_result == "BACK":
+                            break
+                        elif setting_result == "QUIT":
+                            return "Quit"
+                        elif setting_result in ("OPTION_1", "OPTION_2"):
+                            print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
 
-            if self.next_week_button.handle_event(event):
-                self.running = False
-                return "Next Story"
+                    # 點擊日記按鈕
+                    if self.diary_rect.collidepoint(mouse_pos):
+                        print("點擊了日記圖示（從 run）")
+                        self.running = False
+                        return "DIARY"
 
-        self.update()
-        self.draw()
-        pygame.display.flip()
-        self.clock.tick(self.FPS)
+                    # 點擊事件氣泡
+                    relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
+                    if (0 <= relative_pos[0] < self.excl_rect.width and
+                        0 <= relative_pos[1] < self.excl_rect.height and
+                        self.excl_mask.get_at(relative_pos)):
+                        bubble_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
+                        self.speech_bubble = SpeechBubble(self.player, (470, 330), bubble_font)
 
-    return None
+                    # 點擊表情按鈕
+                    for i, rect in enumerate(self.emoji_rects):
+                        if rect.collidepoint(mouse_pos):
+                            rel_x = mouse_pos[0] - rect.left
+                            rel_y = mouse_pos[1] - rect.top
+                            if 0 <= rel_x < rect.width and 0 <= rel_y < rect.height:
+                                if self.emoji_mask[i].get_at((rel_x, rel_y)):
+                                    self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
+                                    self.emoji_clicked_frames[i] = self.emoji_frame_max
+                                    float_img = pygame.transform.smoothscale(self.floating_emoji_surfaces[i], (90, 90))
+                                    float_start = rect.center
+                                    floating = FloatingEmoji(float_img, float_start)
+                                    self.floating_emojis.append(floating)
+
+                if self.next_week_button.handle_event(event):
+                    self.running = False
+                    return "Next Story"
+
+            self.update()
+            self.draw()
+            pygame.display.flip()
+            self.clock.tick(self.FPS)
+
+        return None
                       
 
 def stats_change(list):
