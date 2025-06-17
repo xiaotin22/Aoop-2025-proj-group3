@@ -86,13 +86,16 @@ class SetScene(BaseScene):
                         # 回來之後繼續待在設定頁
                         continue
                     elif self.button2.is_clicked(event):
-                        from UI.confirm_reborn_scene import ConfirmRebornScene
-                        confirm_scene = ConfirmRebornScene(self.screen)
-                        confirm_result = confirm_scene.run()
-                        if confirm_result == "REBORN":
-                            return "GO_TO_START"
-                        elif confirm_result == "BACK":
-                            continue  # 留在設定頁
+                        from UI.confirm_reborn_scene import ConfirmScene
+                        confirm = ConfirmScene(self.screen)
+                        result = confirm.run()
+                        if result == "RESTART":
+                            from UI.intro_scene import IntroScene
+                            intro = IntroScene(self.screen)
+                            intro.run()
+                            continue
+                        elif result == "BACK":
+                            continue
 
             pygame.display.flip()
             self.clock.tick(self.FPS)
