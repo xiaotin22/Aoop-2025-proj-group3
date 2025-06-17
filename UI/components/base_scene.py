@@ -12,7 +12,6 @@ class BaseScene:
         self.clock = pygame.time.Clock()
         self.FPS = 30
         self.audio = AudioManager.get_instance()
-        self.hover_sound = pygame.mixer.Sound(setting.SoundEffect.MENU_HOVER_PATH)
         
 
     def handle_event(self, event):

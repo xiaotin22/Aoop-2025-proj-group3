@@ -298,7 +298,7 @@ class MainScene(BaseScene):
             
     def run(self):
         while self.running:
-            print(pygame.mouse.get_pos())
+            #print(pygame.mouse.get_pos())
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
