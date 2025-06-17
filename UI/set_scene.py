@@ -56,7 +56,7 @@ class SetScene(BaseScene):
             self.button2.draw(self.screen)
 
             # --- 第一顆按鈕：音量調整 ---
-            base_font_size = 40
+            base_font_size = 50
             scaled_size1 = int(base_font_size * self.button1.scale)
             font1 = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", scaled_size1)
             text1 = font1.render("音量調整", True, (50, 50, 50))
