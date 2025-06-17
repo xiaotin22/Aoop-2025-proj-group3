@@ -17,7 +17,7 @@ class ConfirmScene(BaseScene):
 
     def run(self):
         while self.running:
-            self.screen.fill((245, 235, 210))  # 柔和底色背景
+            self.screen.fill((245, 235, 210))
 
             # 顯示訊息
             msg_surface = self.message_font.render(self.message, True, (80, 60, 50))
