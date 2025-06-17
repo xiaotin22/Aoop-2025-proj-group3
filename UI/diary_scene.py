@@ -7,86 +7,88 @@ class DiaryScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
         self.player = player
-        self.current_week = 1
-        self.total_weeks = len(player.event_history)
 
-        self.bg_color = (255, 248, 240)
-        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
-        self.font_bold = pygame.font.Font(setting.JFONT_PATH_BOLD, 32)
-
-        self.diary_img = pygame.image.load("resource/image/diary_image.png")
-        self.diary_img = pygame.transform.smoothscale(self.diary_img, (900, 600))
+        self.diary_img = pygame.image.load("resource/image/diary_image.png").convert_alpha()
+        self.diary_img = pygame.transform.smoothscale(self.diary_img, (900, 700))
         self.diary_rect = self.diary_img.get_rect(center=(600, 400))
 
-        self.left_btn = ImageButton("resource/image/left.png", (250, 670), size=(60, 60))
-        self.right_btn = ImageButton("resource/image/right.png", (950, 670), size=(60, 60))
-        self.back_btn = ImageButton("resource/image/back.png", (30, 30), size=(60, 60))
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 30)
+        print("是否載入字體成功？", self.font)
 
+        self.week_index = 0
+        self.total_weeks = len(self.player.event_history)
 
-    def draw_text(self, text, pos, max_width=700, color=(0, 0, 0)):
-        words = text.split(" ")
+        self.btn_left = ImageButton("resource/image/left.png", (100, 700), size=(80, 80))
+        self.btn_right = ImageButton("resource/image/right.png", (1020, 700), size=(80, 80))
+        self.btn_back = ImageButton("resource/image/back.png", (30, 30), size=(60, 60))
+
+    def wrap_text(self, text, font, max_width):
+        words = text.split()
         lines = []
         current_line = ""
-
         for word in words:
             test_line = current_line + word + " "
-            if self.font.size(test_line)[0] > max_width:
-                lines.append(current_line)
-                current_line = word + " "
-            else:
+            if font.size(test_line)[0] <= max_width:
                 current_line = test_line
-        lines.append(current_line)
+            else:
+                lines.append(current_line.strip())
+                current_line = word + " "
+        if current_line:
+            lines.append(current_line.strip())
+        return lines
 
+    def draw_multiline_text(self, surface, text, pos, font=None, color=(50, 30, 30), max_width=600, line_height=40):
+        if font is None:
+            font = self.font
         x, y = pos
+        lines = self.wrap_text(text, font, max_width)
         for line in lines:
-            surface = self.font.render(line.strip(), True, color)
-            self.screen.blit(surface, (x, y))
-            y += self.font.get_linesize() + 4
+            txt_surf = font.render(line, True, color)
+            surface.blit(txt_surf, (x, y))
+            y += line_height
 
     def draw(self):
-        self.screen.fill(self.bg_color)
+        self.screen.fill((245, 240, 225))  # 柔和米白色
         self.screen.blit(self.diary_img, self.diary_rect)
 
-        if self.current_week in self.player.event_history:
-            entry = self.player.event_history[self.current_week]
-            title = f"第 {self.current_week} 週"
-            event = entry["event_text"]
-            option = entry["option_text"]
-            changes = entry["changes"]
+        if self.player.event_history:
+            print("正在讀取第", self.week_index, "週日記")
+            sorted_weeks = sorted(self.player.event_history.keys())
+            if self.week_index < len(sorted_weeks):
+                week = sorted_weeks[self.week_index]
+                entry = self.player.event_history.get(week)
+                event_text = entry.get("event_text", "")
+                option_text = entry.get("option_text", "")
+                changes = entry.get("changes", {})
 
-            self.screen.blit(self.font_bold.render(title, True, (90, 50, 20)), (330, 180))
-            self.draw_text("事件：" + event, (330, 240))
-            self.draw_text("你的選擇：" + option, (330, 320))
+                self.draw_multiline_text(self.screen, f"📒 第 {week} 週回顧", (200, 100), line_height=50)
+                self.draw_multiline_text(self.screen, f"事件內容：\n{event_text}", (200, 180))
+                self.draw_multiline_text(self.screen, f"你的選擇：\n{option_text}", (200, 320))
 
-            change_text = f"狀態變化：心情 {format_change(changes['mood'])}、體力 {format_change(changes['energy'])}、社交 {format_change(changes['social'])}、知識 {format_change(changes['knowledge'])}"
-            self.draw_text(change_text, (330, 410))
+                change_text = "狀態變化：\n"
+                for attr, value in changes.items():
+                    if value != 0:
+                        change_text += f"{attr} +{value}\n"
+                self.draw_multiline_text(self.screen, change_text, (200, 450))
 
-        self.left_btn.draw(self.screen)
-        self.right_btn.draw(self.screen)
-        self.back_btn.draw(self.screen)
-
-    def update(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.running = False
-            if self.left_btn.handle_event(event):
-                if self.current_week > 1:
-                    self.current_week -= 1
-            if self.right_btn.handle_event(event):
-                if self.current_week < self.total_weeks:
-                    self.current_week += 1
-            if self.back_btn.handle_event(event):
-                return "BACK"
+        self.btn_left.draw(self.screen)
+        self.btn_right.draw(self.screen)
+        self.btn_back.draw(self.screen)
 
     def run(self):
         while self.running:
-            result = self.update()
-            if result is not None:
-                return result
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
-        return None
 
-def format_change(value):
-    return f"+{value}" if value > 0 else str(value)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.btn_left.rect.collidepoint(event.pos):
+                        self.week_index = max(0, self.week_index - 1)
+                    elif self.btn_right.rect.collidepoint(event.pos):
+                        self.week_index = min(self.total_weeks - 1, self.week_index + 1)
+                    elif self.btn_back.rect.collidepoint(event.pos):
+                        return "BACK"
+        return None

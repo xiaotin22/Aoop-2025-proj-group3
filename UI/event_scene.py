@@ -107,7 +107,7 @@ class EventScene(BaseScene):
                             "knowledge": self.player.last_week_change[3]
                         }
                     }
-
+                    print("當前 event_history:", self.player.event_history)
 
                     return "finished"
 
