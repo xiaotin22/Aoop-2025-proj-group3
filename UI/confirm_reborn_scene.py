@@ -7,7 +7,7 @@ class ConfirmScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
 
-        self.message_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
+        self.message_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 52)
         self.message = "人生無法重來，但可以重新投胎："
 
         font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 32)
