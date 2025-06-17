@@ -55,7 +55,7 @@ class SetScene(BaseScene):
             self.button1.draw(self.screen)
             self.button2.draw(self.screen)
 
-            font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 40)
+            font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 50)
             text_surface = font.render("音量調整", True, (50, 50, 50)) 
             text_rect = text_surface.get_rect(center=self.button1.rect.center)
             self.screen.blit(text_surface, text_rect)
