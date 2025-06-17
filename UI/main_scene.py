@@ -294,32 +294,32 @@ class MainScene(BaseScene):
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.running = False
                     return "Quit"
 
-                
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.set_rect.collidepoint(event.pos):
                         from UI.set_scene import SetScene
                         from UI.components.blur import fast_blur
                         blurred_bg = fast_blur(self.screen.copy())
-                        while True:
-                            set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
-                            setting_result = set_scene.run()
-                            print(f"設定場景回傳：{setting_result}")
 
-                            if setting_result == "BACK":
-                                break
-                            elif setting_result == "QUIT":
-                                return "Quit"
-                            elif setting_result == "RESTART":
-                                return "RESTART"
+                        set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
+                        setting_result = set_scene.run()
+                        print(f"設定場景回傳：{setting_result}")
+
+                        if setting_result == "BACK":
+                            pass  # 回到主畫面不動作
+                        elif setting_result == "QUIT":
+                            self.running = False
+                            return "Quit"
+                        elif setting_result == "RESTART":
+                            self.running = False  # 🔥 關鍵一行：讓 while 結束
+                            return "RESTART"
 
                     for i, rect in enumerate(self.emoji_rects):
                         if rect.collidepoint(event.pos):
-                            # 計算滑鼠在表情圖上的相對座標
                             rel_x = event.pos[0] - rect.left
                             rel_y = event.pos[1] - rect.top
-                            # 用 mask 判斷是否點在不透明區
                             if 0 <= rel_x < rect.width and 0 <= rel_y < rect.height:
                                 if self.emoji_mask[i].get_at((rel_x, rel_y)):
                                     self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
@@ -328,9 +328,9 @@ class MainScene(BaseScene):
                                     float_start = rect.center
                                     floating = FloatingEmoji(float_img, float_start)
                                     self.floating_emojis.append(floating)
-                            
-                                
+
                 if self.next_week_button.handle_event(event):
+                    self.running = False
                     return "Next Story"
 
             self.update()
@@ -339,9 +339,6 @@ class MainScene(BaseScene):
             self.clock.tick(self.FPS)
 
         return None
-    
-
-
 
 def stats_change(list):
     # 將數字轉換為帶符號的字串
