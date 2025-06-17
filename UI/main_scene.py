@@ -310,6 +310,14 @@ class MainScene(BaseScene):
         
         if self.speech_bubble and self.speech_bubble.is_expired():
             self.speech_bubble = None
+
+        if self.diary_rect.collidepoint(mouse_pos):
+            self.diary_hover = True
+            if mouse_pressed[0]:
+                return "DIARY"
+        else:
+            self.diary_hover = False
+
             
     def run(self):
         while self.running:
