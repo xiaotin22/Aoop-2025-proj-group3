@@ -1,11 +1,11 @@
 # simulation.py
+import numpy as np
 from character import Bubu, Yier, Mitao, Huihui
 import setting  # 用來取得資源路徑
 import os
 import random, statistics, math
 import matplotlib.pyplot as plt
 from collections import Counter
-import numpy as np
 from pathlib import Path
 from bisect import bisect_left  # ★ 用來算 percentile
 import csv
