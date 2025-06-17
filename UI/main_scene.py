@@ -6,6 +6,7 @@ from UI.components.button import Button
 from UI.components.audio_manager import AudioManager
 from UI.components.base_scene import BaseScene
 from UI.components.floating_emoji import FloatingEmoji
+from UI.components.speech_bubble import SpeechBubble
 import setting
 #Json,attribute : ["rest", "play_game", "social", "study"]
 
@@ -20,7 +21,6 @@ class MainScene(BaseScene):
         font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
         self.next_week_button = Button(
             self.SCREEN_WIDTH - 200, self.SCREEN_HEIGHT - 100,
-
             180, 60," 下一週", font, (200, 200, 250),(50, 50, 50) ,(180, 180, 180))
 
         
@@ -32,6 +32,7 @@ class MainScene(BaseScene):
         self.player = player
         self.is_hover = False
         self.hover_scale = 1.1
+        self.speech_bubble = None  # 用於顯示事件說明的氣泡
         
 
 
@@ -121,39 +122,6 @@ class MainScene(BaseScene):
         for emoji in self.floating_emojis:
             emoji.draw(self.screen)
 
-    def update(self):
-        
-        self.animator.update()    
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_pressed = pygame.mouse.get_pressed()
-
-        for emoji in self.floating_emojis:
-            emoji.update()
-        # 清掉過期的
-        self.floating_emojis = [e for e in self.floating_emojis if not e.is_expired()]
-
-        # 設定按鈕 hover 與點擊
-        if self.set_rect.collidepoint(mouse_pos):
-            self.set_hover = True
-            if not self.audio.is_sound_playing(setting.SoundEffect.MENU_HOVER_PATH):
-                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
-            if mouse_pressed[0]:
-                return "SETTING"
-        else:
-            self.set_hover = False
-
-        # 事件泡泡 hover 與點擊邏輯
-        relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
-        if (0 <= relative_pos[0] < self.excl_rect.width and
-            0 <= relative_pos[1] < self.excl_rect.height and
-            self.excl_mask.get_at(relative_pos)):
-
-            if not self.is_hover:
-                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
-                self.is_hover = True
-
-        else:
-            self.is_hover = False
 
     def draw_player_stats(self):
 
@@ -258,38 +226,76 @@ class MainScene(BaseScene):
             self.screen.blit(scaled, rect.topleft)
         else:
             self.screen.blit(self.set_icon, self.set_rect.topleft)
-
-        if self.player.chosen[self.player.week_number] == '0':
-            if self.is_hover:
-                scaled_img = pygame.transform.smoothscale(
-                    self.excl_img,
-                    (int(self.excl_img.get_width() * self.hover_scale),
-                     int(self.excl_img.get_height() * self.hover_scale))
-                )
-                scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
-                self.screen.blit(scaled_img, scaled_rect)
-
-        if self.player.chosen[self.player.week_number] == '0':
-            # ====== 閃爍動畫（基礎 scale）======
-            ticks = pygame.time.get_ticks()
-            import math
-            base_scale = 1 + 0.12 * math.sin(ticks * 0.01)  # 在 0.95 到 1.05 之間震盪
-
-            # ====== hover 放大疊加效果 ======
-            if self.is_hover:
-                scale = base_scale * self.hover_scale
-            else:
-                scale = base_scale
-
-            # ====== 計算縮放後的位置並繪製 ======
-            new_width = int(self.excl_img.get_width() * scale)
-            new_height = int(self.excl_img.get_height() * scale)
-            scaled_img = pygame.transform.smoothscale(self.excl_img, (new_width, new_height))
-            scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
             
+        # 畫事件泡泡
+        if self.is_hover:
+            scaled_img = pygame.transform.smoothscale(
+                self.excl_img,
+                (int(self.excl_img.get_width() * self.hover_scale),
+                    int(self.excl_img.get_height() * self.hover_scale))
+            )
+            scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
             self.screen.blit(scaled_img, scaled_rect)
+        
+        # 畫對話框
+        if self.speech_bubble:
+            self.speech_bubble.draw(self.screen)
 
+        # ====== 閃爍動畫（基礎 scale）======
+        ticks = pygame.time.get_ticks()
+        import math
+        base_scale = 1 + 0.12 * math.sin(ticks * 0.01)  # 在 0.95 到 1.05 之間震盪
 
+        # ====== hover 放大疊加效果 ======
+        if self.is_hover:
+            scale = base_scale * self.hover_scale
+        else:
+            scale = base_scale
+
+        # ====== 計算縮放後的位置並繪製 ======
+        new_width = int(self.excl_img.get_width() * scale)
+        new_height = int(self.excl_img.get_height() * scale)
+        scaled_img = pygame.transform.smoothscale(self.excl_img, (new_width, new_height))
+        scaled_rect = scaled_img.get_rect(center=self.excl_rect.center)
+        
+        self.screen.blit(scaled_img, scaled_rect)
+
+    def update(self):
+        
+        self.animator.update()    
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pressed = pygame.mouse.get_pressed()
+
+        for emoji in self.floating_emojis:
+            emoji.update()
+        # 清掉過期的
+        self.floating_emojis = [e for e in self.floating_emojis if not e.is_expired()]
+
+        # 設定按鈕 hover 與點擊
+        if self.set_rect.collidepoint(mouse_pos):
+            self.set_hover = True
+            if not self.audio.is_sound_playing(setting.SoundEffect.MENU_HOVER_PATH):
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
+            if mouse_pressed[0]:
+                return "SETTING"
+        else:
+            self.set_hover = False
+
+        # 事件泡泡 hover 與點擊邏輯
+        relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
+        if (0 <= relative_pos[0] < self.excl_rect.width and
+            0 <= relative_pos[1] < self.excl_rect.height and
+            self.excl_mask.get_at(relative_pos)):
+        
+            if not self.is_hover:
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
+                self.is_hover = True
+        else:
+            self.is_hover = False
+        
+        if self.speech_bubble and self.speech_bubble.is_expired():
+            self.speech_bubble = None
+            
     def run(self):
         while self.running:
             for event in pygame.event.get():
@@ -307,15 +313,26 @@ class MainScene(BaseScene):
                         setting_result = set_scene.run()
                         print(f"設定場景回傳：{setting_result}")
 
-                        if setting_result == "BACK":
-                            pass  # 回到主畫面不動作
-                        elif setting_result == "QUIT":
-                            self.running = False
-                            return "Quit"
-                        elif setting_result == "RESTART":
-                            self.running = False  # 關鍵一行：讓 while 結束
-                            return "RESTART"
+                            if setting_result == "BACK":
+                                break
+                            elif setting_result == "QUIT":
+                                return "Quit"
+                            elif setting_result in ("OPTION_1", "OPTION_2"):
+                                print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
+                                
+                    mouse_pos = event.pos
+                    relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
+                    if (0 <= relative_pos[0] < self.excl_rect.width and
+                        0 <= relative_pos[1] < self.excl_rect.height and
+                        self.excl_mask.get_at(relative_pos)):
+                        bubble_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
+                        self.speech_bubble = SpeechBubble(
+                            "這是一個事件！",
+                            (self.excl_rect.centerx, self.excl_rect.top - 60),
+                            bubble_font
+                        )
 
+                    
                     for i, rect in enumerate(self.emoji_rects):
                         if rect.collidepoint(event.pos):
                             rel_x = event.pos[0] - rect.left
