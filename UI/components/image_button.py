@@ -29,7 +29,7 @@ class ImageButton:
         self.image = pygame.transform.smoothscale(self.image_original, new_size)
 
         # 設定新 rect 但維持 topleft 不變
-        self.rect = self.image.get_rect(topleft=self.topleft)
+        self.rect = self.image.get_rect(topleft=self.center)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect.topleft)
