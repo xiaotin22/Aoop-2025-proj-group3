@@ -28,26 +28,26 @@ CFONT_PATH = os.path.join(FONT_DIR, 'ChenYuluoyan-Thin-Monospaced.ttf')
 
 class BGM:
     BGM_PATH = os.path.join(MUSIC_DIR, 'bgm')
-    DRUMDRUM_PATH = os.path.join(BGM_PATH, 'drumdrum.mp3')
-    MITAO_HUIHUI_PATH = os.path.join(BGM_PATH, 'mitao_huihui.mp3')
-    YIER_BUBU_PATH = os.path.join(BGM_PATH, 'yier_bubu.MP3')
+    DRUMDRUM_PATH = os.path.join(BGM_PATH, 'drumdrum.ogg')
+    MITAO_HUIHUI_PATH = os.path.join(BGM_PATH, 'mitao_huihui.ogg')
+    YIER_BUBU_PATH = os.path.join(BGM_PATH, 'yier_bubu.ogg')
 
 # 音效路徑
 class SoundEffect:
     """音效類別，包含各種音效的路徑"""
     SOUND_PATH = os.path.join(MUSIC_DIR, 'sound_effect')
-    BLING_PATH = os.path.join(SOUND_PATH, 'bling.mp3')
-    BO_PATH = os.path.join(SOUND_PATH, 'bo.MP3')
-    CHEER_CHEER_PATH = os.path.join(SOUND_PATH, 'cheer_cheer.mp3')
-    DONG_PATH = os.path.join(SOUND_PATH, 'dong.MP3')
-    DONGDONG_PATH = os.path.join(SOUND_PATH, 'dongdong.MP3')
-    LUCKYWHEEL_PATH = os.path.join(SOUND_PATH, 'luckywheel.mp3')
-    MENU_HOVER_PATH = os.path.join(SOUND_PATH, 'menu_hover.MP3')
-    NEXT_PAGE_PATH = os.path.join(SOUND_PATH, 'next_page.mp3')
-    SHOU_PATH = os.path.join(SOUND_PATH, 'shou.MP3')
-    SHOU2_PATH = os.path.join(SOUND_PATH, 'shou2.MP3')
-    SMALL_DRUM_PATH = os.path.join(SOUND_PATH, 'small_drum.mp3')
-    TYPING_PATH = os.path.join(SOUND_PATH, 'typing.MP3')
+    BLING_PATH = os.path.join(SOUND_PATH, 'bling.ogg')
+    BO_PATH = os.path.join(SOUND_PATH, 'bo.ogg')
+    CHEER_CHEER_PATH = os.path.join(SOUND_PATH, 'cheer_cheer.ogg')
+    DONG_PATH = os.path.join(SOUND_PATH, 'dong.ogg')
+    DONGDONG_PATH = os.path.join(SOUND_PATH, 'dongdong.ogg')
+    LUCKYWHEEL_PATH = os.path.join(SOUND_PATH, 'luckywheel.ogg')
+    MENU_HOVER_PATH = os.path.join(SOUND_PATH, 'menu_hover.ogg')
+    NEXT_PAGE_PATH = os.path.join(SOUND_PATH, 'next_page.ogg')
+    SHOU_PATH = os.path.join(SOUND_PATH, 'shou.ogg')
+    SHOU2_PATH = os.path.join(SOUND_PATH, 'shou2.ogg')
+    SMALL_DRUM_PATH = os.path.join(SOUND_PATH, 'small_drum.ogg')
+    TYPING_PATH = os.path.join(SOUND_PATH, 'typing.ogg')
 
 
 # Image 路徑
