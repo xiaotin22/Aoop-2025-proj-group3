@@ -46,22 +46,16 @@ def select_character(screen):
     print("玩家選擇角色為：", selected)
 
     if selected == "布布 Bubu":
-        player = Bubu()
-        return player
+        return Bubu()
     elif selected == "一二 Yier":
-        player = Yier()
-        return player
+        return Yier()
     elif selected == "蜜桃 Mitao":
-        player = Mitao()
-        return player
+        return Mitao()
     elif selected == "灰灰 Huihui":
-        player = Huihui()
-        return player
+        return Huihui()
     else:
         print("未選擇角色，回到主畫面")
-        return start_game(screen)
-    
-
+        return None  # 修正
 
 def game_loop(screen, player):
     while player.week_number < 16:
@@ -75,9 +69,11 @@ def game_loop(screen, player):
             setting_result = set_scene.run()
             print(f"設定場景回傳：{setting_result}")
             if setting_result == "BACK":
-                continue  # ✅ 回主畫面
+                continue  # 回主畫面
+            elif setting_result == "RESTART":
+                return "RESTART"  # 重啟遊戲流程
             else:
-                return False  # 如果不小心點 quit，就結束
+                return False  # 點到 Quit 就結束
 
 
         # if player_option == "Open Diary":
@@ -137,23 +133,26 @@ def main():
     pygame.display.set_caption('Game_Start')
 
     while True:
+        # 每輪都重新從頭開始（包含選角色）
         if not start_game(screen):
-            break  # 玩家選擇結束遊戲
+            break
 
         player = select_character(screen)
         if not isinstance(player, Character):
-            continue  # 沒有選擇角色，回到主選單
+            continue  # 沒有選角色就回主選單
 
-        if not game_loop(screen, player):
-            break
-        
+        result = game_loop(screen, player)
+
+        if result == "RESTART":
+            continue  # 回到最外層 while 重新開始
+        elif not result:
+            break  # 玩家選擇結束
+
         player.calculate_GPA()
         if not end_game(screen, player):
             break
 
-
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()

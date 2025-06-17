@@ -18,8 +18,8 @@ class SetScene(BaseScene):
         self.back_hover = False
 
         # 👇 兩個 hover 放大圖片按鈕
-        self.button1 = ImageButton("resource/image/button.png", (600, 355), size=(600, 450))
-        self.button2 = ImageButton("resource/image/button.png", (600, 515), size=(600, 450))
+        self.button1 = ImageButton("resource/image/button.png", (300, 95), size=(600, 450))
+        self.button2 = ImageButton("resource/image/button.png", (300, 295), size=(600, 450))
 
         # 字體（週數）
         self.week_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
@@ -49,23 +49,47 @@ class SetScene(BaseScene):
             else:
                 self.screen.blit(self.back_icon, self.back_rect.topleft)
 
-            # 更新＆繪製按鈕
+            # 更新＆畫圖片按鈕
             self.button1.update()
             self.button2.update()
             self.button1.draw(self.screen)
             self.button2.draw(self.screen)
 
-            # 事件處理
+            # --- 第一顆按鈕：音量調整 ---
+            base_font_size = 50
+            scaled_size1 = int(base_font_size * self.button1.scale)
+            font1 = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", scaled_size1)
+            text1 = font1.render("音量調整", True, (50, 50, 50))
+            text_rect1 = text1.get_rect(center=self.button1.rect.center)
+            self.screen.blit(text1, text_rect1)
+
+            # --- 第二顆按鈕：重新開始 ---
+            scaled_size2 = int(base_font_size * self.button2.scale)
+            font2 = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", scaled_size2)
+            text2 = font2.render("重新開始", True, (50, 50, 50))
+            text_rect2 = text2.get_rect(center=self.button2.rect.center)
+            self.screen.blit(text2, text_rect2)
+
+            # 處理事件
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "QUIT"
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.back_hover:
                         return "BACK"
-                    if self.button1.is_clicked(event):
-                        return "OPTION_1"
-                    if self.button2.is_clicked(event):
-                        return "OPTION_2"
+                    elif self.button1.is_clicked(event):
+                        from UI.sound_control_scene import SoundControlScene
+                        sound_scene = SoundControlScene(self.screen)
+                        sound_scene.run()
+                        continue
+                    elif self.button2.is_clicked(event):
+                        from UI.confirm_reborn_scene import ConfirmScene
+                        confirm = ConfirmScene(self.screen)
+                        result = confirm.run()
+                        if result == "RESTART":
+                            return "RESTART"  # 回傳給外層 MainScene 處理跳轉邏輯
+                        elif result == "BACK":
+                            continue
 
             pygame.display.flip()
             self.clock.tick(self.FPS)
