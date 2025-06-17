@@ -70,8 +70,17 @@ def game_loop(screen, player):
         player_option = scene.run()
         print(f"玩家選擇的操作為：{player_option!r}")
 
-        if player_option == "RESTART":
-            return "RESTART"
+        if player_option == "SETTING":
+            set_scene = SetScene(screen)
+            setting_result = set_scene.run()
+            print(f"設定場景回傳：{setting_result}")
+            if setting_result == "BACK":
+                continue  # 回主畫面
+            elif setting_result == "RESTART":
+                return "RESTART"  # ⭐⭐ 重啟遊戲流程
+            else:
+                return False  # 點到 Quit 就結束
+
 
         # if player_option == "Open Diary":
             # attr_scene = DairyScene(screen, player)
