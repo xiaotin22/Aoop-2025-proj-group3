@@ -17,11 +17,11 @@ class DiaryScene(BaseScene):
         # 左右按鈕
         self.left_img = pygame.image.load("resource/image/left.png").convert_alpha()
         self.right_img = pygame.image.load("resource/image/right.png").convert_alpha()
-        self.left_img = pygame.transform.smoothscale(self.left_img, (80, 80))
-        self.right_img = pygame.transform.smoothscale(self.right_img, (80, 80))
+        self.left_img = pygame.transform.smoothscale(self.left_img, (110, 110))
+        self.right_img = pygame.transform.smoothscale(self.right_img, (110, 110))
 
-        self.left_rect = self.left_img.get_rect(topleft=(470, 600))
-        self.right_rect = self.right_img.get_rect(topleft=(630, 600))
+        self.left_rect = self.left_img.get_rect(topleft=(460, 600))
+        self.right_rect = self.right_img.get_rect(topleft=(620, 600))
         self.hover_left = False
         self.hover_right = False
 
