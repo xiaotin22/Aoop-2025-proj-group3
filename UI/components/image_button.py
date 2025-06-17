@@ -1,7 +1,7 @@
 import pygame
 
 class ImageButton:
-    def __init__(self, image_path, pos, scale_hover=1.1, size=None):
+    def __init__(self, image_path, pos, scale_hover=1.03, size=None):
         self.image_original = pygame.image.load(image_path).convert_alpha()
         if size:
             self.image_original = pygame.transform.smoothscale(self.image_original, size)
