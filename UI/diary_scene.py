@@ -82,6 +82,11 @@ class DiaryScene(BaseScene):
             pygame.display.flip()
             self.clock.tick(self.FPS)
 
+            mouse_pos = pygame.mouse.get_pos()
+            self.btn_left.is_hover = self.btn_left.rect.collidepoint(mouse_pos)
+            self.btn_right.is_hover = self.btn_right.rect.collidepoint(mouse_pos)
+            self.btn_back.is_hover = self.btn_back.rect.collidepoint(mouse_pos)
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
