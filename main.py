@@ -46,22 +46,16 @@ def select_character(screen):
     print("玩家選擇角色為：", selected)
 
     if selected == "布布 Bubu":
-        player = Bubu()
-        return player
+        return Bubu()
     elif selected == "一二 Yier":
-        player = Yier()
-        return player
+        return Yier()
     elif selected == "蜜桃 Mitao":
-        player = Mitao()
-        return player
+        return Mitao()
     elif selected == "灰灰 Huihui":
-        player = Huihui()
-        return player
+        return Huihui()
     else:
         print("未選擇角色，回到主畫面")
-        return start_game(screen)
-    
-
+        return None  # 修正
 
 def game_loop(screen, player):
     while player.week_number < 16:
