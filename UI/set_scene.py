@@ -18,8 +18,8 @@ class SetScene(BaseScene):
         self.back_hover = False
 
         # 👇 兩個 hover 放大圖片按鈕
-        self.button1 = ImageButton("resource/image/button.png", (290, 115), size=(600, 450))
-        self.button2 = ImageButton("resource/image/button.png", (290, 295), size=(600, 450))
+        self.button1 = ImageButton("resource/image/button.png", (400, 215), size=(600, 450))
+        self.button2 = ImageButton("resource/image/button.png", (400, 355), size=(600, 450))
 
         # 字體（週數）
         self.week_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
