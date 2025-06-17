@@ -14,7 +14,7 @@ class DiaryScene(BaseScene):
         self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
         self.font_bold = pygame.font.Font(setting.JFONT_PATH_BOLD, 32)
 
-        self.diary_img = pygame.image.load("resource/image/diary/diary_base.png")
+        self.diary_img = pygame.image.load("resource/image/diary/diary_image.png")
         self.diary_img = pygame.transform.smoothscale(self.diary_img, (900, 600))
         self.diary_rect = self.diary_img.get_rect(center=(600, 400))
 
