@@ -312,12 +312,15 @@ class MainScene(BaseScene):
             self.speech_bubble = None
 
         if self.diary_rect.collidepoint(mouse_pos):
+            if not self.diary_hover:
+                # 初次 hover 播放音效
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
             self.diary_hover = True
             if mouse_pressed[0]:
-                # print("點擊了日記圖示")
                 return "DIARY"
         else:
             self.diary_hover = False
+
 
     def run(self):
         while self.running:
