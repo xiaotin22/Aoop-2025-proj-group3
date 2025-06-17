@@ -11,7 +11,7 @@ async def main():
     screen = pygame.display.set_mode((setting.SCREEN_WIDTH, setting.SCREEN_HEIGHT))
     
     manager = SceneManager(screen)
-    if manager.run() is "QUIT":
+    if manager.run() == "QUIT":
         pygame.quit()
         
 

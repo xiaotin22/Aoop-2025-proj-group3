@@ -85,6 +85,12 @@ class MainScene(BaseScene):
         self.emoji_mask = [pygame.mask.from_surface(img) for img in self.emoji_surfaces]
         self.floating_emoji_surfaces = [pygame.image.load(p).convert_alpha() for p in self.floating_emoji_paths]
 
+        # 日記按鈕
+        self.diary_icon = pygame.image.load("resource/image/diary_image.png").convert_alpha()
+        self.diary_icon = pygame.transform.smoothscale(self.diary_icon, (70, 70))
+        self.diary_rect = self.diary_icon.get_rect(topleft=(1020, 20))
+        self.diary_hover = False
+
     def draw_emoji(self):
         self.emoji_rects = []
 
@@ -260,6 +266,15 @@ class MainScene(BaseScene):
         
         self.screen.blit(scaled_img, scaled_rect)
 
+        # diary icon hover 放大
+        if self.diary_hover:
+            scaled = pygame.transform.scale(self.diary_icon, (84, 84))
+            rect = scaled.get_rect(center=self.diary_rect.center)
+            self.screen.blit(scaled, rect.topleft)
+        else:
+            self.screen.blit(self.diary_icon, self.diary_rect.topleft)
+
+
     def update(self):
         
         self.animator.update()    
@@ -295,44 +310,59 @@ class MainScene(BaseScene):
         
         if self.speech_bubble and self.speech_bubble.is_expired():
             self.speech_bubble = None
-            
+
+        if self.diary_rect.collidepoint(mouse_pos):
+            self.diary_hover = True
+            if mouse_pressed[0]:
+                print("點擊了日記圖示")
+                return "DIARY"
+        else:
+            self.diary_hover = False
+
     def run(self):
         while self.running:
-            #print(pygame.mouse.get_pos())
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
                     return "Quit"
 
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    if self.set_rect.collidepoint(event.pos):
+                    mouse_pos = event.pos
+
+                    # 點擊設定按鈕
+                    if self.set_rect.collidepoint(mouse_pos):
                         from UI.set_scene import SetScene
                         from UI.components.blur import fast_blur
                         blurred_bg = fast_blur(self.screen.copy())
-
                         set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
                         setting_result = set_scene.run()
                         print(f"設定場景回傳：{setting_result}")
-
                         if setting_result == "BACK":
                             break
                         elif setting_result == "QUIT":
                             return "Quit"
                         elif setting_result in ("OPTION_1", "OPTION_2"):
                             print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
-                            
-                    mouse_pos = event.pos
+
+                    # 點擊日記按鈕
+                    if self.diary_rect.collidepoint(mouse_pos):
+                        print("點擊了日記圖示（從 run）")
+                        self.running = False
+                        return "DIARY"
+
+                    # 點擊事件氣泡
                     relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
                     if (0 <= relative_pos[0] < self.excl_rect.width and
                         0 <= relative_pos[1] < self.excl_rect.height and
                         self.excl_mask.get_at(relative_pos)):
                         bubble_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
-                        self.speech_bubble = SpeechBubble( self.player, (470, 330), bubble_font )
-                    
+                        self.speech_bubble = SpeechBubble(self.player, (470, 330), bubble_font)
+
+                    # 點擊表情按鈕
                     for i, rect in enumerate(self.emoji_rects):
-                        if rect.collidepoint(event.pos):
-                            rel_x = event.pos[0] - rect.left
-                            rel_y = event.pos[1] - rect.top
+                        if rect.collidepoint(mouse_pos):
+                            rel_x = mouse_pos[0] - rect.left
+                            rel_y = mouse_pos[1] - rect.top
                             if 0 <= rel_x < rect.width and 0 <= rel_y < rect.height:
                                 if self.emoji_mask[i].get_at((rel_x, rel_y)):
                                     self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
@@ -352,6 +382,7 @@ class MainScene(BaseScene):
             self.clock.tick(self.FPS)
 
         return None
+                      
 
 def stats_change(list):
     # 將數字轉換為帶符號的字串

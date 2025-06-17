@@ -24,6 +24,8 @@ class Character:
         with open("event/events.json", "r", encoding="utf-8") as f:
             self.all_weeks_data = json.load(f)
         self.week_data = None
+        self.event_history = {}  # key: week_number, value: {event_text, option_text, changes}
+
 
     def study(self, degree):
         growth = int(
