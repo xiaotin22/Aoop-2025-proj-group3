@@ -87,7 +87,7 @@ oop-2025-proj-group10/
 │       ├── character_animator.py # 角色動畫管理
 │       └── ...                   # 其他 UI 元件
 │
-├── simulations_plot/            # 模擬成績，繪製圖形存放
+├── simulation_plots/            # 模擬成績，繪製圖形存放
 │
 ├── resource/
 │   ├── font/                    # 字型檔案
