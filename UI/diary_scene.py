@@ -70,7 +70,7 @@ class DiaryScene(BaseScene):
                 for attr, value in changes.items():
                     if value != 0:
                         change_text += f"{attr} +{value} \n"
-                self.draw_multiline_text(self.screen, change_text, (200, 490))
+                self.draw_multiline_text(self.screen, change_text, (200, 540))
 
         self.btn_left.draw(self.screen)
         self.btn_right.draw(self.screen)
@@ -81,7 +81,7 @@ class DiaryScene(BaseScene):
             self.btn_left.update()
             self.btn_right.update()
             self.btn_back.update()
-            
+
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
