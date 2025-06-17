@@ -64,12 +64,23 @@ def game_loop(screen, player):
         player_option = scene.run()
         print(f"玩家選擇的操作為：{player_option!r}")
 
-        if player_option == "RESTART":
-            print("[game_loop] 收到 RESTART，return 中")
-            return "RESTART"
-        elif player_option == "Quit":
-            print("遊戲結束")
-            return False
+        if player_option == "SETTING":
+            set_scene = SetScene(screen)
+            setting_result = set_scene.run()
+            print(f"設定場景回傳：{setting_result}")
+            if setting_result == "BACK":
+                continue  # 回主畫面
+            elif setting_result == "RESTART":
+                return "RESTART"  # 重啟遊戲流程
+            else:
+                return False  # 點到 Quit 就結束
+
+
+        # if player_option == "Open Diary":
+            # attr_scene = DairyScene(screen, player)
+            # attr_scene.run()
+
+
         elif player_option == "Next Story":
             player.week_number += 1
             player.week_data = player.all_weeks_data[f"week_{player.week_number}"]
@@ -77,8 +88,14 @@ def game_loop(screen, player):
             story_scene.run()
             event_scene = EventScene(screen, player)
             event_scene.run()
-
+        
+     
+            
+        elif player_option == "Quit":
+            print("遊戲結束")
+            return False
     return True
+        
         
 def end_game(screen, player):
     pygame.display.set_caption("End of Game")
@@ -116,33 +133,26 @@ def main():
     pygame.display.set_caption('Game_Start')
 
     while True:
+        # 每輪都重新從頭開始（包含選角色）
         if not start_game(screen):
             break
 
         player = select_character(screen)
         if not isinstance(player, Character):
-            continue
+            continue  # 沒有選角色就回主選單
 
         result = game_loop(screen, player)
+
         if result == "RESTART":
-            print("[main] 收到 RESTART，重新啟動遊戲流程")
-            continue  # ✅ 重來整個流程（包括 start_game）
-
+            continue  # 回到最外層 while 重新開始
         elif not result:
-            break
+            break  # 玩家選擇結束
 
-        # ⛔️ 注意：這裡也可能要跳過計算 GPA（因為 player 重設了）
         player.calculate_GPA()
-        result = end_game(screen, player)
-
-        if result == "RESTART":
-            print("[main] end_game 收到 RESTART，重新啟動遊戲流程")
-            continue
-        elif not result:
+        if not end_game(screen, player):
             break
 
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()

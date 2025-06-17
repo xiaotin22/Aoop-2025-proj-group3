@@ -2,7 +2,7 @@ import random
 import math
 import setting
 from UI.components.character_animator import CharacterAnimator
-from event.gif_for_options import bubu
+from event.gif_for_options import bubu, yier, mitao, huihui
 import json
 class Character:
     def __init__(self, name, intelligence, mood, energy, social):
@@ -41,7 +41,6 @@ class Character:
             max(0, self.energy + self.last_week_change[1]),\
             max(0, self.social + self.last_week_change[2]),\
             min(100, self.knowledge + self.last_week_change[3]) 
-    
 
     def socialize(self, degree):
         growth = int(
@@ -104,10 +103,8 @@ class Character:
             grade = min(100, round(base + fluctuation, 2))
         return int(round(grade))
     
-
     def get_final(self):
         self.final = round(self.calculate_grade()) -15
-
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
@@ -122,7 +119,6 @@ class Character:
         self.GPA = round(sum(gpa) / len(gpa),2)
         #print(f"total_score: {total_score}, GPA: {self.GPA:.2f}, lucky_prof: {self.lucky_prof}")
         #print(gpa)
-
 
     def show_status(self):
         pass
@@ -145,16 +141,16 @@ class Bubu(Character):
         self.taketest = setting.GIF_PATHS['BUBU_NO_STUDY_FRAMES']       
         self.ending = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
 
-        self.sad = setting.GIF_PATHS['BUBU_CRYING_FRAMES']
-        self.happy = setting.GIF_PATHS['BUBU_HAPPY_FRAMES']
-        self.tired = setting.GIF_PATHS['BUBU_TIRED_FRAMES']
-        self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES'] 
         
-        self.study_gif = setting.GIF_PATHS['BUBU_STUDY_FRAMES']
-        self.rest_gif = setting.GIF_PATHS['BUBU_LAZY_FRAMES']
-        self.play_game_gif = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
-        self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES']
-        #print(self.week_data)
+        self.low_mood_limit = 30
+        self.low_energy_limit = 30
+        self.low_social_limit = 30
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 80
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
+        self.high_knowledge_limit = 80
+        
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
@@ -207,10 +203,15 @@ class Yier(Character):
         self.taketest = setting.GIF_PATHS['YIER_NO_STUDY_FRAMES']
         self.ending = setting.GIF_PATHS['YIER_EXCITING_FRAMES']
         
-        self.sad = setting.GIF_PATHS['YIER_CRYING_FRAMES']
-        self.happy = setting.GIF_PATHS['YIER_HAPPYREST_FRAMES']
-        self.tired = setting.GIF_PATHS['YIER_SAD_FRAMES']
-        self.social_gif = setting.GIF_PATHS['YIER_SOCIAL_FRAMES'] 
+        self.low_mood_limit = 30
+        self.low_energy_limit = 30
+        self.low_social_limit = 30
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 80
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
+        self.high_knowledge_limit = 80
+        
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
@@ -219,8 +220,8 @@ class Yier(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[self.week_number]
-        if option in bubu[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        if option in yier[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(yier[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
 
@@ -254,10 +255,14 @@ class Mitao(Character):
         self.ending = setting.GIF_PATHS['MITAO_FLOWER_FRAMES']
         
         
-        self.sad = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
-        self.happy = setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES']
-        self.tired = setting.GIF_PATHS['MITAO_TIRED_FRAMES']
-        self.social_gif = setting.GIF_PATHS['MITAO_EATMELON_FRAMES'] 
+        self.low_mood_limit = 30
+        self.low_energy_limit = 30
+        self.low_social_limit = 30
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 80
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
+        self.high_knowledge_limit = 80
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
@@ -266,8 +271,8 @@ class Mitao(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[self.week_number]
-        if option in bubu[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        if option in mitao[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(mitao[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
 
@@ -298,10 +303,17 @@ class Huihui(Character):
         self.testing = setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES']
         self.ending = setting.GIF_PATHS['HUIHUI_FLOWER_FRAMES']
         self.week_number = 0
-        self.sad = setting.GIF_PATHS['HUIHUI_SAD_FRAMES']
-        self.happy = setting.GIF_PATHS['HUIHUI_HEHE_FRAMES']
-        self.tired = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
-        self.social_gif = setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'] 
+        
+         
+        self.low_mood_limit = 30
+        self.low_energy_limit = 30
+        self.low_social_limit = 30
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 80
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
+        self.high_knowledge_limit = 80
+        
         
     
     def gif_choose(self):
@@ -311,8 +323,8 @@ class Huihui(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[self.week_number]
-        if option in bubu[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        if option in huihui[f"week_{self.week_number}"]:
+            self.animator = CharacterAnimator(huihui[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
 
