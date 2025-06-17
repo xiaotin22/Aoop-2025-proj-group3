@@ -148,7 +148,7 @@ def main():
 
         result = game_loop(screen, player)
         if result == "RESTART":
-            continue  # ⭐ 回到 StartScene 開始新遊戲
+            continue  # 回到 StartScene 開始新遊戲
         elif not result:
             break  # 結束遊戲
 
