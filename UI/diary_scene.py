@@ -11,24 +11,24 @@ class DiaryScene(BaseScene):
 
         # diary 圖片
         self.diary = pygame.image.load("resource/image/diary_image.png").convert_alpha()
-        self.diary = pygame.transform.smoothscale(self.diary, (800, 600))
+        self.diary = pygame.transform.smoothscale(self.diary, (900, 800))
         self.diary_rect = self.diary.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2))
 
         # 左右按鈕
         self.left_img = pygame.image.load("resource/image/left.png").convert_alpha()
         self.right_img = pygame.image.load("resource/image/right.png").convert_alpha()
-        self.left_img = pygame.transform.smoothscale(self.left_img, (60, 60))
-        self.right_img = pygame.transform.smoothscale(self.right_img, (60, 60))
+        self.left_img = pygame.transform.smoothscale(self.left_img, (80, 80))
+        self.right_img = pygame.transform.smoothscale(self.right_img, (80, 80))
 
-        self.left_rect = self.left_img.get_rect(topleft=(100, 650))
-        self.right_rect = self.right_img.get_rect(topleft=(200, 650))
+        self.left_rect = self.left_img.get_rect(topleft=(470, 600))
+        self.right_rect = self.right_img.get_rect(topleft=(630, 600))
         self.hover_left = False
         self.hover_right = False
 
         # 返回鍵
         self.back_img = pygame.image.load("resource/image/back.png").convert_alpha()
-        self.back_img = pygame.transform.smoothscale(self.back_img, (60, 60))
-        self.back_rect = self.back_img.get_rect(topleft=(20, 20))
+        self.back_img = pygame.transform.smoothscale(self.back_img, (90, 90))
+        self.back_rect = self.back_img.get_rect(topleft=(80, 80))
         self.hover_back = False
 
     def run(self):
