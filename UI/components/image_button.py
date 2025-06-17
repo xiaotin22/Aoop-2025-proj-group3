@@ -16,6 +16,28 @@ class ImageButton:
         self.is_hover = False
         self.scale = 1.0
 
+    def handle_event(self, event):
+        if event.type == pygame.MOUSEMOTION:
+            self.is_hover = self.rect.collidepoint(event.pos)
+            self.update_hover()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.rect.collidepoint(event.pos):
+                return True
+        return False
+
+    def update_hover(self):
+        if self.is_hover:
+            scaled_size = (
+                int(self.image_original.get_width() * self.hover_scale),
+                int(self.image_original.get_height() * self.hover_scale)
+            )
+            self.image = pygame.transform.smoothscale(self.image_original, scaled_size)
+            self.rect = self.image.get_rect(center=self.rect.center)
+        else:
+            self.image = self.image_original
+            self.rect = self.image.get_rect(topleft=self.rect.topleft)
+
+
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
         if self.rect.collidepoint(mouse_pos):

@@ -14,13 +14,14 @@ class DiaryScene(BaseScene):
         self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
         self.font_bold = pygame.font.Font(setting.JFONT_PATH_BOLD, 32)
 
-        self.diary_img = pygame.image.load("resource/image/diary/diary_image.png")
+        self.diary_img = pygame.image.load("resource/image/diary_image.png")
         self.diary_img = pygame.transform.smoothscale(self.diary_img, (900, 600))
         self.diary_rect = self.diary_img.get_rect(center=(600, 400))
 
-        self.left_btn = ImageButton("resource/image/diary/left.png", (250, 670), scale=1.0)
-        self.right_btn = ImageButton("resource/image/diary/right.png", (950, 670), scale=1.0)
-        self.back_btn = ImageButton("resource/image/button/back.png", (30, 30), scale=1.0)
+        self.left_btn = ImageButton("resource/image/left.png", (250, 670), size=(60, 60))
+        self.right_btn = ImageButton("resource/image/right.png", (950, 670), size=(60, 60))
+        self.back_btn = ImageButton("resource/image/back.png", (30, 30), size=(60, 60))
+
 
     def draw_text(self, text, pos, max_width=700, color=(0, 0, 0)):
         words = text.split(" ")
