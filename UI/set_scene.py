@@ -56,7 +56,7 @@ class SetScene(BaseScene):
             self.button2.draw(self.screen)
 
             # 根據按鈕的縮放比例調整字體大小
-            base_font_size = 40
+            base_font_size = 50
             scaled_size = int(base_font_size * self.button1.scale)
             font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", scaled_size)
 
