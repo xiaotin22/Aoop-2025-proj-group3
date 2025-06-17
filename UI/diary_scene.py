@@ -18,8 +18,8 @@ class DiaryScene(BaseScene):
         self.week_index = 0
         self.total_weeks = len(self.player.event_history)
 
-        self.btn_left = ImageButton("resource/image/left.png", (100, 700), size=(80, 80))
-        self.btn_right = ImageButton("resource/image/right.png", (1020, 700), size=(80, 80))
+        self.btn_left = ImageButton("resource/image/left.png", (100, 600), size=(80, 80))
+        self.btn_right = ImageButton("resource/image/right.png", (1020, 600), size=(80, 80))
         self.btn_back = ImageButton("resource/image/back.png", (150, 80), size=(100, 100))
 
     def wrap_text(self, text, font, max_width):
