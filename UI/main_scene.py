@@ -87,8 +87,8 @@ class MainScene(BaseScene):
 
         # 日記按鈕
         self.diary_icon = pygame.image.load("resource/image/diary_image.png").convert_alpha()
-        self.diary_icon = pygame.transform.smoothscale(self.diary_icon, (70, 70))
-        self.diary_rect = self.diary_icon.get_rect(topleft=(1020, 20))
+        self.diary_icon = pygame.transform.smoothscale(self.diary_icon, (90, 90))
+        self.diary_rect = self.diary_icon.get_rect(topleft=(980, 15))
         self.diary_hover = False
 
     def draw_emoji(self):
@@ -268,7 +268,7 @@ class MainScene(BaseScene):
 
         # diary icon hover 放大
         if self.diary_hover:
-            scaled = pygame.transform.scale(self.diary_icon, (84, 84))
+            scaled = pygame.transform.scale(self.diary_icon, (100, 100))
             rect = scaled.get_rect(center=self.diary_rect.center)
             self.screen.blit(scaled, rect.topleft)
         else:
