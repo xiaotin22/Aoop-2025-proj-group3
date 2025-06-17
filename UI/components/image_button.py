@@ -14,7 +14,7 @@ class ImageButton:
 
         self.hover_scale = 1.1
         self.is_hover = False
-        self.scale = 1.0  # 👉 這一行很重要
+        self.scale = 1.0
 
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
