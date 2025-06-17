@@ -19,8 +19,8 @@ class DiaryScene(BaseScene):
         self.total_weeks = len(self.player.event_history)
 
         self.btn_left = ImageButton("resource/image/left.png", (100, 700), size=(80, 80))
-        self.btn_right = ImageButton("resource/image/right.png", (1000, 700), size=(80, 80))
-        self.btn_back = ImageButton("resource/image/back.png", (150, 50), size=(100, 100))
+        self.btn_right = ImageButton("resource/image/right.png", (980, 700), size=(80, 80))
+        self.btn_back = ImageButton("resource/image/back.png", (90, 20), size=(100, 100))
 
     def wrap_text(self, text, font, max_width):
         words = text.split()
@@ -62,9 +62,9 @@ class DiaryScene(BaseScene):
                 option_text = entry.get("option_text", "")
                 changes = entry.get("changes", {})
 
-                self.draw_multiline_text(self.screen, f"📒 第 {week} 週回顧", (200, 100), line_height=50)
-                self.draw_multiline_text(self.screen, f"事件內容：\n{event_text}", (200, 180))
-                self.draw_multiline_text(self.screen, f"你的選擇：\n{option_text}", (200, 320))
+                self.draw_multiline_text(self.screen, f"📒 第 {week} 週回顧", (200, 200), line_height=50)
+                self.draw_multiline_text(self.screen, f"事件內容：\n{event_text}", (200, 280))
+                self.draw_multiline_text(self.screen, f"你的選擇：\n{option_text}", (200, 420))
 
                 change_text = "狀態變化：\n"
                 for attr, value in changes.items():
