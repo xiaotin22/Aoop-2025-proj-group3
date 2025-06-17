@@ -69,7 +69,7 @@ class DiaryScene(BaseScene):
                 change_text = "狀態變化：\n"
                 for attr, value in changes.items():
                     if value != 0:
-                        change_text += f"{attr} +{value}\n"
+                        change_text += f"{attr} +{value} \n"
                 self.draw_multiline_text(self.screen, change_text, (200, 490))
 
         self.btn_left.draw(self.screen)
