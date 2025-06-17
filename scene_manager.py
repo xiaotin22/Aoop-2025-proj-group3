@@ -38,6 +38,7 @@ class SceneManager:
         }
 
     def run(self):
+        print("SceneManager 開始跑了")
         next_scene = "FIRST"
         while self.running and next_scene:
             handler = self.scene_map.get(next_scene)
