@@ -78,6 +78,10 @@ class DiaryScene(BaseScene):
 
     def run(self):
         while self.running:
+            self.btn_left.update()
+            self.btn_right.update()
+            self.btn_back.update()
+            
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
