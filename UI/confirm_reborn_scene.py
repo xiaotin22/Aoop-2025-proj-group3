@@ -10,11 +10,8 @@ class ConfirmScene(BaseScene):
         self.message = "人生無法重來，但可以重新投胎："
 
         font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 32)
-
-        # 是 / 否 按鈕（放在 __init__ 裡）
         self.button_yes = ImageButton("resource/image/red_button.png", (400, 400), text="是", font=font)
         self.button_no = ImageButton("resource/image/red_button.png", (700, 400), text="否", font=font)
-
 
     def run(self):
         while self.running:
