@@ -298,6 +298,7 @@ class MainScene(BaseScene):
             
     def run(self):
         while self.running:
+            print(pygame.mouse.get_pos())
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -326,12 +327,7 @@ class MainScene(BaseScene):
                         0 <= relative_pos[1] < self.excl_rect.height and
                         self.excl_mask.get_at(relative_pos)):
                         bubble_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
-                        self.speech_bubble = SpeechBubble(
-                            "這是一個事件！",
-                            (self.excl_rect.centerx, self.excl_rect.top - 60),
-                            bubble_font
-                        )
-
+                        self.speech_bubble = SpeechBubble( self.player, (730, 380), bubble_font )
                     
                     for i, rect in enumerate(self.emoji_rects):
                         if rect.collidepoint(event.pos):

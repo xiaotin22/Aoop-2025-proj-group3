@@ -41,7 +41,6 @@ class Character:
             max(0, self.energy + self.last_week_change[1]),\
             max(0, self.social + self.last_week_change[2]),\
             min(100, self.knowledge + self.last_week_change[3]) 
-    
 
     def socialize(self, degree):
         growth = int(
@@ -104,10 +103,8 @@ class Character:
             grade = min(100, round(base + fluctuation, 2))
         return int(round(grade))
     
-
     def get_final(self):
         self.final = round(self.calculate_grade()) -15
-
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
@@ -122,7 +119,6 @@ class Character:
         self.GPA = round(sum(gpa) / len(gpa),2)
         #print(f"total_score: {total_score}, GPA: {self.GPA:.2f}, lucky_prof: {self.lucky_prof}")
         #print(gpa)
-
 
     def show_status(self):
         pass
@@ -145,16 +141,16 @@ class Bubu(Character):
         self.taketest = setting.GIF_PATHS['BUBU_NO_STUDY_FRAMES']       
         self.ending = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
 
-        self.sad = setting.GIF_PATHS['BUBU_CRYING_FRAMES']
-        self.happy = setting.GIF_PATHS['BUBU_HAPPY_FRAMES']
-        self.tired = setting.GIF_PATHS['BUBU_TIRED_FRAMES']
-        self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES'] 
+        self.low_mood_limit = 30
+        self.low_energy_limit = 40
+        self.low_social_limit = 25
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 70
+        self.high_energy_limit = 70
+        self.high_social_limit = 60
+        self.high_knowledge_limit = 80
         
-        self.study_gif = setting.GIF_PATHS['BUBU_STUDY_FRAMES']
-        self.rest_gif = setting.GIF_PATHS['BUBU_LAZY_FRAMES']
-        self.play_game_gif = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
-        self.social_gif = setting.GIF_PATHS['BUBU_YIER_HOLDING_HANDS_FRAMES']
-        #print(self.week_data)
+        
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
@@ -207,10 +203,15 @@ class Yier(Character):
         self.taketest = setting.GIF_PATHS['YIER_NO_STUDY_FRAMES']
         self.ending = setting.GIF_PATHS['YIER_EXCITING_FRAMES']
         
-        self.sad = setting.GIF_PATHS['YIER_CRYING_FRAMES']
-        self.happy = setting.GIF_PATHS['YIER_HAPPYREST_FRAMES']
-        self.tired = setting.GIF_PATHS['YIER_SAD_FRAMES']
-        self.social_gif = setting.GIF_PATHS['YIER_SOCIAL_FRAMES'] 
+        self.low_mood_limit = 40
+        self.low_energy_limit = 30
+        self.low_social_limit = 65
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 80
+        self.high_energy_limit = 60
+        self.high_social_limit = 95
+        self.high_knowledge_limit = 80
+        
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
@@ -253,11 +254,14 @@ class Mitao(Character):
         self.taketest = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
         self.ending = setting.GIF_PATHS['MITAO_FLOWER_FRAMES']
         
-        
-        self.sad = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
-        self.happy = setting.GIF_PATHS['MITAO_CHEER_UP_FRAMES']
-        self.tired = setting.GIF_PATHS['MITAO_TIRED_FRAMES']
-        self.social_gif = setting.GIF_PATHS['MITAO_EATMELON_FRAMES'] 
+        self.low_mood_limit = 30
+        self.low_energy_limit = 25
+        self.low_social_limit = 45
+        self.low_knowledge_limit = 40
+        self.high_mood_limit = 70
+        self.high_energy_limit = 65
+        self.high_social_limit = 70
+        self.high_knowledge_limit = 80
         
     def gif_choose(self):
         self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
@@ -298,10 +302,16 @@ class Huihui(Character):
         self.testing = setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES']
         self.ending = setting.GIF_PATHS['HUIHUI_FLOWER_FRAMES']
         self.week_number = 0
-        self.sad = setting.GIF_PATHS['HUIHUI_SAD_FRAMES']
-        self.happy = setting.GIF_PATHS['HUIHUI_HEHE_FRAMES']
-        self.tired = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
-        self.social_gif = setting.GIF_PATHS['HUIHUI_MITAO_FRAMES'] 
+        
+        self.low_mood_limit = 50
+        self.low_energy_limit = 20
+        self.low_social_limit = 45
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 85
+        self.high_energy_limit = 60
+        self.high_social_limit = 75
+        self.high_knowledge_limit = 80
+        
         
     
     def gif_choose(self):
