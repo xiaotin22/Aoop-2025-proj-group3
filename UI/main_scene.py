@@ -314,6 +314,7 @@ class MainScene(BaseScene):
         if self.diary_rect.collidepoint(mouse_pos):
             self.diary_hover = True
             if mouse_pressed[0]:
+                print("點擊了日記圖示")
                 return "DIARY"
         else:
             self.diary_hover = False

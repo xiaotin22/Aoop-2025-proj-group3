@@ -100,7 +100,8 @@ class SceneManager:
         return {
             "Next Story": "STORY",
             "SETTING": "SETTING",
-            "Quit": "QUIT"
+            "Quit": "QUIT",
+            "DIARY": "DIARY",
         }.get(result, "MAIN")
 
     def story_and_event(self):
@@ -121,6 +122,7 @@ class SceneManager:
         }.get(result, "MAIN")
     
     def diary_scene(self):
+        print("進入日記場景")
         scene = DiaryScene(self.screen)
         result = scene.run()
         return "MAIN" if result == "BACK" else result
