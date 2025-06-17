@@ -1,4 +1,6 @@
-# OOP 2025 Group 10 Project
+# Lazy Me Today Too --- OOP Group10
+今天的我也想耍廢  --- 模擬人生大學版
+
 <p align="center">
   <img src="resource/image/game_UI/start_scene.png" alt="遊戲主選單截圖" width="750"/>
 </p>
