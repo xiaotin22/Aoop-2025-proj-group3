@@ -1,4 +1,5 @@
 import pygame
+from UI.components.audio_manager import AudioManager
 
 class ImageButton:
     def __init__(self, image_path, pos, size=None, text="", font=None, text_color=(50, 50, 50)):
@@ -15,6 +16,10 @@ class ImageButton:
         self.hover_scale = 1.1
         self.is_hover = False
         self.scale = 1.0
+
+        self.hover_sound_played = False  # 👈 用來避免一直播
+        self.audio = AudioManager.get_instance()  # 👈 取得音效控制器
+        self.hover_sound_path = "resource/music/sound_effect/menu_hover.MP3"  # 可以設定預設 hover 音效
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEMOTION:
@@ -41,6 +46,9 @@ class ImageButton:
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
         if self.rect.collidepoint(mouse_pos):
+            if not self.hover_sound_played:
+                self.audio.play_sound(self.hover_sound_path)
+                self.hover_sound_played = True
             if not self.is_hover:
                 self.is_hover = True
                 w, h = self.image_original.get_size()
@@ -50,6 +58,7 @@ class ImageButton:
                 )
                 self.rect = self.image.get_rect(center=self.rect.center)
         else:
+            self.hover_sound_played = False
             if self.is_hover:
                 self.image = self.image_original
                 self.rect = self.image.get_rect(center=self.rect.center)

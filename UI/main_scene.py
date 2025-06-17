@@ -87,8 +87,8 @@ class MainScene(BaseScene):
 
         # 日記按鈕
         self.diary_icon = pygame.image.load("resource/image/diary_image.png").convert_alpha()
-        self.diary_icon = pygame.transform.smoothscale(self.diary_icon, (70, 70))
-        self.diary_rect = self.diary_icon.get_rect(topleft=(1020, 20))
+        self.diary_icon = pygame.transform.smoothscale(self.diary_icon, (90, 90))
+        self.diary_rect = self.diary_icon.get_rect(topleft=(980, 15))
         self.diary_hover = False
 
     def draw_emoji(self):
@@ -268,7 +268,7 @@ class MainScene(BaseScene):
 
         # diary icon hover 放大
         if self.diary_hover:
-            scaled = pygame.transform.scale(self.diary_icon, (84, 84))
+            scaled = pygame.transform.scale(self.diary_icon, (100, 100))
             rect = scaled.get_rect(center=self.diary_rect.center)
             self.screen.blit(scaled, rect.topleft)
         else:
@@ -312,12 +312,15 @@ class MainScene(BaseScene):
             self.speech_bubble = None
 
         if self.diary_rect.collidepoint(mouse_pos):
+            if not self.diary_hover:
+                # 初次 hover 播放音效
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
             self.diary_hover = True
             if mouse_pressed[0]:
-                print("點擊了日記圖示")
                 return "DIARY"
         else:
             self.diary_hover = False
+
 
     def run(self):
         while self.running:
@@ -336,17 +339,18 @@ class MainScene(BaseScene):
                         blurred_bg = fast_blur(self.screen.copy())
                         set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
                         setting_result = set_scene.run()
-                        print(f"設定場景回傳：{setting_result}")
+                        # print(f"設定場景回傳：{setting_result}")
                         if setting_result == "BACK":
                             break
                         elif setting_result == "QUIT":
                             return "Quit"
-                        elif setting_result in ("OPTION_1", "OPTION_2"):
-                            print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
+                        elif setting_result == "RESTART":
+                            # print("[MainScene] 收到 RESTART，return 中")
+                            return "RESTART"
 
                     # 點擊日記按鈕
                     if self.diary_rect.collidepoint(mouse_pos):
-                        print("點擊了日記圖示（從 run）")
+                        # print("點擊了日記圖示（從 run）")
                         self.running = False
                         return "DIARY"
 
