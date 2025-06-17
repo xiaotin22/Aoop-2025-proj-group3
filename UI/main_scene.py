@@ -313,8 +313,9 @@ class MainScene(BaseScene):
                                 return "Quit"
                             elif setting_result in ("OPTION_1", "OPTION_2"):
                                 print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
+                            elif setting_result == "RESTART":
+                                return "RESTART"
 
-                    
                     for i, rect in enumerate(self.emoji_rects):
                         if rect.collidepoint(event.pos):
                             # 計算滑鼠在表情圖上的相對座標
