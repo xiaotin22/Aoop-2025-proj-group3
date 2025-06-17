@@ -298,7 +298,7 @@ class MainScene(BaseScene):
             
     def run(self):
         while self.running:
-            print(pygame.mouse.get_pos())
+            #print(pygame.mouse.get_pos())
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -318,10 +318,17 @@ class MainScene(BaseScene):
                             break
                         elif setting_result == "QUIT":
                             return "Quit"
-                        elif setting_result == "RESTART":
-                            self.running = False  # 關鍵一行：讓 while 結束
-                            return "RESTART"
-
+                        elif setting_result in ("OPTION_1", "OPTION_2"):
+                            print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
+                            
+                    mouse_pos = event.pos
+                    relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
+                    if (0 <= relative_pos[0] < self.excl_rect.width and
+                        0 <= relative_pos[1] < self.excl_rect.height and
+                        self.excl_mask.get_at(relative_pos)):
+                        bubble_font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 28)
+                        self.speech_bubble = SpeechBubble( self.player, (470, 330), bubble_font )
+                    
                     for i, rect in enumerate(self.emoji_rects):
                         if rect.collidepoint(event.pos):
                             rel_x = event.pos[0] - rect.left
