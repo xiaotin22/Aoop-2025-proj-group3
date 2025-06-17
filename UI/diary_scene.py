@@ -17,8 +17,8 @@ class DiaryScene(BaseScene):
         self.diary_rect = self.diary.get_rect(center=(self.SCREEN_WIDTH // 2, self.SCREEN_HEIGHT // 2))
 
         # 左右按鈕
-        self.left_img = pygame.image.load("resource/image/left_btn.png").convert_alpha()
-        self.right_img = pygame.image.load("resource/image/right_btn.png").convert_alpha()
+        self.left_img = pygame.image.load("resource/image/left.png").convert_alpha()
+        self.right_img = pygame.image.load("resource/image/right.png").convert_alpha()
         self.left_img = pygame.transform.smoothscale(self.left_img, (60, 60))
         self.right_img = pygame.transform.smoothscale(self.right_img, (60, 60))
         self.left_rect = self.left_img.get_rect(topleft=(100, 650))
