@@ -70,7 +70,7 @@ def game_loop(screen, player):
         player_option = scene.run()
         print(f"玩家選擇的操作為：{player_option!r}")
 
-        if player_option == "RESTART":  # ⭐ 新增這段
+        if player_option == "RESTART":
             return "RESTART"
 
         # if player_option == "Open Diary":
