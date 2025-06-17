@@ -75,7 +75,7 @@ def game_loop(screen, player):
             setting_result = set_scene.run()
             print(f"設定場景回傳：{setting_result}")
             if setting_result == "BACK":
-                continue  # ✅ 回主畫面
+                continue  # 回主畫面
             else:
                 return False  # 如果不小心點 quit，就結束
 
