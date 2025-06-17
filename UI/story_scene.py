@@ -13,12 +13,6 @@ class StoryScene(BaseScene):
         super().__init__(screen)
 
         self.player = player
-        current_week = self.player.week_number
-
-
-        # 讀取故事
-        with open(setting.EVENTS_JSON_PATH, 'r', encoding='utf-8') as f:
-            story_dict = json.load(f)
 
         self.title_font = pygame.font.Font(setting.JFONT_PATH_BOLD, 48)
         self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR, 36)
