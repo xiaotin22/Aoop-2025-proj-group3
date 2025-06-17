@@ -65,6 +65,7 @@ oop-2025-proj-group10/
 ├── main.py                      # 主程式入口，負責遊戲流程控制
 ├── character.py                 # 角色類別與屬性、行為邏輯
 ├── simulation.py                # 用以模擬隨機選擇結果
+├── scene_manager.py             # 用以控制Scene之間的切換
 ├── setting.py                   # 用以設定遊戲參數
 │
 ├── UI/
