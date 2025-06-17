@@ -6,52 +6,61 @@ class ImageButton:
         if size:
             self.image_original = pygame.transform.smoothscale(self.image_original, size)
         self.image = self.image_original
-
-        self.base_pos = pos  # 原始位置
-        self.rect = self.image.get_rect(topleft=self.base_pos)
+        self.rect = self.image.get_rect(topleft=pos)
 
         self.text = text
         self.font = font
         self.text_color = text_color
 
-        self.hover_scale = 1.04
+        self.hover_scale = 1.1
         self.is_hover = False
+        self.scale = 1.0
 
     def handle_event(self, event):
+        if event.type == pygame.MOUSEMOTION:
+            self.is_hover = self.rect.collidepoint(event.pos)
+            self.update_hover()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 return True
         return False
 
+    def update_hover(self):
+        if self.is_hover:
+            scaled_size = (
+                int(self.image_original.get_width() * self.hover_scale),
+                int(self.image_original.get_height() * self.hover_scale)
+            )
+            self.image = pygame.transform.smoothscale(self.image_original, scaled_size)
+            self.rect = self.image.get_rect(center=self.rect.center)
+        else:
+            self.image = self.image_original
+            self.rect = self.image.get_rect(topleft=self.rect.topleft)
+
+
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
-        self.is_hover = self.rect.collidepoint(mouse_pos)
-
-        if self.is_hover:
-            # 放大圖片
-            w, h = self.image_original.get_size()
-            new_size = (int(w * self.hover_scale), int(h * self.hover_scale))
-            self.image = pygame.transform.smoothscale(self.image_original, new_size)
-
-            # 更新位置保持中心不變
-            center = (self.base_pos[0] + w // 2, self.base_pos[1] + h // 2)
-            self.rect = self.image.get_rect(center=center)
-
-            self.scale = self.hover_scale
+        if self.rect.collidepoint(mouse_pos):
+            if not self.is_hover:
+                self.is_hover = True
+                w, h = self.image_original.get_size()
+                self.image = pygame.transform.smoothscale(
+                    self.image_original,
+                    (int(w * self.hover_scale), int(h * self.hover_scale))
+                )
+                self.rect = self.image.get_rect(center=self.rect.center)
         else:
-            # 回復原圖與位置
-            self.image = self.image_original
-            self.rect = self.image.get_rect(topleft=self.base_pos)
+            if self.is_hover:
+                self.image = self.image_original
+                self.rect = self.image.get_rect(center=self.rect.center)
+                self.is_hover = False
 
-            self.scale = 1.0
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
+    def draw(self, screen):
+        screen.blit(self.image, self.rect.topleft)
         if self.text and self.font:
-            text_surface = self.font.render(self.text, True, self.text_color)
-            text_rect = text_surface.get_rect(center=self.rect.center)
-            surface.blit(text_surface, text_rect)
+            text_surf = self.font.render(self.text, True, self.text_color)
+            text_rect = text_surf.get_rect(center=self.rect.center)
+            screen.blit(text_surf, text_rect)
 
     def is_clicked(self, event):
         return self.rect.collidepoint(event.pos)
