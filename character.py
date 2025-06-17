@@ -141,15 +141,15 @@ class Bubu(Character):
         self.taketest = setting.GIF_PATHS['BUBU_NO_STUDY_FRAMES']       
         self.ending = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
 
-        self.low_mood_limit = 30
-        self.low_energy_limit = 40
-        self.low_social_limit = 25
-        self.low_knowledge_limit = 30
-        self.high_mood_limit = 70
-        self.high_energy_limit = 70
-        self.high_social_limit = 60
-        self.high_knowledge_limit = 80
         
+        self.low_mood_limit = 30
+        self.low_energy_limit = 30
+        self.low_social_limit = 30
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 80
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
+        self.high_knowledge_limit = 80
         
         
     def gif_choose(self):
@@ -203,13 +203,13 @@ class Yier(Character):
         self.taketest = setting.GIF_PATHS['YIER_NO_STUDY_FRAMES']
         self.ending = setting.GIF_PATHS['YIER_EXCITING_FRAMES']
         
-        self.low_mood_limit = 40
+        self.low_mood_limit = 30
         self.low_energy_limit = 30
-        self.low_social_limit = 65
+        self.low_social_limit = 30
         self.low_knowledge_limit = 30
         self.high_mood_limit = 80
-        self.high_energy_limit = 60
-        self.high_social_limit = 95
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
         self.high_knowledge_limit = 80
         
         
@@ -254,13 +254,14 @@ class Mitao(Character):
         self.taketest = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
         self.ending = setting.GIF_PATHS['MITAO_FLOWER_FRAMES']
         
+        
         self.low_mood_limit = 30
-        self.low_energy_limit = 25
-        self.low_social_limit = 45
-        self.low_knowledge_limit = 40
-        self.high_mood_limit = 70
-        self.high_energy_limit = 65
-        self.high_social_limit = 70
+        self.low_energy_limit = 30
+        self.low_social_limit = 30
+        self.low_knowledge_limit = 30
+        self.high_mood_limit = 80
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
         self.high_knowledge_limit = 80
         
     def gif_choose(self):
@@ -303,13 +304,14 @@ class Huihui(Character):
         self.ending = setting.GIF_PATHS['HUIHUI_FLOWER_FRAMES']
         self.week_number = 0
         
-        self.low_mood_limit = 50
-        self.low_energy_limit = 20
-        self.low_social_limit = 45
+         
+        self.low_mood_limit = 30
+        self.low_energy_limit = 30
+        self.low_social_limit = 30
         self.low_knowledge_limit = 30
-        self.high_mood_limit = 85
-        self.high_energy_limit = 60
-        self.high_social_limit = 75
+        self.high_mood_limit = 80
+        self.high_energy_limit = 80
+        self.high_social_limit = 80
         self.high_knowledge_limit = 80
         
         
