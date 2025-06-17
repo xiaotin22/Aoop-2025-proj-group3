@@ -55,14 +55,20 @@ class SetScene(BaseScene):
             self.button1.draw(self.screen)
             self.button2.draw(self.screen)
 
-            # 根據按鈕的縮放比例調整字體大小
-            base_font_size = 50
-            scaled_size = int(base_font_size * self.button1.scale)
-            font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", scaled_size)
+            # --- 第一顆按鈕：音量調整 ---
+            base_font_size = 40
+            scaled_size1 = int(base_font_size * self.button1.scale)
+            font1 = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", scaled_size1)
+            text1 = font1.render("音量調整", True, (50, 50, 50))
+            text_rect1 = text1.get_rect(center=self.button1.rect.center)
+            self.screen.blit(text1, text_rect1)
 
-            text_surface = font.render("音量調整", True, (50, 50, 50))
-            text_rect = text_surface.get_rect(center=self.button1.rect.center)
-            self.screen.blit(text_surface, text_rect)
+            # --- 第二顆按鈕：重新開始 ---
+            scaled_size2 = int(base_font_size * self.button2.scale)
+            font2 = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", scaled_size2)
+            text2 = font2.render("重新開始", True, (50, 50, 50))
+            text_rect2 = text2.get_rect(center=self.button2.rect.center)
+            self.screen.blit(text2, text_rect2)
 
             # 事件處理
             for event in pygame.event.get():
