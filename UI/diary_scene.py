@@ -10,7 +10,7 @@ class DiaryScene(BaseScene):
 
         self.diary_img = pygame.image.load("resource/image/diary_image.png").convert_alpha()
         self.diary_img = pygame.transform.smoothscale(self.diary_img, (1200, 900))
-        self.diary_rect = self.diary_img.get_rect(center=(600, 400))
+        self.diary_rect = self.diary_img.get_rect(center=(610, 400))
 
         self.font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf",38)
         print("是否載入字體成功？", self.font)
@@ -20,7 +20,7 @@ class DiaryScene(BaseScene):
 
         self.btn_left = ImageButton("resource/image/left.png", (100, 700), size=(80, 80))
         self.btn_right = ImageButton("resource/image/right.png", (1020, 700), size=(80, 80))
-        self.btn_back = ImageButton("resource/image/back.png", (150, 150), size=(100, 100))
+        self.btn_back = ImageButton("resource/image/back.png", (150, 80), size=(100, 100))
 
     def wrap_text(self, text, font, max_width):
         words = text.split()
