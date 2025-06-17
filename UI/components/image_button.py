@@ -14,7 +14,7 @@ class ImageButton:
         self.font = font
         self.text_color = text_color
 
-        self.hover_scale = 1.1
+        self.hover_scale = 1.04
         self.is_hover = False
 
     def handle_event(self, event):
