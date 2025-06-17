@@ -9,7 +9,7 @@ from character import Bubu, Yier, Mitao, Huihui
 from UI.components.first_scene import FirstScene
 from UI.main_scene import MainScene
 from UI.rank_scene import RankScene
-# from UI.diary_scene import DairyScene
+from UI.diary_scene import DairyScene
 from UI.sound_control_scene import SoundControlScene
 from UI.end_scene import EndScene
 from UI.feedback_scene import FeedbackScene
@@ -33,7 +33,8 @@ class SceneManager:
             "END": self.end_scene,
             "FEEDBACK": self.feedback_scene,
             "RESTART": self.restart_game,
-            "QUIT": self.quit_game
+            "QUIT": self.quit_game,
+            "DIARY": self.diary_scene
         }
 
     def run(self):
