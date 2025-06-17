@@ -72,25 +72,15 @@ class DiaryScene(BaseScene):
                         change_text += f"{attr} +{value} \n"
                 self.draw_multiline_text(self.screen, change_text, (200, 490))
 
-        self.btn_left.update()
-        self.btn_right.update()
-        self.btn_back.update()
-
         self.btn_left.draw(self.screen)
         self.btn_right.draw(self.screen)
         self.btn_back.draw(self.screen)
-
 
     def run(self):
         while self.running:
             self.draw()
             pygame.display.flip()
             self.clock.tick(self.FPS)
-
-            mouse_pos = pygame.mouse.get_pos()
-            self.btn_left.handle_event(event)
-            self.btn_right.handle_event(event)
-            self.btn_back.handle_event(event)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
