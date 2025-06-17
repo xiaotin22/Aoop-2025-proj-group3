@@ -20,7 +20,7 @@ class DiaryScene(BaseScene):
 
         self.btn_left = ImageButton("resource/image/left.png", (100, 700), size=(80, 80))
         self.btn_right = ImageButton("resource/image/right.png", (1020, 700), size=(80, 80))
-        self.btn_back = ImageButton("resource/image/back.png", (30, 30), size=(60, 60))
+        self.btn_back = ImageButton("resource/image/back.png", (150, 150), size=(100, 100))
 
     def wrap_text(self, text, font, max_width):
         words = text.split()
