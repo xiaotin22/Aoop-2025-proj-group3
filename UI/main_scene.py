@@ -85,6 +85,12 @@ class MainScene(BaseScene):
         self.emoji_mask = [pygame.mask.from_surface(img) for img in self.emoji_surfaces]
         self.floating_emoji_surfaces = [pygame.image.load(p).convert_alpha() for p in self.floating_emoji_paths]
 
+        # 日記按鈕
+        self.diary_icon = pygame.image.load("resource/image/diary_image.png").convert_alpha()
+        self.diary_icon = pygame.transform.smoothscale(self.diary_icon, (70, 70))
+        self.diary_rect = self.diary_icon.get_rect(topleft=(1020, 20))
+        self.diary_hover = False
+
     def draw_emoji(self):
         self.emoji_rects = []
 
