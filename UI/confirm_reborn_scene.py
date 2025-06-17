@@ -1,7 +1,7 @@
 import pygame
 from UI.components.base_scene import BaseScene
 from UI.components.image_button import ImageButton
-from UI.intro_scene import IntroScene  # 如果你要跳轉回最初畫面用這個
+from UI.intro_scene import IntroScene
 
 class ConfirmScene(BaseScene):
     def __init__(self, screen):
@@ -12,7 +12,6 @@ class ConfirmScene(BaseScene):
 
         font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 32)
 
-        # 兩顆紅色按鈕（有文字、有 hover 放大）
         self.button_yes = ImageButton("resource/image/red_button.png", (400, 400), text="是", font=font)
         self.button_no = ImageButton("resource/image/red_button.png", (700, 400), text="否", font=font)
 
