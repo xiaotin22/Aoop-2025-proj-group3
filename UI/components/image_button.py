@@ -13,7 +13,7 @@ class ImageButton:
         self.hover = False
         self.scale = 1.0
         self.hover_scale = hover_scale
-        self.topleft = pos  # 永遠記住原始位置
+        self.center = pos  # 永遠記住原始位置
 
     def update(self):
         mouse_pos = pygame.mouse.get_pos()
