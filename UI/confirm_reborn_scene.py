@@ -13,9 +13,9 @@ class ConfirmScene(BaseScene):
         font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
 
         self.button_yes = ImageButton(
-    "resource/image/yes_no_button.jpeg", (400, 400), size=(150, 80), text="是", font=font)
+    "resource/image/yes_no_button.jpeg", (350, 400), size=(150, 80), text="是", font=font)
         self.button_no = ImageButton(
-            "resource/image/yes_no_button.jpeg", (700, 400), size=(150, 80), text="否", font=font)
+            "resource/image/yes_no_button.jpeg", (650, 400), size=(150, 80), text="否", font=font)
 
 
     def run(self):
