@@ -1,12 +1,13 @@
 import pygame
 
 class SpeechBubble:
-    def __init__(self, text, pos, font, duration=1500):
+    def __init__(self, player, pos, font, duration=1500):
         self.text = text
         self.pos = pos  # (x, y) 中心點
         self.font = font
         self.start_time = pygame.time.get_ticks()
         self.duration = duration  # 毫秒
+        self.player = player
 
     def draw(self, screen):
         text_surf = self.font.render(self.text, True, (0, 0, 0))
@@ -21,3 +22,32 @@ class SpeechBubble:
 
     def is_expired(self):
         return pygame.time.get_ticks() - self.start_time > self.duration
+    
+    def get_test(self, player):
+        if self.player.mood <= self.player.low_mood_limit:
+            if self.player.social <= self.player.low_social_limit :
+                self.text = "我好像有點不開心..."
+                
+            elif self.player.knowledge >= self.player.low_knowledge_limit:
+                self.text = "我好像有點無聊..."
+                
+            elif self.player.energy >= self.player.low_energy_limit:
+                self.text = "我好像有點累..."
+                
+            
+                
+        if self.player.mood >= self.player.high_mood_limit:
+            if self.player.social <= self.player.low_social_limit :
+                self.text = "我好像有點不開心..."
+                
+            elif self.player.energy >= self.player.low_energy_limit:
+                self.text = "我好像有點累..."
+                
+            elif self.player.knowledge >= self.player.low_knowledge_limit:
+                self.text = "我好像有點無聊..."
+                
+                
+        
+        
+        
+        return self.text
