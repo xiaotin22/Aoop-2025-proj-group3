@@ -62,15 +62,15 @@ class DiaryScene(BaseScene):
                 option_text = entry.get("option_text", "")
                 changes = entry.get("changes", {})
 
-                self.draw_multiline_text(self.screen, f"📒 第 {week} 週回顧", (200, 200), line_height=50)
-                self.draw_multiline_text(self.screen, f"事件內容：\n{event_text}", (200, 280))
-                self.draw_multiline_text(self.screen, f"你的選擇：\n{option_text}", (200, 420))
+                self.draw_multiline_text(self.screen, f"📒 第 {week} 週回顧", (200, 210), line_height=50)
+                self.draw_multiline_text(self.screen, f"事件內容：\n{event_text}", (200, 290))
+                self.draw_multiline_text(self.screen, f"你的選擇：\n{option_text}", (200, 430))
 
                 change_text = "狀態變化：\n"
                 for attr, value in changes.items():
                     if value != 0:
                         change_text += f"{attr} +{value}\n"
-                self.draw_multiline_text(self.screen, change_text, (200, 450))
+                self.draw_multiline_text(self.screen, change_text, (200, 490))
 
         self.btn_left.draw(self.screen)
         self.btn_right.draw(self.screen)
