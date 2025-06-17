@@ -76,17 +76,38 @@ class EventScene(BaseScene):
             for button in self.buttons:
                 if button[0].handle_event(event):
                     attribute = self.player.week_data["events"]["options"][button[1]]["attribute"]
+                    
+                    # 加分數之前先做紀錄
+                    changes = {"study": 0, "social": 0, "play_game": 0, "rest": 0}
+
                     if "study" in attribute:
                         self.player.study(1)
+                        changes["study"] += 1
                     if "social" in attribute:
                         self.player.socialize(1)
+                        changes["social"] += 1
                     if "play_game" in attribute:
                         self.player.play_game(1)
+                        changes["play_game"] += 1
                     if "rest" in attribute:
                         self.player.rest(1)
+                        changes["rest"] += 1
+
                     self.player.chosen[self.player.week_number] = button[1]
                     print(f"你選擇了選項 {button[1]}: {button[0].text}")
+
+                    # ✅ 新增 event_history 記錄
+                    if not hasattr(self.player, "event_history"):
+                        self.player.event_history = []
+                    self.player.event_history.append({
+                        "week": self.player.week_number,
+                        "event_text": self.event_text,
+                        "option_text": button[0].text,
+                        "changes": changes
+                    })
+
                     return "finished"
+
 
     def draw(self):
         if len(self.player.week_data["events"]) == 0 :
