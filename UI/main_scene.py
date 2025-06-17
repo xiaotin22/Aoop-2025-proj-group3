@@ -314,13 +314,13 @@ class MainScene(BaseScene):
                         setting_result = set_scene.run()
                         print(f"設定場景回傳：{setting_result}")
 
-                            if setting_result == "BACK":
-                                break
-                            elif setting_result == "QUIT":
-                                return "Quit"
-                            elif setting_result in ("OPTION_1", "OPTION_2"):
-                                print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
-                                
+                        if setting_result == "BACK":
+                            break
+                        elif setting_result == "QUIT":
+                            return "Quit"
+                        elif setting_result in ("OPTION_1", "OPTION_2"):
+                            print(f"你選擇了 {setting_result}，但仍停留在設定頁～")
+                            
                     mouse_pos = event.pos
                     relative_pos = (mouse_pos[0] - self.excl_rect.left, mouse_pos[1] - self.excl_rect.top)
                     if (0 <= relative_pos[0] < self.excl_rect.width and
