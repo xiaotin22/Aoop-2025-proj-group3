@@ -6,8 +6,8 @@ class DiaryScene(BaseScene):
     def __init__(self, screen):
         super().__init__(screen)
 
-        # 柔和背景色（淡米色 / 天藍色都可）
-        self.bg_color = (245, 240, 230)  # 或換成你喜歡的，例如 (220, 235, 250)
+        # 柔和背景顏色
+        self.bg_color = (255, 248, 240)  # 淡淡奶油色
 
         # diary 圖片
         self.diary = pygame.image.load("resource/image/diary_image.png").convert_alpha()
@@ -25,16 +25,23 @@ class DiaryScene(BaseScene):
         self.hover_left = False
         self.hover_right = False
 
+        # 返回鍵
+        self.back_img = pygame.image.load("resource/image/back.png").convert_alpha()
+        self.back_img = pygame.transform.smoothscale(self.back_img, (60, 60))
+        self.back_rect = self.back_img.get_rect(topleft=(20, 20))
+        self.hover_back = False
+
     def run(self):
         while self.running:
-            self.screen.fill(self.bg_color)  # 柔和背景色
+            self.screen.fill(self.bg_color)
             self.screen.blit(self.diary, self.diary_rect.topleft)
 
             mouse_pos = pygame.mouse.get_pos()
             self.hover_left = self.left_rect.collidepoint(mouse_pos)
             self.hover_right = self.right_rect.collidepoint(mouse_pos)
+            self.hover_back = self.back_rect.collidepoint(mouse_pos)
 
-            # 放大效果
+            # 左右按鈕放大
             if self.hover_left:
                 left_scaled = pygame.transform.smoothscale(self.left_img, (72, 72))
                 rect = left_scaled.get_rect(center=self.left_rect.center)
@@ -49,11 +56,24 @@ class DiaryScene(BaseScene):
             else:
                 self.screen.blit(self.right_img, self.right_rect)
 
+            # 返回鍵放大
+            if self.hover_back:
+                back_scaled = pygame.transform.smoothscale(self.back_img, (72, 72))
+                rect = back_scaled.get_rect(center=self.back_rect.center)
+                self.screen.blit(back_scaled, rect.topleft)
+            else:
+                self.screen.blit(self.back_img, self.back_rect)
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return "QUIT"
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                    return "BACK"
+                    if self.back_rect.collidepoint(mouse_pos):
+                        return "BACK"
+                    if self.left_rect.collidepoint(mouse_pos):
+                        print("點擊左鍵")  # 可以換頁
+                    if self.right_rect.collidepoint(mouse_pos):
+                        print("點擊右鍵")  # 可以換頁
 
             pygame.display.flip()
             self.clock.tick(self.FPS)
