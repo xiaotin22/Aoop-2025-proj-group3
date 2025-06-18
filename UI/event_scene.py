@@ -95,10 +95,12 @@ class EventScene(BaseScene):
 
                     self.player.chosen[self.player.week_number] = button[1]
                     print(f"你選擇了選項 {button[1]}: {button[0].text}")
-
+                    event_text = self.event_text.replace('\n', '')
                     # ✅ 新增 event_history 記錄（使用 dict，key 為 week_number）
-                    self.player.event_history[self.player.week_number] = {
-                        "event_text": self.event_text,
+                    if self.player.week_number != 8 and self.player.week_number != 16:
+                            
+                        self.player.event_history[self.player.week_number] = {
+                        "event_text": event_text,
                         "option_text": self.player.week_data["events"]["options"][button[1]]["text"],
                         "changes": {
                             "mood": self.player.last_week_change[0],
@@ -106,9 +108,7 @@ class EventScene(BaseScene):
                             "social": self.player.last_week_change[2],
                             "knowledge": self.player.last_week_change[3]
                         }
-                    }
-                    print("當前 event_history:", self.player.event_history)
-
+                }
                     return "finished"
 
 

@@ -1,5 +1,5 @@
 import pygame
-from UI.components.base_scene import BaseScene
+from UI.components.base_scene import BaseScene, draw_wrapped_text
 from UI.components.image_button import ImageButton
 import setting
 
@@ -11,11 +11,11 @@ class DiaryScene(BaseScene):
         self.diary_img = pygame.image.load("resource/image/diary_image.png").convert_alpha()
         self.diary_img = pygame.transform.smoothscale(self.diary_img, (1200, 1100))
         self.diary_rect = self.diary_img.get_rect(center=(610, 450))
-
-        self.font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf",38)
+        self.text_rect = pygame.Rect(150, 60, 900, 600)
+        self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR,32)
         print("是否載入字體成功？", self.font)
 
-        self.week_index = 0
+        self.week_index = self.player.week_number-1
         self.total_weeks = len(self.player.event_history)
 
         self.btn_left = ImageButton("resource/image/left.png", (100, 700), size=(80, 80))
@@ -37,7 +37,7 @@ class DiaryScene(BaseScene):
             lines.append(current_line.strip())
         return lines
 
-    def draw_multiline_text(self, surface, text, pos, font=None, color=(50, 30, 30), max_width=600, line_height=40):
+    def draw_multiline_text(self, surface, text, pos, font=None, color=(50, 30, 30), max_width=800, line_height=40):
         if font is None:
             font = self.font
         x, y = pos
@@ -48,12 +48,11 @@ class DiaryScene(BaseScene):
             y += line_height
 
     def draw(self):
+        
         self.screen.fill((245, 240, 225))  # 柔和米白色
         self.screen.blit(self.diary_img, self.diary_rect)
 
         if self.player.event_history:
-            print(self.player.event_history)
-            print("正在讀取第", self.week_index, "週日記")
             sorted_weeks = sorted(self.player.event_history.keys())
             if self.week_index < len(sorted_weeks):
                 week = sorted_weeks[self.week_index]
@@ -61,16 +60,16 @@ class DiaryScene(BaseScene):
                 event_text = entry.get("event_text", "")
                 option_text = entry.get("option_text", "")
                 changes = entry.get("changes", {})
-
-                self.draw_multiline_text(self.screen, f"📒 第 {week} 週回顧", (200, 210), line_height=50)
-                self.draw_multiline_text(self.screen, f"事件內容：\n{event_text}", (200, 290))
-                self.draw_multiline_text(self.screen, f"你的選擇：\n{option_text}", (200, 430))
-
-                change_text = "狀態變化：\n"
-                for attr, value in changes.items():
-                    if value != 0:
-                        change_text += f"{attr} +{value} \n"
-                self.draw_multiline_text(self.screen, change_text, (200, 540))
+                if week == 8:
+                    content = f"第 {week} 週回顧\n這週是你的期中考，恭喜{self.player.chname}考完啦~\n你的分數：{self.player.midterm}"
+                elif week == 16:
+                    content = f"第 {week} 週回顧\n這週是你的期末考，恭喜{self.player.chname}考完啦~\n你的分數：{self.player.final}"
+                else:   
+                    content = f"第 {week} 週回顧\n事件內容：{event_text}\n你的選擇：{option_text}\n狀態變化："
+                    for attr, value in changes.items():
+                        if value != 0:
+                            content += f"{attr} +{value}  "
+                draw_wrapped_text(self.screen, content, self.font, self.text_rect, (50,30,30),48)
 
         self.btn_left.draw(self.screen)
         self.btn_right.draw(self.screen)

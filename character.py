@@ -136,7 +136,7 @@ class Bubu(Character):
         self.chname = "布布"
         self.animal = "熊熊"
         self.header = setting.ImagePath.BUBU_HEAD_PATH
-       
+        self.week_number = 0
         self.intro = setting.GIF_PATHS['BUBU_INTRO_FRAMES']
         self.storytyping = setting.GIF_PATHS['BUBU_PLAYCOMPUTER_FRAMES']
         self.testing = setting.GIF_PATHS['BUBU_STUDY_FRAMES']

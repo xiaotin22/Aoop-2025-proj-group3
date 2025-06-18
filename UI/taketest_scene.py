@@ -51,6 +51,14 @@ class TakeTestScene(BaseScene):
         screen.blit(prompt_surface, prompt_rect)
 
     def run(self):
+        if self.player.week_number ==8 or self.player.week_number == 16:
+                        self.player.event_history[self.player.week_number] = {
+                            "event_text": "",
+                            "option_text": "",
+                            "changes": {
+                            }
+                        }
+
         self.running = True
         while self.running:
             for event in pygame.event.get():
