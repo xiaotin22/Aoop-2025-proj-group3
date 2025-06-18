@@ -1,5 +1,5 @@
 import pygame
-import asyncio
+import setting
 
 class FirstScene:
     def __init__(self, screen):
@@ -16,8 +16,15 @@ class FirstScene:
                 if event.type in (pygame.MOUSEBUTTONDOWN, pygame.KEYDOWN, pygame.FINGERDOWN):
                     # 使用者互動，結束 FirstScene
                     return "START"
-            # 畫黑幕
-            self.screen.fill((0, 0, 0))
+            # 載入一張圖片
+            background_image = pygame.image.load(setting.ImagePath.FIRST_SCENE_PATH).convert()
+            background_image = pygame.transform.smoothscale(background_image, (self.screen.get_width(), self.screen.get_height()))
+            # 確保圖片大小符合螢幕
+            background_image = pygame.transform.scale(background_image, (self.screen.get_width(), self.screen.get_height()))
+            # 在螢幕上繪製圖片
+            self.screen.blit(background_image, (0, 0))
+            
+            
             
             pygame.display.flip()
             

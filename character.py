@@ -141,7 +141,7 @@ class Bubu(Character):
         self.storytyping = setting.GIF_PATHS['BUBU_PLAYCOMPUTER_FRAMES']
         self.testing = setting.GIF_PATHS['BUBU_STUDY_FRAMES']
         self.taketest = setting.GIF_PATHS['BUBU_NO_STUDY_FRAMES']       
-        self.ending = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
+        self.ending = setting.GIF_PATHS['BUBU_HAPPY_FRAMES']
         self.sad = setting.GIF_PATHS['BUBU_CRYING_FRAMES']
 
         
@@ -228,11 +228,7 @@ class Yier(Character):
             self.animator = CharacterAnimator(yier[f"week_{self.week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
-
-                
-
-        
-        
+   
 
     def get_midterm(self):
         self.midterm = min(100, self.calculate_grade() + self.knowledge * 0.2)
