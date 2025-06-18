@@ -16,7 +16,7 @@ class StartScene(BaseScene):
         self.background.set_alpha(100)
 
         self.title_font = pygame.font.Font(
-            setting.JFONT_PATH_BOLD, 72
+            setting.MFONT_PATH, 72
         )
         self.subtitle_font = pygame.font.Font(
             setting.JFONT_PATH_REGULAR, 48
@@ -110,7 +110,7 @@ class StartScene(BaseScene):
 
         # 標題
         title_surf = self.title_font.render(
-            "Welcome to Our Game!", True, (50, 50, 50)
+            "Lazy Me Today Too", True, (142, 88, 51)
         )
         title_rect = title_surf.get_rect(center=(self.SCREEN_WIDTH // 2, 150))
         self.screen.blit(title_surf, title_rect)

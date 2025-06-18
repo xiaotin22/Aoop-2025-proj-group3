@@ -337,7 +337,7 @@ class MainScene(BaseScene):
                         from UI.set_scene import SetScene
                         from UI.components.blur import fast_blur
                         blurred_bg = fast_blur(self.screen.copy())
-                        set_scene = SetScene(self.screen, blurred_bg, week_number=self.player.week_number)
+                        set_scene = SetScene(self.screen, blurred_bg,  self.player)
                         setting_result = set_scene.run()
                         # print(f"設定場景回傳：{setting_result}")
                         if setting_result == "BACK":

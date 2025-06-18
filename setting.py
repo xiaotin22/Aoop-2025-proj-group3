@@ -23,6 +23,7 @@ JFONT_PATH_REGULAR = os.path.join(FONT_DIR, 'JasonHandwriting3-Regular.ttf')
 JFONT_PATH_Light = os.path.join(FONT_DIR, 'JasonHandwriting3-Light.ttf')
 HFONT_PATH = os.path.join(FONT_DIR, 'hanyizhuziguozhiruantang.ttf')
 CFONT_PATH = os.path.join(FONT_DIR, 'ChenYuluoyan-Thin-Monospaced.ttf')
+MFONT_PATH = os.path.join(FONT_DIR, 'MoreSugar-Regular.ttf')
 
 # 背景音樂路徑
 
@@ -65,7 +66,11 @@ class ImagePath:
 
     EVENT_ICON_PATH = os.path.join(IMAGE_DIR, 'event_icon.PNG')
     EVENT_WINDOW_PATH = os.path.join(IMAGE_DIR, 'event_window.PNG')
-    
+    EVENT_BUBU_PATH = os.path.join(IMAGE_DIR, 'event_window_bubu.PNG')
+    EVENT_YIER_PATH = os.path.join(IMAGE_DIR, 'event_window_yier.PNG')
+    EVENT_MITAO_PATH = os.path.join(IMAGE_DIR, 'event_window_mitao.PNG')
+    EVENT_HUIHUI_PATH = os.path.join(IMAGE_DIR, 'event_window_huihui.PNG')
+
     SAD_W_PATH = os.path.join(IMAGE_DIR, 'sad_white.png')
     SAD_PATH = os.path.join(IMAGE_DIR, 'sad.png')
     
@@ -92,9 +97,13 @@ class ImagePath:
 
     FEEDBACK_PATH = os.path.join(IMAGE_DIR, 'game_UI', 'feedback_qr.png')
 
+    DIARY_IMG_PATH = os.path.join(IMAGE_DIR, 'diary_image.png')
+    YES_NO_IMG_PATH = os.path.join(IMAGE_DIR, 'yes_no_button.jpeg')
+
+
 
 # 重要檔案路徑
-SIMULATION_PLOTS_DIR = os.path.join(BASE_DIR, 'simulations_plot')
+SIMULATION_PLOTS_DIR = os.path.join(BASE_DIR, 'simulation_plots')
 
 # Result 
 GPA_HIGHLIGHT_PATH = os.path.join(SIMULATION_PLOTS_DIR, 'gpa_highlight.png')

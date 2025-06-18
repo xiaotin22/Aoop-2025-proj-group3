@@ -9,6 +9,7 @@ async def main():
     pygame.font.init()
     
     screen = pygame.display.set_mode((setting.SCREEN_WIDTH, setting.SCREEN_HEIGHT))
+    pygame.display.set_caption("Lazy Me Today Too")
     
     manager = SceneManager(screen)
     if manager.run() == "QUIT":
