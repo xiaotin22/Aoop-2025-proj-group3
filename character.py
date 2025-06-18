@@ -223,7 +223,7 @@ class Yier(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[weeknum]
-        if option in bubu[f"week_{weeknum}"]:
+        if option in yier[f"week_{weeknum}"]:
             self.animator = CharacterAnimator(yier[f"week_{weeknum}"][option], pos, size)
             
         return self.animator
@@ -271,7 +271,7 @@ class Mitao(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[weeknum]
-        if option in bubu[f"week_{weeknum}"]:
+        if option in mitao[f"week_{weeknum}"]:
             self.animator = CharacterAnimator(mitao[f"week_{weeknum}"][option], pos, size)
             
         return self.animator
@@ -324,7 +324,7 @@ class Huihui(Character):
         
         #根據選擇撥放不同的動畫
         option = self.chosen[weeknum]
-        if option in bubu[f"week_{weeknum}"]:
+        if option in huihui[f"week_{weeknum}"]:
             self.animator = CharacterAnimator(huihui[f"week_{weeknum}"][option], pos, size)
             
         return self.animator
