@@ -136,7 +136,6 @@ class Bubu(Character):
         self.chname = "布布"
         self.animal = "熊熊"
         self.header = setting.ImagePath.BUBU_HEAD_PATH
-        self.week_number = 0
         self.intro = setting.GIF_PATHS['BUBU_INTRO_FRAMES']
         self.storytyping = setting.GIF_PATHS['BUBU_PLAYCOMPUTER_FRAMES']
         self.testing = setting.GIF_PATHS['BUBU_STUDY_FRAMES']
@@ -155,15 +154,15 @@ class Bubu(Character):
         self.high_knowledge_limit = 80
         
         
-    def gif_choose(self):
-        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
+    def gif_choose(self, week_number, pos = (400, 400), size = (300, 300)):
+        self.animator = CharacterAnimator(self.intro, pos, size)
         if self.week_number == 0:
             return self.animator    
         
         #根據選擇撥放不同的動畫
-        option = self.chosen[self.week_number]
-        if option in bubu[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        option = self.chosen[week_number]
+        if option in bubu[f"week_{week_number}"]:
+            self.animator = CharacterAnimator(bubu[f"week_{week_number}"][option], (400, 400), (300, 300))
             
         return self.animator
 

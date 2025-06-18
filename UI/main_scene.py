@@ -13,10 +13,11 @@ import setting
 class MainScene(BaseScene):
     def __init__(self, screen, player):
         super().__init__(screen)
+        self.player = player
         self.background = pygame.image.load(setting.ImagePath.BACKGROUND_PATH).convert_alpha()
         self.background = pygame.transform.scale(self.background, self.screen.get_size())
         self.player = player
-        self.animator = self.player.gif_choose()
+        self.animator = self.player.gif_choose(self.player.week_number)
             
         font = pygame.font.Font(setting.JFONT_PATH_BOLD, 36)
         self.next_week_button = Button(
@@ -29,7 +30,6 @@ class MainScene(BaseScene):
         self.excl_img = pygame.transform.smoothscale(excl_img, (175, 175))
         self.excl_rect = self.excl_img.get_rect(center=(400, 400))
         self.excl_mask = pygame.mask.from_surface(self.excl_img)
-        self.player = player
         self.is_hover = False
         self.hover_scale = 1.1
         self.speech_bubble = None  # 用於顯示事件說明的氣泡
@@ -86,7 +86,7 @@ class MainScene(BaseScene):
         self.floating_emoji_surfaces = [pygame.image.load(p).convert_alpha() for p in self.floating_emoji_paths]
 
         # 日記按鈕
-        self.diary_icon = pygame.image.load("resource/image/diary_image.png").convert_alpha()
+        self.diary_icon = pygame.image.load(setting.ImagePath.NOTEBOOK_PATH).convert_alpha()
         self.diary_icon = pygame.transform.smoothscale(self.diary_icon, (90, 90))
         self.diary_rect = self.diary_icon.get_rect(topleft=(980, 15))
         self.diary_hover = False

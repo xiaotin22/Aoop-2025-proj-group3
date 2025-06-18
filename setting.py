@@ -99,6 +99,7 @@ class ImagePath:
     FIRST_SCENE_PATH = os.path.join(IMAGE_DIR, 'game_UI', 'first_scene.png')
 
     DIARY_IMG_PATH = os.path.join(IMAGE_DIR, 'diary_image.png')
+    NOTEBOOK_PATH = os.path.join(IMAGE_DIR, 'notebook.png')
     YES_NO_IMG_PATH = os.path.join(IMAGE_DIR, 'yes_no_button.jpeg')
 
 
