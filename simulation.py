@@ -29,7 +29,6 @@ class Simulation:
         self.midterm, self.final = [], []
         self.knowledge, self.gpa = [], []
         self.total_scores = []
-
         self.out_dir = Path(out_dir)
         self.out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -62,7 +61,7 @@ class Simulation:
             self.gpa.append(player.GPA)
             self.total_scores.append(player.total_score)
 
-
+    
     # --------------------------------------------------
     # 資料處理
     # --------------------------------------------------
@@ -225,6 +224,7 @@ class Simulation:
         ax.set_title("GPA Distribution", loc='left')
         ax.set_xlabel("GPA (0 ~ 4.3)")
         ax.set_ylabel("People")
+        ax.set_xlim(0, 4.3) 
         ax.legend()
         ax.grid(True)
 
@@ -290,31 +290,62 @@ class Simulation:
                 processed += counts[g]          # 把這一批人計入累計
 
         return path
+    
+
+    def plot_all_characters(self):
+        """
+        針對每個角色分別模擬、畫圖，圖檔存到 simulation_plots/{character_name}_run/
+        """
+        for char_cls in self.characters:
+            char_name = char_cls.__name__
+            out_dir = self.out_dir / f"{char_name}_run"
+            out_dir.mkdir(parents=True, exist_ok=True)
+
+            # 建立一個新的 Simulation 實例，指定 out_dir
+            sim = Simulation(
+                n_players=self.n_players,
+                n_actions=self.n_actions,
+                actions=self.actions,
+                characters=[char_cls],
+                out_dir=out_dir
+            )
+            sim.run()
+            sim.plot_midterm_final()
+            sim.plot_total()
+            sim.plot_gpa()
+            # 也可以輸出 csv
+            sim.export_gpa_csv()
+
+    def plot_all_chosen(self):
+        """
+        針對所有角色，分別模擬「全部都只做 study」、「全部都只做 rest」...，
+        圖檔存到 simulation_plots/only_{action}/
+        """
+        for action in self.actions:
+            out_dir = self.out_dir / f"only_{action}"
+            out_dir.mkdir(parents=True, exist_ok=True)
+
+            # 建立一個新的 Simulation 實例，指定 actions 只包含一種
+            sim = Simulation(
+                n_players=self.n_players,
+                n_actions=self.n_actions,
+                actions=[action],
+                characters=self.characters,
+                out_dir=out_dir
+            )
+            sim.run()
+            sim.plot_midterm_final()
+            sim.plot_total()
+            sim.plot_gpa()
+            sim.export_gpa_csv()
+
+
+
 # -------------------------------
 # 範例呼叫
 # -------------------------------
 if __name__ == "__main__":
     sim = Simulation()
-    sim.run_and_plot_all()
+    sim.plot_all_characters()
+    sim.plot_all_chosen()
     
-
-    # 1️⃣ 取得累積人數表
-    gpa_sorted, cum_counts = sim.cumulative_gpa_counts()
-    
-
-    # 2️⃣ 看自己的 GPA 在哪裡
-    my_gpa = 3.65
-    pct = sim.percentile_from_top(my_gpa)
-    csv_file = sim.export_gpa_csv()    # 預設存成 ./plots/gpa_rank.csv
-    #print(f"CSV 已產生：{csv_file.resolve()}")
-
-    # 3️⃣ 畫圖並標註
-    outfile = sim.plot_gpa(highlight=my_gpa)
-    #print(f"圖檔路徑：{outfile}")
-
-    my_mid =  70
-    my_final = 54
-    my_total =  75.0
-
-    sim.plot_midterm_final(highlight_mid=my_mid, highlight_final=my_final)
-    sim.plot_total(highlight=my_total)
