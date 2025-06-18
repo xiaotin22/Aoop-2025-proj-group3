@@ -87,7 +87,7 @@ class SceneManager:
         elif selected == "灰灰 Huihui":
             self.player = Huihui()
         else:
-            return "START"
+            return "QUIT"
         return "MAIN"
     
     def sound_control_scene(self):
@@ -144,7 +144,7 @@ class SceneManager:
             "SHOW_RANK": "RANK",
             "RESTART": "RESTART",
             "FEEDBACK": "FEEDBACK",
-            "Exit": "QUIT"
+            "QUIT": "QUIT"
         }.get(result, "END")
 
 
