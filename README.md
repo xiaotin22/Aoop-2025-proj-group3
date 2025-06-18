@@ -58,7 +58,7 @@ Group10 開發人員如下：
 **使用python 函式庫 matplotlib 畫出由300次隨機選擇的分布圖，角色的每一步選擇都會影響最後的學期GPA**
 
 <p align="center">
-  <img src="simulations_plot/gpa_highlight.png" alt="GPA" width="750"/>
+  <img src="simulation_plots/gpa_highlight.png" alt="GPA" width="750"/>
 </p>
 
 
@@ -85,6 +85,7 @@ oop-2025-proj-group10/
 │   ├── end_scene.py             # 遊戲結束/結局場景
 │   ├── rank_scene.py            # 排行介面
 │   ├── lucky_wheel_scene.py     # 幸運轉盤小遊戲
+│   ├── diary_scene.py           # 日記本系統
 │   ├── ...
 │   └── components/
 │       ├── audio_manager.py      # 音效/音樂管理單例
