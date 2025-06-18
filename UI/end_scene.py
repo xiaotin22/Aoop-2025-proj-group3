@@ -280,6 +280,16 @@ class EndScene(MainScene):
             text_rect = text_surf.get_rect(center=scaled_rect.center)
             self.screen.blit(text_surf, text_rect)
 
+
+        # diary icon hover 放大
+        if self.player.week_number != 0:
+            if self.diary_hover:
+                scaled = pygame.transform.scale(self.diary_icon, (100, 100))
+                rect = scaled.get_rect(center=self.diary_rect.center)
+                self.screen.blit(scaled, rect.topleft)
+            else:
+                self.screen.blit(self.diary_icon, self.diary_rect.topleft)
+
         pygame.display.flip()
 
     # -------------------------------------------------------------
@@ -302,6 +312,17 @@ class EndScene(MainScene):
         for emoji in self.floating_emojis:
             emoji.update()
         # 無需切換場景時回傳 None
+        
+        # 在 update() 裡
+        if self.diary_rect.collidepoint(mouse_pos):
+            if not self.diary_hover:
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
+                self.diary_hover = True
+            mouse_pressed = pygame.mouse.get_pressed()
+            if mouse_pressed[0]:
+                return "DIARY"
+        else:
+            self.diary_hover = False
         return None
 
     def run(self):
@@ -333,6 +354,11 @@ class EndScene(MainScene):
                                     float_start = rect.center
                                     floating = FloatingEmoji(float_img, float_start)
                                     self.floating_emojis.append(floating)
-            self.update()
+
+                
+                
+            if self.update() ==  "DIARY":
+                return "DIARY"
+            # 更新動畫和按鈕狀態
             self.draw()
             # result 只會由按鈕點擊回傳

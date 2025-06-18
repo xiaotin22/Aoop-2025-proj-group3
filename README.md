@@ -5,6 +5,11 @@
   <img src="resource/image/game_UI/first_scene.png" alt="遊戲主選單截圖" width="750"/>
 </p>
 
+
+<p align="center">
+  <img src="resource/image/game_UI/start.png" alt="遊戲主選單截圖" width="750"/>
+</p>
+
 **本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果。專案開發使用 Python, Pygame 的一些函式庫，同樣利用在課程中學習到的函式庫如 numpy, matplotlib等...** 
 
 Group10 開發人員如下：
@@ -17,7 +22,7 @@ Group10 開發人員如下：
 **本遊戲可根據玩家的喜好選擇自己想要的玩家進行遊戲，共有四種選擇，四隻角色具有不同的特色及亮點✨**
 
 <p align="center">
-  <img src="resource/image/game_UI/select.png" alt="遊戲選擇" width="750"/>
+  <img src="resource/image/game_UI/character_select.png" alt="遊戲選擇" width="750"/>
 </p>
 
 <p align="center">
@@ -53,7 +58,7 @@ Group10 開發人員如下：
 **使用python 函式庫 matplotlib 畫出由300次隨機選擇的分布圖，角色的每一步選擇都會影響最後的學期GPA**
 
 <p align="center">
-  <img src="simulations_plot/gpa_highlight.png" alt="GPA" width="750"/>
+  <img src="simulation_plots/gpa_highlight.png" alt="GPA" width="750"/>
 </p>
 
 
@@ -80,6 +85,7 @@ oop-2025-proj-group10/
 │   ├── end_scene.py             # 遊戲結束/結局場景
 │   ├── rank_scene.py            # 排行介面
 │   ├── lucky_wheel_scene.py     # 幸運轉盤小遊戲
+│   ├── diary_scene.py           # 日記本系統
 │   ├── ...
 │   └── components/
 │       ├── audio_manager.py      # 音效/音樂管理單例
