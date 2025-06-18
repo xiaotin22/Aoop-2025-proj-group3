@@ -66,7 +66,11 @@ class ImagePath:
 
     EVENT_ICON_PATH = os.path.join(IMAGE_DIR, 'event_icon.PNG')
     EVENT_WINDOW_PATH = os.path.join(IMAGE_DIR, 'event_window.PNG')
-    
+    EVENT_BUBU_PATH = os.path.join(IMAGE_DIR, 'event_window_bubu.PNG')
+    EVENT_YIER_PATH = os.path.join(IMAGE_DIR, 'event_window_yier.PNG')
+    EVENT_MITAO_PATH = os.path.join(IMAGE_DIR, 'event_window_mitao.PNG')
+    EVENT_HUIHUI_PATH = os.path.join(IMAGE_DIR, 'event_window_huihui.PNG')
+
     SAD_W_PATH = os.path.join(IMAGE_DIR, 'sad_white.png')
     SAD_PATH = os.path.join(IMAGE_DIR, 'sad.png')
     
@@ -92,6 +96,10 @@ class ImagePath:
     ANGRY_W_PATH = os.path.join(IMAGE_DIR, 'angry_white.png')
 
     FEEDBACK_PATH = os.path.join(IMAGE_DIR, 'game_UI', 'feedback_qr.png')
+
+    DIARY_IMG_PATH = os.path.join(IMAGE_DIR, 'diary_image.png')
+    YES_NO_IMG_PATH = os.path.join(IMAGE_DIR, 'yes_no_button.jpeg')
+
 
 
 # 重要檔案路徑

@@ -1,31 +1,76 @@
+
 import pygame
 from UI.components.base_scene import BaseScene
 from UI.components.image_button import ImageButton
-from UI.intro_scene import IntroScene
+import setting
+
 
 class ConfirmScene(BaseScene):
-    def __init__(self, screen):
+    def __init__(self, screen, blurred_bg, player):
         super().__init__(screen)
-
-        self.message_font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 52)
+        self.blurred_bg = pygame.transform.scale(blurred_bg, screen.get_size())
+        self.player = player
+        self.message_font = pygame.font.Font(setting.CFONT_PATH, 32)
         self.message = "人生無法重來，但可以重新投胎："
+        self.message2 = "你確定要放棄我了嗎？"
 
-        font = pygame.font.Font("resource/font/ChenYuluoyan-Thin-Monospaced.ttf", 42)
 
+        font = pygame.font.Font(setting.CFONT_PATH, 28)
+
+        # 小確認框尺寸與位置
+        self.box_width, self.box_height = 500, 600
+        self.box_rect = pygame.Rect(
+            (screen.get_width() - self.box_width) // 2,
+            (screen.get_height() - self.box_height) // 2,
+            self.box_width, self.box_height
+        )
+
+        # 載入小視窗圖片
+        if self.player.name == "Bubu":
+            window_img = setting.ImagePath.EVENT_BUBU_PATH
+        elif self.player.name == "Yier":
+            window_img = setting.ImagePath.EVENT_YIER_PATH
+        elif self.player.name == "Mitao":
+            window_img = setting.ImagePath.EVENT_MITAO_PATH
+        elif self.player.name == "Huihui":
+            window_img = setting.ImagePath.EVENT_HUIHUI_PATH
+
+        self.window_img = pygame.image.load(window_img).convert_alpha()
+        self.window_img = pygame.transform.smoothscale(self.window_img, (self.box_width, self.box_height))
+
+        # 按鈕縮小並置於確認框下方
+        btn_y = self.box_rect.bottom - 60
         self.button_yes = ImageButton(
-    "resource/image/yes_no_button.jpeg", (350, 400), size=(150, 80), text="是", font=font)
+            setting.ImagePath.YES_NO_IMG_PATH,
+            (self.box_rect.left + 60, btn_y),
+            size=(80, 40), text="是", font=font
+        )
         self.button_no = ImageButton(
-            "resource/image/yes_no_button.jpeg", (650, 400), size=(150, 80), text="否", font=font)
-
+            setting.ImagePath.YES_NO_IMG_PATH,
+            (self.box_rect.right - 140, btn_y),
+            size=(80, 40), text="否", font=font
+        )
 
     def run(self):
         while self.running:
-            self.screen.fill((245, 235, 210))
+            # 畫模糊背景
+            self.screen.blit(self.blurred_bg, (0, 0))
+
+            # 畫半透明遮罩
+            overlay = pygame.Surface(self.screen.get_size(), pygame.SRCALPHA)
+            overlay.fill((0, 0, 0, 100))
+            self.screen.blit(overlay, (0, 0))
+
+            # 畫小視窗圖片
+            self.screen.blit(self.window_img, self.box_rect.topleft)
 
             # 顯示訊息文字
             msg_surface = self.message_font.render(self.message, True, (80, 60, 50))
-            msg_rect = msg_surface.get_rect(center=(self.SCREEN_WIDTH // 2, 220))
+            msg_rect = msg_surface.get_rect(center=(self.box_rect.centerx, self.box_rect.top + 50))
             self.screen.blit(msg_surface, msg_rect)
+            msg_surface2 = self.message_font.render(self.message2, True, (80, 60, 50))
+            msg_rect2 = msg_surface2.get_rect(center=(self.box_rect.centerx, self.box_rect.top + 100))
+            self.screen.blit(msg_surface2, msg_rect2)
 
             # 更新 & 繪製按鈕
             self.button_yes.update()
@@ -38,7 +83,7 @@ class ConfirmScene(BaseScene):
                     return "QUIT"
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if self.button_yes.is_clicked(event):
-                        print("[ConfirnScene] 收到 RESTART，return 中")
+                        print("[ConfirmScene] 收到 RESTART，return 中")
                         return "RESTART"
                     elif self.button_no.is_clicked(event):
                         return "BACK"

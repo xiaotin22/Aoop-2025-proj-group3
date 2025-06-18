@@ -110,7 +110,7 @@ class StartScene(BaseScene):
 
         # 標題
         title_surf = self.title_font.render(
-            "Lazy Me Today Too", True, (50, 50, 50)
+            "Lazy Me Today Too", True, (142, 88, 51)
         )
         title_rect = title_surf.get_rect(center=(self.SCREEN_WIDTH // 2, 150))
         self.screen.blit(title_surf, title_rect)
