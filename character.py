@@ -198,7 +198,7 @@ class Yier(Character):
         self.animal = "熊熊"
         self.chname = "一二"
         self.header = setting.ImagePath.YIER_HEAD_PATH
-
+        
         self.intro = setting.GIF_PATHS['YIER_INTRO_FRAMES']
         self.storytyping = setting.GIF_PATHS['YIER_PLAY_GAME_FRAMES']
         self.testing = setting.GIF_PATHS['YIER_THINKING_FRAMES']

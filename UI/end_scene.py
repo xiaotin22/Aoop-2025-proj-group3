@@ -313,6 +313,16 @@ class EndScene(MainScene):
             emoji.update()
         # 無需切換場景時回傳 None
         
+        # 在 update() 裡
+        if self.diary_rect.collidepoint(mouse_pos):
+            if not self.diary_hover:
+                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
+                self.diary_hover = True
+            mouse_pressed = pygame.mouse.get_pressed()
+            if mouse_pressed[0]:
+                return "DIARY"
+        else:
+            self.diary_hover = False
         return None
 
     def run(self):
@@ -345,16 +355,10 @@ class EndScene(MainScene):
                                     floating = FloatingEmoji(float_img, float_start)
                                     self.floating_emojis.append(floating)
 
-                mouse_pressed = pygame.mouse.get_pressed()
-                if self.diary_rect.collidepoint(mouse_pos):
-                    if not self.diary_hover:
-                        # 初次 hover 播放音效
-                        self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
-                        self.diary_hover = True
-                        if mouse_pressed[0]:
-                            return "DIARY"
-                    else:
-                        self.diary_hover = False
-            self.update()
+                
+                
+            if self.update() ==  "DIARY":
+                return "DIARY"
+            # 更新動畫和按鈕狀態
             self.draw()
             # result 只會由按鈕點擊回傳
