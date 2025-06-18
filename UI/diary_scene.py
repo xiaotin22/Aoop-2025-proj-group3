@@ -27,7 +27,7 @@ class DiaryScene(BaseScene):
 
         if self.player.event_history:
             sorted_weeks = sorted(self.player.event_history.keys())
-            if self.week_index <= len(sorted_weeks):
+            if self.week_index < len(sorted_weeks):
                 week = sorted_weeks[self.week_index]
                 entry = self.player.event_history.get(week)
                 event_text = entry.get("event_text", "")
