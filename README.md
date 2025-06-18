@@ -110,6 +110,7 @@ oop-2025-proj-group10/
 ├── Docker/
 ```
 ---
+## [Class Diagram](./event/game_setting/class_diagram.md)
 
 ## 🛠️ 安裝與執行 (建置虛擬環境版）
 
