@@ -142,6 +142,7 @@ class Bubu(Character):
         self.testing = setting.GIF_PATHS['BUBU_STUDY_FRAMES']
         self.taketest = setting.GIF_PATHS['BUBU_NO_STUDY_FRAMES']       
         self.ending = setting.GIF_PATHS['BUBU_PLAYGAME_FRAMES']
+        self.sad = setting.GIF_PATHS['BUBU_CRYING_FRAMES']
 
         
         self.low_mood_limit = 30
@@ -204,6 +205,7 @@ class Yier(Character):
         self.testing = setting.GIF_PATHS['YIER_THINKING_FRAMES']
         self.taketest = setting.GIF_PATHS['YIER_NO_STUDY_FRAMES']
         self.ending = setting.GIF_PATHS['YIER_EXCITING_FRAMES']
+        self.sad = setting.GIF_PATHS['YIER_SAD_FRAMES']
         
         self.low_mood_limit = 30
         self.low_energy_limit = 30
@@ -255,6 +257,7 @@ class Mitao(Character):
         self.testing = setting.GIF_PATHS['MITAO_TESTING_FRAMES']
         self.taketest = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
         self.ending = setting.GIF_PATHS['MITAO_FLOWER_FRAMES']
+        self.sad = setting.GIF_PATHS['MITAO_LOW_MOOD_FRAMES']
         
         
         self.low_mood_limit = 30
@@ -304,6 +307,7 @@ class Huihui(Character):
         self.taketest = setting.GIF_PATHS['HUIHUI_SOSAD_FRAMES']
         self.testing = setting.GIF_PATHS['HUIHUI_RUNNING_FRAMES']
         self.ending = setting.GIF_PATHS['HUIHUI_FLOWER_FRAMES']
+        self.sad = setting.GIF_PATHS['HUIHUI_SAD_FRAMES']
         self.week_number = 0
         
          
