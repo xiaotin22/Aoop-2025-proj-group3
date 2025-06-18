@@ -106,7 +106,7 @@ class SceneManager:
             "SETTING": "SETTING",
             "Quit": "QUIT",
             "DIARY": "DIARY",
-            "RESTART": "RESTART",
+            "RESTART": "CHARACTER_SELECT",
         }.get(result, "MAIN")
 
     def story_and_event(self):
@@ -124,7 +124,7 @@ class SceneManager:
         # print(f"[SceneManager] SetScene 回傳：{result}") 
         return {
             "BACK": "MAIN",
-            "RESTART": "RESTART",
+            "RESTART": "CHARACTER_SELECT",
             "SOUND_CONTROL": "SOUND_CONTROL",
             "QUIT": "QUIT"
         }.get(result, "MAIN")
