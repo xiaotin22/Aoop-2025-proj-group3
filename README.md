@@ -1,6 +1,10 @@
 # ✨OOP Final Project 2025
 ###  Lazy Me Today Too 今天的我也想耍廢😎 ——— 模擬人生大學版
 
+GIF 素材來源：
+[素材來源1]([https://www.aigei.com](https://www.aigei.com/s?q=一二布布))
+[素材來源2]([https://www.aigei.com](https://www.aigei.com/s?q=蜜桃灰灰))
+
 <p align="center">
   <img src="resource/image/game_UI/first_scene.png" alt="遊戲主選單截圖" width="750"/>
 </p>
