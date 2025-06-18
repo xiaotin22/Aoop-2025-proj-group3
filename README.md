@@ -1,20 +1,20 @@
-# Lazy Me Today Too  (OOP Final Project Group10)
-**今天的我也想耍廢  ——— 模擬人生大學版**
+# ✨OOP Final Project 2025
+###  Lazy Me Today Too 今天的我也想耍廢😎 ——— 模擬人生大學版
 
 <p align="center">
-  <img src="resource/image/game_UI/start_scene.png" alt="遊戲主選單截圖" width="750"/>
+  <img src="resource/image/game_UI/first_scene.png" alt="遊戲主選單截圖" width="750"/>
 </p>
 
-**本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果，主要在練習使用 Python, Pygame的一些函式庫** 
+**本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果。專案開發使用 Python, Pygame 的一些函式庫，同樣利用在課程中學習到的函式庫如 numpy, matplotlib等...** 
 
 Group10 開發人員如下：
 * NYCU_EE [113511116 tpvupu](https://github.com/tpvupu) : 陳欣怡
 * NYCU_EE [113511203 calistayang](https://github.com/calistayang)：楊馨惠
 * NYCU_EE [113511266 xiaotin22](https://github.com/xiaotin22)：楊庭瑞
 
-## ✨遊戲介紹
+## 🌟遊戲介紹
 
-**本遊戲可根據玩家的喜好選擇自己想要的玩家進行遊戲，共有四種選擇**
+**本遊戲可根據玩家的喜好選擇自己想要的玩家進行遊戲，共有四種選擇，四隻角色具有不同的特色及亮點✨**
 
 <p align="center">
   <img src="resource/image/game_UI/select.png" alt="遊戲選擇" width="750"/>
