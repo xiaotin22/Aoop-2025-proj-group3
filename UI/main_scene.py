@@ -201,6 +201,10 @@ class MainScene(BaseScene):
         label = font.render(f"知識 {self.player.knowledge:.0f}/100", True, (0, 0, 0))
         self.screen.blit(label, (x, y + label_offset))
 
+        if self.player.week_number == 8 or self.player.week_number == 16:
+            self.player.last_week_change = [0, 0, 0, 0]  
+
+
         if self.player.week_number > 0:
             # 印出玩家選擇改變
             last_week_change = stats_change(self.player.last_week_change)
