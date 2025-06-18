@@ -271,12 +271,13 @@ class MainScene(BaseScene):
         self.screen.blit(scaled_img, scaled_rect)
 
         # diary icon hover 放大
-        if self.diary_hover:
-            scaled = pygame.transform.scale(self.diary_icon, (100, 100))
-            rect = scaled.get_rect(center=self.diary_rect.center)
-            self.screen.blit(scaled, rect.topleft)
-        else:
-            self.screen.blit(self.diary_icon, self.diary_rect.topleft)
+        if self.player.week_number != 0:
+            if self.diary_hover:
+                scaled = pygame.transform.scale(self.diary_icon, (100, 100))
+                rect = scaled.get_rect(center=self.diary_rect.center)
+                self.screen.blit(scaled, rect.topleft)
+            else:
+                self.screen.blit(self.diary_icon, self.diary_rect.topleft)
 
 
     def update(self):

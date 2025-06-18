@@ -154,15 +154,15 @@ class Bubu(Character):
         self.high_knowledge_limit = 80
         
         
-    def gif_choose(self, week_number, pos = (400, 400), size = (300, 300)):
+    def gif_choose(self, weeknum , pos = (400, 400), size = (300, 300)):
         self.animator = CharacterAnimator(self.intro, pos, size)
-        if self.week_number == 0:
+        if weeknum == 0:
             return self.animator    
         
         #根據選擇撥放不同的動畫
-        option = self.chosen[week_number]
-        if option in bubu[f"week_{week_number}"]:
-            self.animator = CharacterAnimator(bubu[f"week_{week_number}"][option], (400, 400), (300, 300))
+        option = self.chosen[weeknum]
+        if option in bubu[f"week_{weeknum}"]:
+            self.animator = CharacterAnimator(bubu[f"week_{weeknum}"][option], pos, size)
             
         return self.animator
 
@@ -216,15 +216,15 @@ class Yier(Character):
         self.high_knowledge_limit = 80
         
         
-    def gif_choose(self):
-        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.week_number == 0:
+    def gif_choose(self, weeknum , pos = (400, 400), size = (300, 300)):
+        self.animator = CharacterAnimator(self.intro, pos, size)
+        if weeknum == 0:
             return self.animator    
         
         #根據選擇撥放不同的動畫
-        option = self.chosen[self.week_number]
-        if option in yier[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(yier[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        option = self.chosen[weeknum]
+        if option in bubu[f"week_{weeknum}"]:
+            self.animator = CharacterAnimator(yier[f"week_{weeknum}"][option], pos, size)
             
         return self.animator
    
@@ -264,15 +264,15 @@ class Mitao(Character):
         self.high_social_limit = 80
         self.high_knowledge_limit = 80
         
-    def gif_choose(self):
-        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.week_number == 0:
+    def gif_choose(self, weeknum , pos = (400, 400), size = (300, 300)):
+        self.animator = CharacterAnimator(self.intro, pos, size)
+        if weeknum == 0:
             return self.animator    
         
         #根據選擇撥放不同的動畫
-        option = self.chosen[self.week_number]
-        if option in mitao[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(mitao[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        option = self.chosen[weeknum]
+        if option in bubu[f"week_{weeknum}"]:
+            self.animator = CharacterAnimator(mitao[f"week_{weeknum}"][option], pos, size)
             
         return self.animator
 
@@ -317,15 +317,15 @@ class Huihui(Character):
         
         
     
-    def gif_choose(self):
-        self.animator = CharacterAnimator(self.intro, (400, 400), (300, 300))
-        if self.week_number == 0:
+    def gif_choose(self, weeknum , pos = (400, 400), size = (300, 300)):
+        self.animator = CharacterAnimator(self.intro, pos, size)
+        if weeknum == 0:
             return self.animator    
         
         #根據選擇撥放不同的動畫
-        option = self.chosen[self.week_number]
-        if option in huihui[f"week_{self.week_number}"]:
-            self.animator = CharacterAnimator(huihui[f"week_{self.week_number}"][option], (400, 400), (300, 300))
+        option = self.chosen[weeknum]
+        if option in bubu[f"week_{weeknum}"]:
+            self.animator = CharacterAnimator(huihui[f"week_{weeknum}"][option], pos, size)
             
         return self.animator
 

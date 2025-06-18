@@ -12,9 +12,9 @@ class DiaryScene(BaseScene):
         self.diary_rect = self.diary_img.get_rect(center=(610, 450))
         self.text_rect = pygame.Rect(150, 60, 900, 600)
         self.font = pygame.font.Font(setting.JFONT_PATH_REGULAR,32)
-        print("是否載入字體成功？", self.font)
         
-        self.week_index = self.player.week_number-1
+        self.week_index = self.player.week_number - 1
+        self.animator = self.player.gif_choose(self.week_index+1,(850, 450), (200, 200))
         self.total_weeks = len(self.player.event_history)
         self.btn_left = ImageButton("resource/image/left.png", (100, 700), size=(80, 80))
         self.btn_right = ImageButton("resource/image/right.png", (980, 700), size=(80, 80))
@@ -65,10 +65,10 @@ class DiaryScene(BaseScene):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.btn_left.rect.collidepoint(event.pos):
                         self.week_index = max(0, self.week_index - 1)
-                        self.animator = self.player.gif_choose(self.week_index)
+                        self.animator = self.player.gif_choose(self.week_index+1, (850, 450), (200, 200))
                     elif self.btn_right.rect.collidepoint(event.pos):
                         self.week_index = min(self.total_weeks - 1, self.week_index + 1)
-                        self.animator = self.player.gif_choose(self.week_index)
+                        self.animator = self.player.gif_choose(self.week_index+1, (850, 450), (200, 200))
                     elif self.btn_back.rect.collidepoint(event.pos):
                         return "BACK"
         return None
