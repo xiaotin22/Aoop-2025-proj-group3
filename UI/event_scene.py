@@ -97,7 +97,7 @@ class EventScene(BaseScene):
                     print(f"你選擇了選項 {button[1]}: {button[0].text}")
                     event_text = self.event_text.replace('\n', '')
                     # ✅ 新增 event_history 記錄（使用 dict，key 為 week_number）
-                    if self.player.week_number != 8 and self.player.week_number != 16:
+                    if self.player.week_number != 8 and self.player.week_number != 16 :
                             
                         self.player.event_history[self.player.week_number] = {
                         "event_text": event_text,
