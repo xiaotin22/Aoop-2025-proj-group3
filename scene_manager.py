@@ -119,7 +119,7 @@ class SceneManager:
     def setting_scene(self):
         from UI.components.blur import fast_blur
         blurred = fast_blur(self.screen.copy())
-        set_scene = SetScene(self.screen, blurred, self.player.week_number)
+        set_scene = SetScene(self.screen, blurred, self.player)
         result = set_scene.run()
         # print(f"[SceneManager] SetScene 回傳：{result}") 
         return {
@@ -134,13 +134,24 @@ class SceneManager:
         # print("進入日記場景")
         scene = DiaryScene(self.screen, self.player)
         result = scene.run()
-        return "MAIN" if result == "BACK" else result
+        #return "MAIN" if result == "BACK" else result
+        if  self.player.week_number < 16:
+            return {
+                "BACK": "MAIN",
+                "QUIT": "QUIT"
+            }.get(result, "MAIN")
+        else:
+            return {
+                "BACK": "END",
+                "QUIT": "QUIT"
+            }.get(result, "END")
 
     def end_scene(self):
         self.player.calculate_GPA()
         scene = EndScene(self.screen, self.player)
         result = scene.run()
         return {
+            "DIARY": "DIARY",
             "SHOW_RANK": "RANK",
             "RESTART": "RESTART",
             "FEEDBACK": "FEEDBACK",
