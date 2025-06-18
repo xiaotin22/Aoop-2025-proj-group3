@@ -40,8 +40,10 @@ class DiaryScene(BaseScene):
                 else:   
                     content = f"第 {week} 週回顧\n事件內容：{event_text}\n你的選擇：{option_text}\n狀態變化："
                     for attr, value in changes.items():
-                        if value != 0:
+                        if value > 0:
                             content += f"{attr} +{value}  "
+                        elif value < 0:
+                            content += f"{attr} {value}  "
                 draw_wrapped_text(self.screen, content, self.font, self.text_rect, (50,30,30),48)
         self.animator.draw(self.screen)
         self.btn_left.draw(self.screen)
