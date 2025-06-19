@@ -315,16 +315,18 @@ class MainScene(BaseScene):
         
         if self.speech_bubble and self.speech_bubble.is_expired():
             self.speech_bubble = None
-
-        if self.diary_rect.collidepoint(mouse_pos):
-            if not self.diary_hover:
-                # 初次 hover 播放音效
-                self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
-            self.diary_hover = True
-            if mouse_pressed[0]:
-                return "DIARY"
-        else:
-            self.diary_hover = False
+            
+        #日記點擊
+        if self.player.week_number != 0:
+            if self.diary_rect.collidepoint(mouse_pos):
+                if not self.diary_hover:
+                    # 初次 hover 播放音效
+                    self.audio.play_sound(setting.SoundEffect.MENU_HOVER_PATH)
+                self.diary_hover = True
+                if mouse_pressed[0]:
+                    return "DIARY"
+            else:
+                self.diary_hover = False
 
 
     def run(self):
