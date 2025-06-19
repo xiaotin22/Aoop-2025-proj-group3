@@ -122,9 +122,10 @@ class Simulation:
             plot_highlight(highlight_final, fin_x, smooth_fin_y, "red", "Your Final", self.final)
 
         # 設定圖表標題置左
-        ax.set_title("Midterm and Final Score Distribution", loc='left')
-        ax.set_xlabel("Score")
+        ax.set_title("Midterm & Final Distribution", loc='left')
+        ax.set_xlabel("Score (0 ~ 100)")
         ax.set_ylabel("People")
+        ax.set_xlim(0, 100)  # <--- 固定橫軸範圍
         ax.legend()
         ax.grid(True)
         fig.tight_layout()
@@ -348,4 +349,4 @@ if __name__ == "__main__":
     sim = Simulation()
     sim.plot_all_characters()
     sim.plot_all_chosen()
-    
+

@@ -95,6 +95,7 @@ class Character:
 
     def calculate_grade(self):
         score = round(self.knowledge * 0.45 + self.mood * 0.3 + self.energy * 0.2 + self.intelligence * 0.1 , 2)
+        #成績的粗略計算，後續有進行調分
         if score >= 60:
             return random.randint(int(score - 1), int(score + 15))
         else:
@@ -110,7 +111,7 @@ class Character:
 
     def calculate_GPA(self):
         total_score = self.midterm * 0.35 + self.final * 0.35 + (self.knowledge) * 0.3
-        total_score = max(0, int(math.sqrt(total_score) * 13 - 30))
+        total_score = max(0, int(math.sqrt(total_score) * 13 - 30))#適當調分
         self.total_score = total_score
         gpa = []
         for _ in range(25):
