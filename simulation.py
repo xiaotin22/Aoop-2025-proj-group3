@@ -225,7 +225,7 @@ class Simulation:
         ax.set_title("GPA Distribution", loc='left')
         ax.set_xlabel("GPA (0 ~ 4.3)")
         ax.set_ylabel("People")
-        ax.set_xlim(0, 4.3) 
+        #ax.set_xlim(0, 4.3) 
         ax.legend()
         ax.grid(True)
 
