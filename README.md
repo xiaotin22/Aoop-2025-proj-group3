@@ -1,4 +1,11 @@
-# ✨OOP Final Project 2025
+# ✨AOOP Final Project 2025
+
+🌟🌟🌟預計優化項目：
+1. 優化程式碼改善遊戲效能
+2. 調整各數值及成績的計算方式
+3. 利用AI模擬出各個角色的最佳選擇策略
+
+
 ###  Lazy Me Today Too 今天的我也想耍廢😎 ——— 模擬人生大學版
 
 GIF 素材來源：\
@@ -14,11 +21,10 @@ GIF 素材來源：\
   <img src="resource/image/game_UI/start.png" alt="遊戲主選單截圖" width="750"/>
 </p>
 
-**本專案為 113-2 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（OOP）課程的期末成果。專案開發使用 Python, Pygame 的一些函式庫，同樣利用在課程中學習到的函式庫如 numpy, matplotlib等...** 
+**本專案為 114-1 陽明交通大學（NYCU）由王學誠老師開設的物件導向程式設計（AOOP）課程的期末成果。專案開發使用 Python, Pygame 的一些函式庫，同樣利用在課程中學習到的函式庫如 numpy, matplotlib等...** 
 
-Group10 開發人員如下：
+Group3 開發人員如下：
 * NYCU_EE [113511116 tpvupu](https://github.com/tpvupu) : 陳欣怡
-* NYCU_EE [113511203 calistayang](https://github.com/calistayang)：楊馨惠
 * NYCU_EE [113511266 xiaotin22](https://github.com/xiaotin22)：楊庭瑞
 
 ## 🌟遊戲介紹
